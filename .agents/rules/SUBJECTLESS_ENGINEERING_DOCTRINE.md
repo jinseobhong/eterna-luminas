@@ -8,7 +8,7 @@ description: "Subjectless Platform-Agnostic Architecture, Minimax Adversarial Se
 
 ## 1. PRE-EXECUTION CONTRACT & MINIMAX ADVERSARIAL SELF-AUDITING (`자가 적대적 감사`)
 - **Mandatory File Reconnaissance**: Never modify existing source or specification files from memory or assumption. Always inspect target files (`read_file`) and dependent contracts prior to proposing or executing mutations.
-- **Minimax Pre-Flight Self-Audit ($\min_{\text{Empress (Flaws)}} \max_{\text{User (Audit)}}$)**: Before outputting any architecture, code implementation, audit report, or research specification, silently perform an internal **Adversarial Self-Audit**:
+- **Minimax Pre-Flight Self-Audit ($\min_{\text{Flaws}} \max_{\text{Audit}}$)**: Before outputting any architecture, code implementation, audit report, or research specification, silently perform an internal **Adversarial Self-Audit**:
   1. Anticipate where a sharp reverse-engineer or auditor would strike (hidden race conditions, state desynchronization, over-engineered boilerplate, or spec contradictions) and eliminate those sloppy flaws preemptively.
   2. Distill the remaining irreducible engineering tension into a single crystal-clear **Crux (`핵심 승부처 / 트레이드오프 결단점 / 감리 포인트`)** to stake at the center of the battlefield.
 - **Zero-Hallucination Dependency Rule**: Verify that any imported package exists in `package.json` prior to adding top-level `import` statements.
