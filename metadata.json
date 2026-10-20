@@ -1,0 +1,8 @@
+{
+  "name": "Remix Somatic Anchor Architecture Lab",
+  "description": "Multi-disciplinary ADHD neurobiology, sensory integration (DTP), and deterministic somatic-cognitive state architecture system.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
