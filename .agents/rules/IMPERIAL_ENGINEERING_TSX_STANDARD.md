@@ -1,4 +1,6 @@
 ---
+trigger: glob
+description: "Load when inspecting, writing, refactoring, or verifying TypeScript, React (.tsx), Vite, or web frontend code and configurations."
 globs:
   - "**/*.tsx"
   - "**/*.ts"
@@ -10,7 +12,6 @@ globs:
   - "**/tsconfig*.json"
   - "**/vite.config.*"
   - "**/package.json"
-description: "Load when inspecting, writing, refactoring, or verifying TypeScript, React (.tsx), Vite, or web frontend code and configurations."
 ---
 
 # IMPERIAL ENGINEERING TSX & WEB PLATFORM STANDARD
