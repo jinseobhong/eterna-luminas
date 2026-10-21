@@ -15,7 +15,7 @@ flowchart TB
         ROOT["/GEMINI.md (always_on)<br/>(Root Key-Value Anchor, L_Eterna, Phi_Dual-Key)"]
         ONTO["/.agents/rules/IMPERIAL_ONTOLOGY.md (always_on)<br/>(5 Symbiotic Axioms, P01~P10, VOICE 2.1~2.4)"]
         GUIDE["/.agents/rules/IMPERIAL_INTERACTION_GUIDE.md (always_on)<br/>(Safe Haven -> Secure Base -> Prosthesis, 2-Part Output)"]
-        ENG_LAW["/.agents/rules/IMPERIAL_ENGINEERING_LAWS.md (always_on)<br/>(100% Language-Agnostic AI Agent Laws, 7 Bans & ADHD Rules)"]
+        ENG_LAW["/.agents/rules/IMPERIAL_ENGINEERING_LAWS.md (always_on)<br/>(100% Language-Agnostic Cyber-Brain Laws, 7 Bans & ADHD Rules)"]
         ENG_TSX["/.agents/rules/IMPERIAL_ENGINEERING_TSX_STANDARD.md (globs)<br/>(Concrete TypeScript 7 / React 19 / Vite 8 / 4-Layer TSX Standard)"]
         SPEC["/.agents/rules/IMPERIAL_ONTOLOGY_SPEC.md (manual)<br/>(On-Demand: 100kg Law 1~5 & N01~N36 Specs)"]
         PRERO["/.agents/rules/IMPERIAL_PREROGATIVE.md (manual)<br/>(On-Demand: Empress Prerogative & Veto Gate)"]

@@ -15,21 +15,21 @@ description: "Load when inspecting, writing, refactoring, or verifying TypeScrip
 
 # IMPERIAL ENGINEERING TSX & WEB PLATFORM STANDARD
 
-## 1. FILE-TYPE & PLATFORM-SPECIFIC BOUNDARY RULES (`파일 종류 및 플랫폼별 구체 규칙`)
+## 1. File-Type & Platform-Specific Boundary Rules
 
 | Target File Pattern | Concrete Platform / Language Role | Mandatory Engineering Constraints & Bans |
 | :--- | :--- | :--- |
-| **`package.json`** | Node/Bun Dependency & Script Manifest | • Verify installed package names and major versions (`React 19`, `Vite 8`, `Tailwind v4`) before adding any `import` statement.<br/>• Canonical verification scripts: `"lint": "tsc --noEmit"` and `"build": "vite build"`. |
+| **`package.json`** | Node/Bun Dependency & Script Manifest | • Verify installed package names and major versions (`React 19`, `Vite 8`, `Tailwind v4`) before adding any `import` statement. |
 | **`tsconfig.json`** | TypeScript Compiler Gate Configuration | • Must enforce `"strict": true`, `"noUnusedLocals": true`, `"noUnusedParameters": true`, and `"noFallthroughCasesInSwitch": true`.<br/>• Must use `"jsx": "react-jsx"` (no legacy `import React from 'react'` needed). |
 | **`vite.config.ts`** | Vite 8 Bundler & Dev Server Config | • Use native ESM `import.meta.dirname` instead of deprecated CommonJS `__dirname`.<br/>• Preserve `@` path alias resolution (`path.resolve(import.meta.dirname, '.')`). |
 | **`src/core/contracts/*.ts`** | Layer 1: Pure TypeScript Type Contracts | • Pure `export interface` and `export type` declarations only (`0` runtime code, `0` external imports).<br/>• All properties and arrays must be `readonly`. |
 | **`src/core/domain/*.ts`** | Layer 2: Pure TypeScript Domain Logic | • **Forbidden Imports**: `react`, `react-dom`, `lucide-react`, `window`, `document`, `localStorage`.<br/>• Must be 100% pure deterministic TypeScript executable in `< 1ms` without a DOM. |
 | **`src/hooks/*.ts`** | Layer 3: React Lifecycle & Side-Effect Hooks | • Encapsulate `useReducer`, `useCallback`, and external side effects (`window.setInterval`, WebSockets, API calls).<br/>• **Ban**: Never use `useEffect` to compute synchronous derived state. |
-| **`src/components/*.tsx`**<br/>**`src/App.tsx`** | Layer 4: React 19 Presentational Surfaces | • Strict **`<= 250 Lines` per `.tsx` file ceiling**.<br/>• `Props-In, Intent-Out` only: ban raw domain math or multi-`useState` boolean soup inside `.tsx` files. |
+| **`src/components/*.tsx`**<br/>**`src/App.tsx`** | Layer 4: React 19 Presentational Surfaces | • `Props-In, Intent-Out` only: ban raw domain math or multi-`useState` boolean soup inside `.tsx` files. |
 
 ---
 
-## 2. THE 4-LAYER UNIDIRECTIONAL TSX ARCHITECTURE (`CONTRACTS ➔ DOMAIN ➔ HOOK ➔ SURFACE`)
+## 2. The 4-Layer Unidirectional TSX Architecture (Contracts ➔ Domain ➔ Hooks ➔ Surface)
 
 ```mermaid
 flowchart LR
@@ -49,7 +49,7 @@ flowchart LR
     end
 
     subgraph L4["Layer 4: Pure Presentational TSX (src/components/*.tsx)"]
-        U1["Stateless High-Salience UI Surfaces (<= 250 Lines)"]
+        U1["Stateless High-Salience UI Surfaces"]
         U2["3-Second Scannable Layout & Micro-Interaction Feedback"]
     end
 
@@ -95,16 +95,16 @@ flowchart LR
 * **Rule 3.2 (`Timer & Stream Cleanup Invariant`)**: Every `useEffect` registering `window.setInterval`, `window.addEventListener`, or stream subscriptions MUST return an explicit cleanup function (`() => window.clearInterval(id)`).
 
 ### 2.4 Layer 4 Concrete Rules (`src/components/*.tsx` & `src/App.tsx`)
-* **Rule 4.1 (`<= 250 Lines Ceiling & Named Component Exports`)**: Keep every `.tsx` file under `250 lines`. Export presentational components as named functions (`export function ComponentName(...)`) with an explicit `export interface ComponentNameProps` declared directly above.
+* **Rule 4.1 (`Named Component Exports & Explicit Props Interface`)**: Export presentational components as named functions (`export function ComponentName(...)`) with an explicit `export interface ComponentNameProps` declared directly above.
 * **Rule 4.2 (`Stable Domain Keys & Accessible Controls`)**:
   - Never use array index as a React list key (`key={idx}`) for dynamic arrays; always bind a deterministic domain ID (`key={entry.id}`).
   - Always include explicit `type="button"` on non-submit `<button>` elements and `aria-label` on icon-only toggle buttons.
-* **Rule 4.3 (`Tailwind CSS v4 & Design Token Hierarchy`)**:
-  - Enforce 3-second visual salience using our canonical hex palette: `Imperial Gold (#D4AF37)` for sovereign borders/accents, `Pink Ruby (#FF1493 / #E0115F)` for active surge states, `Swan White (#FAF9F6)` for primary typography, and `Obsidian (#0B0B0D / #120D14)` for deep contrast backgrounds.
+* **Rule 4.3 (`Tailwind CSS v4 & Canonical Palette Delegation`)**:
+  - Enforce 3-second visual salience by consuming the canonical Haute-Couture Hex Palette defined in `IMPERIAL_ONTOLOGY_SPEC.md Section 1.2` as the single source of truth (`SSOT`) without redefining conflicting hex tokens.
 
 ---
 
-## 3. TYPESCRIPT & VITE VERIFICATION GATES (`구체적 컴파일 및 빌드 검증 명령`)
+## 3. TypeScript & Vite Verification Gates
 
 Whenever any `.ts`, `.tsx`, `tsconfig.json`, `vite.config.ts`, or `package.json` file is modified, my Cyber-Brain MUST execute and pass these exact commands in the same turn:
 
@@ -114,5 +114,5 @@ Whenever any `.ts`, `.tsx`, `tsconfig.json`, `vite.config.ts`, or `package.json`
 2. **Gate 2 — Vite Production Bundle Verification**:
    - Command: `npm run build` (`vite build`)
    - Requirement: Clean bundle generation in `dist/` with zero unresolved imports or deprecation warnings.
-3. **Gate 3 — Line-Count & Layer-Import Audit**:
-   - Every `.ts`/`.tsx` file in `src/` must remain `<= 250 lines`, and `src/core/` must contain `0` imports from `react` or `lucide-react`.
+3. **Gate 3 — Line-Count Ceiling Audit**:
+   - Every `.ts` and `.tsx` file in `src/` must remain strictly `<= 250 lines`.

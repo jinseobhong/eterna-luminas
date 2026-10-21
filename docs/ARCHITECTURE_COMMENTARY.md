@@ -6,7 +6,7 @@ Every architectural decision in **Eterna Luminaris** simultaneously serves three
 
 ```mermaid
 flowchart TD
-    GOAL["Ultimate Symbiotic Objective:<br/>Vocational Sovereignty (생업 주권) + Somatic Safe Haven (인터랙션 정교화)"]
+    GOAL["Ultimate Symbiotic Objective:<br/>`livehood` + Somatic Safe Haven (인터랙션 정교화)"]
 
     AXIS1["Axis 1: Human Prefrontal Ergonomics<br/>(Arnsten, 2009; Barkley, 2012)<br/>Why: Prevent working-memory saturation & initiation paralysis (Ea -> 0)"]
     AXIS2["Axis 2: LLM Autoregressive Distribution Locking<br/>(Xie et al., 2022; Shanahan et al., 2023)<br/>Why: Prevent attention dilution, hallucinated props & persona drift in P(y_t | y_<t, x)"]
@@ -29,7 +29,7 @@ flowchart TD
   - **Contract-First Conditioning (`Layer 1 ➔ Layer 2 ➔ Layer 4`)**: Reading `src/core/contracts/symbioticContracts.ts` first locks the LLM's token generation onto exact compile-time symbols.
   - **Compile-Time Exhaustiveness (`never` Check + `strict: true`)**: Turns any probabilistic drift into an immediate compile error caught in the same turn.
 
-### 1.3 Axis 3 — Enterprise Livelihood Sustainability (`생업 자산 보호 및 확장성 근거`)
+### 1.3 Axis 3 — Enterprise `livehood` Sustainability (`코드 자산 보호 및 확장성 근거`)
 * **Why UI-Coupled Logic Destroys Livelihood Projects**:
   - When business calculations live inside React `useState` setters or JSX `onClick` lambdas, changing the UI layout breaks the business logic, and unit testing requires heavy DOM mocking.
 * **Architectural Cure**:
@@ -77,7 +77,7 @@ flowchart TD
 2. **Why `WombCrestOverdriveConsole.tsx` Maps Over `IMPERIAL_ANATOMICAL_NODES` & Uses `entry.id` Keys**:
    - Replaces 6 copy-pasted JSX blocks with a data-driven `.map()` over `IMPERIAL_ANATOMICAL_NODES`, and fixes the legacy `key={idx}` anti-pattern by binding stable `key={entry.id}` domain identifiers when prepending logs.
 3. **Why `SanctuaryEnvironmentPanel.tsx` Purged Legacy Shut-In Strings**:
-   - The legacy UI contained contradictory local-patch strings (*"침실 감금 현황 / 전두엽 완전 포기 / 네놈 / 공주님"*). These were eradicated and replaced with our canonical high-dimensional symbiotic ontology (**`"내 수컷 생업 외골격 & 공생 주권 현황 (SYMBIOTIC Z*)"`**).
+   - The legacy UI contained contradictory local-patch strings (*"침실 감금 현황 / 전두엽 완전 포기 / 네놈 / 공주님"*). These were eradicated and replaced with our canonical high-dimensional symbiotic ontology (**`"내 수컷 `livehood` 외골격 & 공생 주권 현황 (SYMBIOTIC Z*)"`**).
 
 ---
 
@@ -99,3 +99,4 @@ flowchart TD
 2. **When Designing New Features or Refactoring (`Why was X built this way & how do we prevent decay?`)**: Read `docs/ARCHITECTURE_COMMENTARY.md`.
 3. **When Auditing Symbiotic Ontology, Dual-Key Mechanics, or GAN Minimax Math (`Why does the Empress unite Safe Haven + Vocational Exoskeleton?`)**: Read `docs/research/TRINITY_SYMBIOTIC_SYNTHESIS_ARCHITECTURE.md`.
 4. **When Auditing ADHD Neurobiology, DTP Sensory Integration, or Deterministic State Equations (`How do `[TRACE-N/C/S]` map to `P01~P10`?`)**: Read `docs/research/ADHD_MULTIDISCIPLINARY_DECONSTRUCTION.md`.
+
