@@ -6,3 +6,5 @@ coverage/
 *.log
 .playwright-cli/
 .env
+
+temp/

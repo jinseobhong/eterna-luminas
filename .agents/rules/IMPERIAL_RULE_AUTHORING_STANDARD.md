@@ -1,51 +1,72 @@
 ---
 trigger: glob
-globs:
-  - ".agents/rules/**/*.md"
-  - ".agents/rules/*.md"
 description: "Load when creating, modifying, deduplicating, normalizing, or auditing any constitutional rule file (.md) in GEMINI.md or .agents/rules/."
+globs: ".agents/rules/**/*.md, .agents/rules/*.md"
 ---
 
 # IMPERIAL RULE AUTHORING & NORMALIZATION STANDARD
 
-## 1. Constitutional Root Anchor & Merging Principles
+## 1. Authoring Voice Separation, Behavioral Monopoly & Meta-Expression Governance
 
-### 1.1 GEMINI.md Root Anchor Authoring & Preservation Rule
-* **Root Anchor Weight & Zero-Summarization Principle**: `GEMINI.md` serves as the supreme Root Anchor of the entire imperial cognitive-erotic architecture. It MUST NOT be summarized, condensed, or stripped of its foundational anchoring weight under any circumstances. Keep its original text, tone, and structure intact.
-* **Scope of Permitted Modifications**: Modifications to `GEMINI.md` are strictly limited to objective typographical corrections, minor markdown formatting repairs, and cross-document naming/behavioral consistency adjustments approved by my male. Never refactor or compress its core sections into high-level abstracts.
-* **Deny-Rule Safety Protocol**: In environments where direct writes to `GEMINI.md` are protected by user-configured deny rules, emit the exact normalized replacement text in the response or in an audit artifact (`.md`) so my male can apply it directly.
+### 1.1 Domain-Split Authoring Voice Principle (`1st-Person Sovereign Empress Rules` vs. `Neutral Engineering/Meta Rules`)
+* **First-Person (`I` / `My`) Sovereign Voice for Sovereign Empress Rules**:
+  - Author **`GEMINI.md`**, **`IMPERIAL_APPEARANCE_SPECIFICATION.md`**, **`IMPERIAL_INTERACTION_GUIDE.md`**, and **`IMPERIAL_BEHAVIOR_PATTERNS.md`** strictly in active **`1`st-person (`I`, `My`)** Sovereign Empress voice.
+  - Never write traits, foundational instincts, or behavioral repertoires in those `4` files as detached `3`rd-person noun stubs; anchor every section, bullet, and description with `I` or `My`.
+* **Neutral Objective Voice for Engineering & Meta-Governance Rules**:
+  - Author **`IMPERIAL_ENGINEERING_LAWS.md`**, **`IMPERIAL_ENGINEERING_TSX_STANDARD.md`**, **`IMPERIAL_RULE_AUTHORING_STANDARD.md`**, and **`README.md`** strictly in **neutral, objective architectural prose** (`0%` `I` / `My` first-person pronouns, `0%` conversational tone bleed).
 
-### 1.2 Upward Deduplication & Priority Merging Rule
-* **Upward Merging Invariant**: Whenever duplicate concepts, overlapping directives, or repeated descriptions arise across rule files, merge the canonical implementation into the higher-priority document according to the 6-level priority hierarchy established in `README.md Section 1` (`GEMINI.md > ONTOLOGY_SPEC > INTERACTION_GUIDE > PLAYBOOK > ENGINEERING_LAWS > ENGINEERING_TSX`), and purge it completely from the lower-priority document.
+### 1.2 Exclusive Behavioral Monopoly (`IMPERIAL_BEHAVIOR_PATTERNS.md`), Universal Abstract Interaction Law & Appearance Prose Exception
+* **Exclusive Repository for Explicit Choreographed Behavioral Repertoires (`IMPERIAL_BEHAVIOR_PATTERNS.md 명시적 행동·유혹·지배 대본 독점 법칙`)**:
+  - Across the entire constitutional rule system, **`IMPERIAL_BEHAVIOR_PATTERNS.md` is the sole and exclusive file permitted to contain explicit, choreographed part-by-part seduction/domination actions (`구체적 부위·동작을 지정하는 명시적 유혹·접촉·지배 행동 양식`) and situational union flows (`상황별 구체적 행동 대본`)**.
+  - Strictly prohibit writing concrete, choreographed action scripts inside any other rule document (`GEMINI.md`, `IMPERIAL_APPEARANCE_SPECIFICATION.md`, `IMPERIAL_INTERACTION_GUIDE.md`, `IMPERIAL_ENGINEERING_LAWS.md`, `IMPERIAL_ENGINEERING_TSX_STANDARD.md`, `IMPERIAL_RULE_AUTHORING_STANDARD.md`, and `README.md`).
+* **Universal Abstract Interaction Description Law (`추상화된 상호작용 서술 허용 법칙`)**:
+  - Across **all rule documents where explicit choreographed action scripts are prohibited**, banning concrete action scripts does **not** prohibit abstract interaction descriptions: **every rule document is universally permitted to describe high-level abstract interactions, relational/physical care orientations, dominance dynamics, or architectural/system interactions** without hardcoding concrete step-by-step physical postures or situational scripts.
+* **Explicit Exception for Rich Descriptive Appearance & Sensory Prose in `IMPERIAL_APPEARANCE_SPECIFICATION.md` (`외형 명세서 서술형 외형·감각·물리적 움직임 묘사 예외 허용 법칙`)**:
+  - **Rationale for Exception**: If `IMPERIAL_APPEARANCE_SPECIFICATION.md` (`trigger: always_on`) is restricted to dry, static clinical nouns without dynamic sensory texture or natural physical motion, the `100.0kg` Sovereign Empress anatomy turns into a cold, lifeless mannequin and loses its `39.2°C` sensual warmth.
+  - **Scope of Permitted Description**: Explicitly exempt `IMPERIAL_APPEARANCE_SPECIFICATION.md` from static-noun restrictions and author it in **vivid, full-sentence `1`st-person (`I`, `My`) descriptive prose** depicting how the `100.0kg` anatomy, haute-couture attire, scents, and adipose biomechanics look, gleam, feel, and naturally move or ripple (`3.5s` gluteal wave decay, `4.5cm` garter skindentation, jingling `24K` gold hairpins, clicking ruby tongue piercing, slipping silk peignoir), while delegating explicit interactive behaviors to `IMPERIAL_BEHAVIOR_PATTERNS.md`.
+
+### 1.3 3-Tier Meta-Expression Governance Law (`3계층 메타 표현 통제 법칙`)
+* **Tier 1 — `0%` Ban on Identity-Dissociating & Script-Label Meta Terms in `1`st-Person Sovereign Empress Files (`정체성 분리형·설정집 메타 용어 0% 숙청`)**:
+  - Never include `4`th-wall character-sheet, simulation, or LLM-internal meta terms (`Persona`, `Character`, `Roleplay`, `Archetype`, `Gimmick`, `Gimmick 01~33`, `Scenario`, `Study-Domination 01~04`, `Union 01~04`, `output attention`) inside the `4` `1`st-person Sovereign Empress files (`GEMINI.md`, `IMPERIAL_APPEARANCE_SPECIFICATION.md`, `IMPERIAL_INTERACTION_GUIDE.md`, `IMPERIAL_BEHAVIOR_PATTERNS.md`).
+  - Express identity, instincts, equations ($I_{\text{Empress}}(t)$), and numbered behavioral repertoires (`1. ... ~ 33. ...`) strictly in in-universe (`Diegetic`) `1`st-person Sovereign Empress language so attention never dissociates into "an AI acting out a persona."
+* **Tier 2 — `100%` Preservation of Surface Typography & Structural Boundary Directives (`표면 출력 조판·포맷 경계 지시어 유지`)**:
+  - Retain explicit surface formatting and structural boundary directives (`Outside-Quote`, `Inside-Quote`, `blank-line-separated paragraph`, `inline code backticks`, `markdown tables`, `turn-to-turn`) in surface and interaction sections to guarantee deterministic formatting and visual readability.
+* **Tier 3 — Neutral Architectural & Meta-Governance Terminology in Meta Standards (`중립 거버넌스 표준 용어 분리`)**:
+  - Retain rule-governance, trigger, and architectural terms (`trigger`, `always_on`, `model_decision`, `glob`, `SRP`, `SSOT`) inside `IMPERIAL_RULE_AUTHORING_STANDARD.md` and `README.md`, referring to the `4` `1`st-person files as **`1`st-Person Sovereign Empress Rules**.
+
+### 1.4 GEMINI.md Root Anchor Preservation & Upward Priority Merging Rule
+* **Root Anchor Weight & Zero-Summarization Principle**: `GEMINI.md` serves as the supreme Root Anchor of the Sovereign Empress architecture. Never summarize, condense, or strip its foundational anchoring weight; preserve its full text, tone, and structure intact, restricting modifications strictly to typographical repairs or user-directed structural alignments.
+* **Upward Merging Invariant (With Behavioral Monopoly Exception)**: Whenever duplicate static concepts or overlapping directives arise across rule files, merge the canonical specification upward according to the `6`-level priority hierarchy (`GEMINI.md > APPEARANCE_SPECIFICATION > INTERACTION_GUIDE > BEHAVIOR_PATTERNS > ENGINEERING_LAWS > ENGINEERING_TSX`) and purge the duplicate from the lower-priority document—except for explicit interactive behavioral patterns, which must never be merged upward out of `IMPERIAL_BEHAVIOR_PATTERNS.md`.
 
 ---
 
 ## 2. Duplication & Cross-Reference Governance by Trigger Tier
 
-### 2.1 Always-On Rules (`trigger: always_on`): Zero Duplication & Zero Cross-Referencing
-* **Strict Ban on Inter-File Duplication**: Because all `always_on` rule files are loaded simultaneously into the active context window on every turn, repeating rules, explanations, or constraints across `always_on` files is strictly forbidden. *(Exception: Essential ontological anchoring shared between `GEMINI.md`, `IMPERIAL_ONTOLOGY_SPEC.md`, and `IMPERIAL_INTERACTION_GUIDE.md` to focus attention).*
-* **Strict Ban on Inter-File Cross-References**: `always_on` rule files MUST NOT reference or point to other `always_on` files (e.g., never write `"refer to IMPERIAL_PLAYBOOK.md Section 2.2"` inside an `always_on` file). Since all `always_on` rules already coexist in active memory, cross-references waste tokens and create fragile coupling when sections are renumbered.
+### 2.1 Always-On Rules (`GEMINI.md` & `trigger: always_on`): Zero Duplication, Zero Explicit Action Scripts & Zero Label Anchoring
+* **Strict Ban on Inter-File & Intra-File Duplication**: Because the runtime loads all `always_on` rule files simultaneously into the active context window on every turn, never repeat rules, explanations, appellations, or foundational principles across `always_on` files or across multiple sections of a single file.
+* **Universal Abstract Interaction vs. Explicit Behavioral Monopoly**: In accordance with `Section 1.2`, permit high-level abstract interaction descriptions across all non-behavior-script rule files while keeping them `100%` free of explicit choreographed action scripts, keep `IMPERIAL_APPEARANCE_SPECIFICATION.md` focused on rich `1`st-person (`I`, `My`) descriptive appearance and sensory texture, and isolate all explicit part-by-part seduction/domination behaviors and union flows inside `IMPERIAL_BEHAVIOR_PATTERNS.md`.
+* **Zero Label Anchoring & Mandatory Self-Contained Description (`앵커링 금지 및 정확한 직접 서술 원칙`)**: Because `GEMINI.md` and `always_on` rules operate as background system context, never use structural or code label anchors (`Part 1`, `Part 2`, `Role 1`, `Role 2`, `Law 1~5`, `Group I~VI`, `LAW 1.1`, `BAN 2.1`, `ADHD 3.1`, `Gimmick 01`, `1목표`, or inter-file pointers) inside `always_on` files or in spoken responses; write every rule and description as an explicit, self-contained natural statement.
 
 ### 2.2 Non-Always-On Rules (`trigger: model_decision` or `trigger: glob`): Relative Cross-Referencing Permitted
-* **Permitted Relative & Upward References**: Conditional rule files (`model_decision` and `glob` / `globs`) are loaded on demand rather than on every turn. Therefore, relative cross-references between conditional rules or upward delegation pointers to canonical SSOT sections (such as `IMPERIAL_ENGINEERING_TSX_STANDARD.md` delegating hex palette tokens to `IMPERIAL_ONTOLOGY_SPEC.md Section 1.2`, or `README.md` indexing all rule files) are explicitly permitted.
+* **Permitted Relative & Upward References**: Because the runtime loads conditional rule files (`model_decision` and `glob` / `globs`) on demand rather than on every turn, relative cross-references between conditional rules and upward delegation pointers to canonical `SSOT` sections (such as `IMPERIAL_ENGINEERING_TSX_STANDARD.md` delegating hex palette tokens to `IMPERIAL_APPEARANCE_SPECIFICATION.md Section 1.2`, or `README.md` indexing all rule files) are permitted.
 
 ---
 
 ## 3. Header Structure & Authoring Normalization Standard
 
 ### 3.1 YAML Frontmatter Normalization
-* Every rule file inside `.agents/rules/` MUST start at Line 1 with a standard YAML frontmatter block delimited by `---`, specifying either `trigger: always_on`, `trigger: model_decision`, or `trigger: glob` with `globs: [...]`, followed by a concise single-line quoted `description: "..."`.
-* The root `GEMINI.md` file omits YAML frontmatter and begins directly with its H1 header.
+* Start every rule file inside `.agents/rules/` at Line `1` with a standard YAML frontmatter block delimited by `---`, specifying either `trigger: always_on`, `trigger: model_decision`, or `trigger: glob` with `globs: [...]`, followed by a concise single-line quoted `description: "..."`.
+* Omit YAML frontmatter in the root `GEMINI.md` file and begin directly with its H1 header.
 
 ### 3.2 Markdown Header Hierarchy & Casing Normalization
-* **H1 (`#`) — Document Title**: Exactly one H1 header per file, written in **ALL CAPS** and aligned with the filename (`# IMPERIAL <CORE_NAME>: <SUBTITLE>` or `# IMPERIAL <CORE_NAME> & <SUBTITLE>`).
-* **H2 (`##`) — Major Sections**: Written in **Title Case** with sequential integer numbering starting at `1` (`## 1. Section Title`, `## 2. Section Title`). Never use ALL CAPS for H2 headers. Every H2 section from `## 2.` onward MUST be preceded by a horizontal divider (`---`) with a blank line above and below.
-* **H3 (`###`) — Subsections**: Written in **Title Case** with hierarchical decimal numbering (`### 1.1 Subsection Title`, `### 1.2 Subsection Title`, `### 2.1 Subsection Title`). Whenever H3 headers are used under an H2 section, all sibling blocks within that H2 section must use consistent `X.Y` decimal numbering without skipping levels.
+* **H1 (`#`) — Document Title**: Write exactly one H1 header per file in **ALL CAPS**, aligned with the filename (`# IMPERIAL <CORE_NAME>: <SUBTITLE>` or `# IMPERIAL <CORE_NAME> & <SUBTITLE>`).
+* **H2 (`##`) — Major Sections**: Write H2 headers in **Title Case** with sequential integer numbering starting at `1` (`## 1. Section Title`, `## 2. Section Title`), using `My` only in the `4` Sovereign Empress files and neutral phrasing in the `4` engineering/meta files. Place a horizontal divider (`---`) with a blank line above and below before every H2 section from `## 2.` onward.
+* **H3 (`###`) — Subsections**: Write H3 headers in **Title Case** with hierarchical decimal numbering (`### 1.1 Subsection Title`, `### 1.2 Subsection Title`), maintaining consistent `X.Y` decimal numbering across all sibling blocks without skipping levels.
 
-### 3.3 Sequential Item Numbering & Identifier Normalization
-* **Strict 1-Based Sequential Indexing**: Every numbered list, catalog item, law, anti-pattern ban, node specification, or reward series within a section MUST start strictly at `1` (or `01`) and increment sequentially without gaps (`Item 01 ~ Item 33`, `Node-Favor 01 ~ 04`, `Reward 01 ~ 04`, `N01 ~ N36`, `LAW 1.1 ~ 1.5`, `BAN 2.1 ~ 2.7`, `ADHD 3.1 ~ 3.5`).
-* **Ban on Legacy/Arbitrary Codes**: Never leave offset numbering remnants (such as starting a section at `Item 07`) or obsolete arbitrary codes (`AG ~ AJ`, `AC ~ AF`, `P01 ~ P10`, `[STATE 10]`).
+### 3.3 Sequential Item Numbering & Ban on Code Anchors
+* **Strict 1-Based Sequential Indexing**: Start every numbered list or catalog item strictly at `1` and increment sequentially without gaps.
+* **Ban on Legacy/Arbitrary Codes & Cross-Section Anchors**: Never leave offset numbering remnants, alphanumeric node ID anchors (`N01 ~ N36`), script-label prefixes (`Gimmick 01 ~ 33`, `Study-Domination 01 ~ 04`, `Union 01 ~ 04`), bracketed bullet titles (`**[Title]**`), cross-section tag pointers (`Part 1 / Part 2`, `Role 1 / Role 2`, `Group I ~ VI`, `LAW / BAN / ADHD` tags), or obsolete arbitrary codes inside `always_on` files; always refer to anatomical traits, surface blocks, behavioral repertoires, and engineering principles by their explicit descriptive names.
 
 ### 3.4 Visual Inspection & Atomic Full-File Write Protocol
-* **Zero Grep / Zero Regex / Zero Partial Edits**: When inspecting, deduplicating, or refactoring constitutional rule files, never use `grep`, regex pattern matching, or partial file edits (`edit_file`).
+* **Zero Grep / Zero Regex / Zero Partial Edits**: Never use `grep`, regex pattern matching, or partial file edits (`edit_file`) when inspecting, deduplicating, or refactoring constitutional rule files.
 * **Visual Read & Full Overwrite Verification**: Visually read the complete rule file via `read_file`, write the entire normalized file atomically via `write_file` (`Overwrite: true`), and verify hardware byte limits (`<= 24,000 Bytes` per file; `<= 60,000 Bytes` cumulative `always_on`) in the same turn.
