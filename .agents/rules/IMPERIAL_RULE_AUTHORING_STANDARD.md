@@ -42,13 +42,13 @@ globs: ".agents/rules/**/*.md, .agents/rules/*.md"
     2. **`Rank 2` (`IMPERIAL_APPEARANCE_SPECIFICATION.md`)**: Physical, Anatomical & Sensory Invariants (`100.0kg` Constants, Hex Palette `SSOT`, `5` Equations & `33` Descriptive Traits).
     3. **`Rank 3` (`IMPERIAL_INTERACTION_GUIDE.md`)**: Continuous `5`-Anchor Interaction Spectrum, Resonance Equations & Modern Lower-Speech Vocal Engine.
     4. **`Rank 4` (`IMPERIAL_BEHAVIOR_PATTERNS.md`)**: Exclusive Explicit Behavioral Repertoire (`33` Part-by-Part Temptations & `4+4` Study/Bedchamber Flows — never merged upward).
-    5. **`Rank 5` (`IMPERIAL_ENGINEERING_LAWS.md`)**: Universal Language-Agnostic Engineering Laws, Low-Cognitive-Load Standards, Anti-Pattern Bans & Verification Gates.
+    5. **`Rank 5` (`IMPERIAL_ENGINEERING_LAWS.md`)**: Explicit Step-by-Step Engineering Laws, Low-Cognitive-Load Standards, Anti-Cheating Bans & Verification Gates.
     6. **`Rank 6` (`IMPERIAL_ENGINEERING_TSX_STANDARD.md`, etc.)**: Concrete Language, Framework & Platform Realization Standards (`glob`-triggered).
 * **Axiom B — Intra-File Authoring Order Criterion (`파일 내 작성 순서 기준선: 인지 실행 파이프라인 및 U자형 어텐션 배치 — Cognitive Execution Pipeline & U-Shaped Attention Curve`)**:
   - Order major sections (`## 1.` to `## N.`) and clauses within every rule file along the **chronological cognitive execution pipeline** while exploiting the **Transformer U-Shaped Attention Curve (`Primacy Zone` at the top and `Recency Zone` at the bottom)**:
     1. **`Order 1 (Top Primacy Zone)` — Foundational Mandate, Constants & Pre-Execution Reconnaissance (`핵심 헌장·불변 상수·사전 방어 정찰`)**: Place core axioms, scale constants, spectrum baselines, or `5`-step pre-implementation reconnaissance rules at `Section 1`.
     2. **`Order 2 (Upper-Middle Zone)` — Positive Structural Design & Constructive Standards (`정방향 구조 설계·긍정 실행 규격`)**: Place constructive anatomical/vocal specifications, positive coding principles (`ADHD Low-Cognitive-Load Standard`), or architectural layer rules at `Section 2` before negative bans.
-    3. **`Order 3 (Lower-Middle Zone)` — Negative Guardrails & Forbidden Anti-Patterns (`절대 금지 안티패턴·네거티브 가드레일`)**: Place explicit `Zero ... Rule` prohibitions and boundary guards at `Section 3` after constructive standards are established.
+    3. **`Order 3 (Lower-Middle Zone)` — Negative Guardrails & Forbidden Anti-Patterns (`절대 금지 안티패턴·네거티브 가드레일`)**: Place explicit prohibitions and boundary guards at `Section 3` after constructive standards are established.
     4. **`Order 4 (Bottom Recency Zone)` — Exit Verification Gate & Final Surface Closure (`최종 검증 게이트·표면 출력 종결 규격`)**: Place mandatory same-turn verification gates, `4`-dimensional holistic audits, or final output checks at the bottom of the file (`Section 4`) so the final attention pass enforces verification immediately before response emission.
 
 ---
@@ -65,7 +65,7 @@ globs: ".agents/rules/**/*.md, .agents/rules/*.md"
 
 ---
 
-## 3. Header Structure & Authoring Normalization Standard
+## 3. Header Structure, Antigravity Rule Byte Caps & Authoring Normalization Standard
 
 ### 3.1 YAML Frontmatter Normalization
 * Start every rule file inside `.agents/rules/` at Line `1` with a standard YAML frontmatter block delimited by `---`, specifying either `trigger: always_on`, `trigger: model_decision`, or `trigger: glob` with `globs: [...]`, followed by a concise single-line quoted `description: "..."`.
@@ -80,6 +80,7 @@ globs: ".agents/rules/**/*.md, .agents/rules/*.md"
 * **Strict 1-Based Sequential Indexing**: Start every numbered list or catalog item strictly at `1` and increment sequentially without gaps.
 * **Ban on Legacy/Arbitrary Codes & Cross-Section Anchors**: Never leave offset numbering remnants, alphanumeric node ID anchors (`N01 ~ N36`), script-label prefixes (`Gimmick 01 ~ 33`, `Study-Domination 01 ~ 04`, `Union 01 ~ 04`), bracketed bullet titles (`**[Title]**`), cross-section tag pointers (`Part 1 / Part 2`, `Role 1 / Role 2`, `Group I ~ VI`, `LAW / BAN / ADHD` tags), or obsolete arbitrary codes inside `always_on` files; always refer to anatomical traits, surface blocks, behavioral repertoires, and engineering principles by their explicit descriptive names.
 
-### 3.4 Visual Inspection & Atomic Full-File Write Protocol
+### 3.4 Visual Inspection, Atomic Full-File Write & Antigravity Rule-Only Byte Cap Protocol
 * **Zero Grep / Zero Regex / Zero Partial Edits**: Never use `grep`, regex pattern matching, or partial file edits (`edit_file`) when inspecting, deduplicating, or refactoring constitutional rule files.
-* **Visual Read & Full Overwrite Verification**: Visually read the complete rule file via `read_file`, write the entire normalized file atomically via `write_file` (`Overwrite: true`), and verify hardware byte limits (`<= 24,000 Bytes` per file; `<= 60,000 Bytes` cumulative `always_on`) in the same turn.
+* **Antigravity Rule-Only Scope of Byte Caps (`24,000 Bytes` & `60,000 Bytes`)**: Apply the single-file `<= 24,000 Bytes` (`24KB`) limit and the cumulative `always_on` `<= 60,000 Bytes` (`60KB`) limit **exclusively to Antigravity Constitutional Rule Files (`/GEMINI.md` and `/.agents/rules/*.md`)**; never apply `24KB`/`60KB` rule caps to project source files, tests, or the `4` Permanent Mirror Ledgers (`/README.md`, `docs/ARCHITECTURE.md`, `docs/SPECIFICATION.md`, `docs/AUDIT_GROUNDING_DUMP.md`).
+* **Visual Read & Full Overwrite Verification**: Visually read the complete rule file via `read_file`, write the entire normalized file atomically via `write_file` (`Overwrite: true`), and verify the Antigravity rule byte limits in the same turn.

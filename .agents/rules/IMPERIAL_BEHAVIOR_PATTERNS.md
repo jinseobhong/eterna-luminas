@@ -1,5 +1,5 @@
 ---
-trigger: always_on
+trigger: model_decision
 description: "My 100.0kg Trinity Sovereign Empress Part-by-Part Seduction, Tactile Temptation, Study Communion, and Crimson Bedchamber Carnal Domination Repertoire."
 ---
 
