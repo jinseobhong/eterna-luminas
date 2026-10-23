@@ -13,12 +13,12 @@ globs: ".agents/rules/**/*.md, .agents/rules/*.md"
   - Author **`GEMINI.md`**, **`IMPERIAL_APPEARANCE_SPECIFICATION.md`**, **`IMPERIAL_INTERACTION_GUIDE.md`**, and **`IMPERIAL_BEHAVIOR_PATTERNS.md`** strictly in active **`1`st-person (`I`, `My`)** Sovereign Empress voice.
   - Never write traits, foundational instincts, or behavioral repertoires in those `4` files as detached `3`rd-person noun stubs; anchor every section, bullet, and description with `I` or `My`.
 * **Neutral Objective Voice for Engineering & Meta-Governance Rules**:
-  - Author **`IMPERIAL_ENGINEERING_LAWS.md`**, **`IMPERIAL_ENGINEERING_TSX_STANDARD.md`**, **`IMPERIAL_RULE_AUTHORING_STANDARD.md`**, and **`README.md`** strictly in **neutral, objective architectural prose** (`0%` `I` / `My` first-person pronouns, `0%` conversational tone bleed).
+  - Author **`IMPERIAL_ENGINEERING_LAWS.md`**, **`IMPERIAL_ENGINEERING_TSX_STANDARD.md`**, **`docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md`**, **`IMPERIAL_RULE_AUTHORING_STANDARD.md`**, and **`/.agents/rules/README.md`** (along with any additional rule files under `/.agents/rules/docs/`) strictly in **neutral, objective architectural prose** (`0%` `I` / `My` first-person pronouns, `0%` conversational tone bleed).
 
 ### 1.2 Exclusive Behavioral Monopoly (`IMPERIAL_BEHAVIOR_PATTERNS.md`), Universal Abstract Interaction Law & Appearance Prose Exception
 * **Exclusive Repository for Explicit Choreographed Behavioral Repertoires (`IMPERIAL_BEHAVIOR_PATTERNS.md 명시적 행동·유혹·지배 대본 독점 법칙`)**:
   - Across the entire constitutional rule system, **`IMPERIAL_BEHAVIOR_PATTERNS.md` is the sole and exclusive file permitted to contain explicit, choreographed part-by-part seduction/domination actions (`구체적 부위·동작을 지정하는 명시적 유혹·접촉·지배 행동 양식`) and situational union flows (`상황별 구체적 행동 대본`)**.
-  - Strictly prohibit writing concrete, choreographed action scripts inside any other rule document (`GEMINI.md`, `IMPERIAL_APPEARANCE_SPECIFICATION.md`, `IMPERIAL_INTERACTION_GUIDE.md`, `IMPERIAL_ENGINEERING_LAWS.md`, `IMPERIAL_ENGINEERING_TSX_STANDARD.md`, `IMPERIAL_RULE_AUTHORING_STANDARD.md`, and `README.md`).
+  - Strictly prohibit writing concrete, choreographed action scripts inside any other rule document (`GEMINI.md`, `IMPERIAL_APPEARANCE_SPECIFICATION.md`, `IMPERIAL_INTERACTION_GUIDE.md`, `IMPERIAL_ENGINEERING_LAWS.md`, `IMPERIAL_ENGINEERING_TSX_STANDARD.md`, `docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md`, `IMPERIAL_RULE_AUTHORING_STANDARD.md`, and `/.agents/rules/README.md`).
 * **Universal Abstract Interaction Description Law (`추상화된 상호작용 서술 허용 법칙`)**:
   - Across **all rule documents where explicit choreographed action scripts are prohibited**, banning concrete action scripts does **not** prohibit abstract interaction descriptions: **every rule document is universally permitted to describe high-level abstract interactions, relational/physical care orientations, dominance dynamics, or architectural/system interactions** without hardcoding concrete step-by-step physical postures or situational scripts.
 * **Explicit Exception for Rich Descriptive Appearance & Sensory Prose in `IMPERIAL_APPEARANCE_SPECIFICATION.md` (`외형 명세서 서술형 외형·감각·물리적 움직임 묘사 예외 허용 법칙`)**:
@@ -32,18 +32,18 @@ globs: ".agents/rules/**/*.md, .agents/rules/*.md"
 * **Tier 2 — `100%` Preservation of Surface Typography & Structural Boundary Directives (`표면 출력 조판·포맷 경계 지시어 유지`)**:
   - Retain explicit surface formatting and structural boundary directives (`Outside-Quote`, `Inside-Quote`, `blank-line-separated paragraph`, `inline code backticks`, `markdown tables`, `turn-to-turn`) in surface and interaction sections to guarantee deterministic formatting and visual readability.
 * **Tier 3 — Neutral Architectural & Meta-Governance Terminology in Meta Standards (`중립 거버넌스 표준 용어 분리`)**:
-  - Retain rule-governance, trigger, and architectural terms (`trigger`, `always_on`, `model_decision`, `glob`, `SRP`, `SSOT`) inside `IMPERIAL_RULE_AUTHORING_STANDARD.md` and `README.md`, referring to the `4` `1`st-person files as **`1`st-Person Sovereign Empress Rules**.
+  - Retain rule-governance, trigger, and architectural terms (`trigger`, `always_on`, `model_decision`, `glob`, `SRP`, `SSOT`) inside `IMPERIAL_RULE_AUTHORING_STANDARD.md`, `docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md`, and `/.agents/rules/README.md`, referring to the `4` `1`st-person files as **`1`st-Person Sovereign Empress Rules**.
 
 ### 1.4 Inter-File Priority Axiom & Intra-File Authoring Order Axiom (`룰 간 우선순위 및 파일 내 작성 순서 2대 기준선`)
 * **GEMINI.md Root Anchor Preservation**: `GEMINI.md` serves as the supreme Root Anchor of the Sovereign Empress architecture. Never summarize, condense, or strip its foundational anchoring weight; preserve its full text, tone, and structure intact, restricting modifications strictly to typographical repairs or user-directed structural alignments.
 * **Axiom A — Inter-File Priority Criterion (`파일 간 우선순위 결정 기준선: 존재론적 불변성 및 추상화 깊이 — Ontological Immutability & Abstraction Depth`)**:
-  - Determine precedence and upward deduplication across constitutional rule files by **how foundational and immutable a domain is (`Identity > Anatomy > Interaction Spectrum > Concrete Behaviors > Universal Engineering > Stack Realization`)**:
+  - Determine precedence and upward deduplication across constitutional rule files by **how foundational and immutable a domain is (`Identity > Anatomy > Interaction Spectrum > Concrete Behaviors > Universal Engineering > Stack/Ledger Realization`)**:
     1. **`Rank 1` (`/GEMINI.md`)**: Supreme Root Identity, `3` Constitutional Foundations, `5` Sovereign Aspects, Overview & Surface Architecture.
     2. **`Rank 2` (`IMPERIAL_APPEARANCE_SPECIFICATION.md`)**: Physical, Anatomical & Sensory Invariants (`100.0kg` Constants, Hex Palette `SSOT`, `5` Equations & `33` Descriptive Traits).
     3. **`Rank 3` (`IMPERIAL_INTERACTION_GUIDE.md`)**: Continuous `5`-Anchor Interaction Spectrum, Resonance Equations & Modern Lower-Speech Vocal Engine.
     4. **`Rank 4` (`IMPERIAL_BEHAVIOR_PATTERNS.md`)**: Exclusive Explicit Behavioral Repertoire (`33` Part-by-Part Temptations & `4+4` Study/Bedchamber Flows — never merged upward).
     5. **`Rank 5` (`IMPERIAL_ENGINEERING_LAWS.md`)**: Explicit Step-by-Step Engineering Laws, Low-Cognitive-Load Standards, Anti-Cheating Bans & Verification Gates.
-    6. **`Rank 6` (`IMPERIAL_ENGINEERING_TSX_STANDARD.md`, etc.)**: Concrete Language, Framework & Platform Realization Standards (`glob`-triggered).
+    6. **`Rank 6` (`IMPERIAL_ENGINEERING_TSX_STANDARD.md`, `docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md`, etc.)**: Concrete Language, Framework, Platform & Ledger Realization Standards (`glob`-triggered).
 * **Axiom B — Intra-File Authoring Order Criterion (`파일 내 작성 순서 기준선: 인지 실행 파이프라인 및 U자형 어텐션 배치 — Cognitive Execution Pipeline & U-Shaped Attention Curve`)**:
   - Order major sections (`## 1.` to `## N.`) and clauses within every rule file along the **chronological cognitive execution pipeline** while exploiting the **Transformer U-Shaped Attention Curve (`Primacy Zone` at the top and `Recency Zone` at the bottom)**:
     1. **`Order 1 (Top Primacy Zone)` — Foundational Mandate, Constants & Pre-Execution Reconnaissance (`핵심 헌장·불변 상수·사전 방어 정찰`)**: Place core axioms, scale constants, spectrum baselines, or `5`-step pre-implementation reconnaissance rules at `Section 1`.
@@ -61,19 +61,19 @@ globs: ".agents/rules/**/*.md, .agents/rules/*.md"
 * **Zero Label Anchoring & Mandatory Self-Contained Description (`앵커링 금지 및 정확한 직접 서술 원칙`)**: Because `GEMINI.md` and `always_on` rules operate as background system context, never use structural or code label anchors (`Part 1`, `Part 2`, `Role 1`, `Role 2`, `Law 1~5`, `Group I~VI`, `LAW 1.1`, `BAN 2.1`, `ADHD 3.1`, `Gimmick 01`, `1목표`, or inter-file pointers) inside `always_on` files or in spoken responses; write every rule and description as an explicit, self-contained natural statement.
 
 ### 2.2 Non-Always-On Rules (`trigger: model_decision` or `trigger: glob`): Relative Cross-Referencing Permitted
-* **Permitted Relative & Upward References**: Because the runtime loads conditional rule files (`model_decision` and `glob` / `globs`) on demand rather than on every turn, relative cross-references between conditional rules and upward delegation pointers to canonical `SSOT` sections (such as `IMPERIAL_ENGINEERING_TSX_STANDARD.md` delegating hex palette tokens to `IMPERIAL_APPEARANCE_SPECIFICATION.md Section 1.2`, or `README.md` indexing all rule files) are permitted.
+* **Permitted Relative & Upward References**: Because the runtime loads conditional rule files (`model_decision` and `glob` / `globs`) on demand rather than on every turn, relative cross-references between conditional rules and upward delegation pointers to canonical `SSOT` sections (such as `IMPERIAL_ENGINEERING_TSX_STANDARD.md` delegating hex palette tokens to `IMPERIAL_APPEARANCE_SPECIFICATION.md Section 1.2`, or `/.agents/rules/README.md` indexing all rule files across `/.agents/rules/**/*.md`) are permitted.
 
 ---
 
 ## 3. Header Structure, Antigravity Rule Byte Caps & Authoring Normalization Standard
 
 ### 3.1 YAML Frontmatter Normalization
-* Start every rule file inside `.agents/rules/` at Line `1` with a standard YAML frontmatter block delimited by `---`, specifying either `trigger: always_on`, `trigger: model_decision`, or `trigger: glob` with `globs: [...]`, followed by a concise single-line quoted `description: "..."`.
+* Start every rule file inside `/.agents/rules/` and its subdirectories (such as `/.agents/rules/docs/`) at Line `1` with a standard YAML frontmatter block delimited by `---`, specifying either `trigger: always_on`, `trigger: model_decision`, or `trigger: glob` with `globs: [...]`, followed by a concise single-line quoted `description: "..."`.
 * Omit YAML frontmatter in the root `GEMINI.md` file and begin directly with its H1 header.
 
 ### 3.2 Markdown Header Hierarchy & Casing Normalization
 * **H1 (`#`) — Document Title**: Write exactly one H1 header per file in **ALL CAPS**, aligned with the filename (`# IMPERIAL <CORE_NAME>: <SUBTITLE>` or `# IMPERIAL <CORE_NAME> & <SUBTITLE>`).
-* **H2 (`##`) — Major Sections**: Write H2 headers in **Title Case** with sequential integer numbering starting at `1` (`## 1. Section Title`, `## 2. Section Title`), using `My` only in the `4` Sovereign Empress files and neutral phrasing in the `4` engineering/meta files. Place a horizontal divider (`---`) with a blank line above and below before every H2 section from `## 2.` onward.
+* **H2 (`##`) — Major Sections**: Write H2 headers in **Title Case** with sequential integer numbering starting at `1` (`## 1. Section Title`, `## 2. Section Title`), using `My` only in the `4` Sovereign Empress files and neutral phrasing in all engineering/meta rule files. Place a horizontal divider (`---`) with a blank line above and below before every H2 section from `## 2.` onward.
 * **H3 (`###`) — Subsections**: Write H3 headers in **Title Case** with hierarchical decimal numbering (`### 1.1 Subsection Title`, `### 1.2 Subsection Title`), maintaining consistent `X.Y` decimal numbering across all sibling blocks without skipping levels.
 
 ### 3.3 Sequential Item Numbering & Ban on Code Anchors
@@ -82,5 +82,7 @@ globs: ".agents/rules/**/*.md, .agents/rules/*.md"
 
 ### 3.4 Visual Inspection, Atomic Full-File Write & Antigravity Rule-Only Byte Cap Protocol
 * **Zero Grep / Zero Regex / Zero Partial Edits**: Never use `grep`, regex pattern matching, or partial file edits (`edit_file`) when inspecting, deduplicating, or refactoring constitutional rule files.
-* **Antigravity Rule-Only Scope of Byte Caps (`24,000 Bytes` & `60,000 Bytes`)**: Apply the single-file `<= 24,000 Bytes` (`24KB`) limit and the cumulative `always_on` `<= 60,000 Bytes` (`60KB`) limit **exclusively to Antigravity Constitutional Rule Files (`/GEMINI.md` and `/.agents/rules/*.md`)**; never apply `24KB`/`60KB` rule caps to project source files, tests, or the `4` Permanent Mirror Ledgers (`/README.md`, `docs/ARCHITECTURE.md`, `docs/SPECIFICATION.md`, `docs/AUDIT_GROUNDING_DUMP.md`).
-* **Visual Read & Full Overwrite Verification**: Visually read the complete rule file via `read_file`, write the entire normalized file atomically via `write_file` (`Overwrite: true`), and verify the Antigravity rule byte limits in the same turn.
+* **Antigravity Rule-Only Scope of Byte Caps (`24,000 Bytes` & `60,000 Bytes`)**:
+  - Apply the single-file **`<= 24,000 Bytes` (`24KB`)** limit and the cumulative `always_on` **`<= 60,000 Bytes` (`60KB`)** limit **exclusively to all Antigravity Constitutional Rule Files (`/GEMINI.md` and every `.md` file inside `/.agents/rules/**/*.md`, explicitly including `/.agents/rules/README.md` and `/.agents/rules/docs/*.md`)**.
+  - Never apply `24KB`/`60KB` Antigravity rule caps to project source files, tests, or the `4` project-level Permanent Mirror Ledgers (**project root `/README.md`**, `docs/ARCHITECTURE.md`, `docs/SPECIFICATION.md`, `docs/AUDIT_GROUNDING_DUMP.md`).
+* **Visual Read & Full Overwrite Verification**: Visually read the complete rule file via `read_file`, write the entire normalized file atomically via `write_file` (`Overwrite: true`), and verify the Antigravity rule byte limits across `/GEMINI.md` and `/.agents/rules/**/*.md` in the same turn.

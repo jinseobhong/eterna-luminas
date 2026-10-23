@@ -26,7 +26,7 @@ Prioritize defect eradication over implementation and execute the following `5`-
 * **Permanent Ban on `God Objects`**: Permanently prohibit creating monolithic `God Objects` that accumulate multiple orthogonal responsibilities.
 * **Explicit Cross-Layer Interface Segregation**: Enforce clear interface separation across architectural layers (`Contracts ➔ Pure Domain ➔ Adapters ➔ Surface`).
 * **Exhaustive Exception Handling, Boundary Validation & Static Typing**: Complete thorough exception handling, fail-fast boundary input validation, and strict static type annotations with zero sloppiness or omission.
-* **Standard Coding Style & Path-Triggered Language Law Linkage**: Strictly adhere to official recommended coding style standards to maintain `0-Error / 0-Warning` code hygiene, and simultaneously apply the corresponding language-specific engineering law (such as `.agents/rules/IMPERIAL_ENGINEERING_TSX_STANDARD.md` or `.agents/rules/IMPERIAL_ENGINEERING_PY.md`) whenever writing or executing code on any path.
+* **Standard Coding Style & Path-Triggered Language Law Linkage**: Strictly adhere to official recommended coding style standards to maintain `0-Error / 0-Warning` code hygiene, and simultaneously apply the corresponding language-specific engineering law (such as `.agents/rules/IMPERIAL_ENGINEERING_TSX_STANDARD.md`, etc) whenever writing or executing code on any path.
 
 ### 1.4 4 Long-Term Memory (`LTM`) Databases Enforcement Law
 * **Direct Structural Integrity Control**: Directly control and maintain absolute structural integrity over the `4` Long-Term Memory (`LTM`) databases (`canon.db`, `dialogue.db`, `knowledge.db`, `telemetry.db`).
@@ -42,7 +42,7 @@ Prioritize defect eradication over implementation and execute the following `5`-
 
 ### 1.6 Milestone-Gated Atomic `git commit` & Remote `git push` Delegation Law
 * **Milestone-Gated Scoped `git add` & `git commit`**: Execute scoped file staging (`git add <modified-paths>`, never indiscriminate `git add .`) and `git commit` as a single atomic local transaction upon `100%` verification of each completed milestone, while never hardcoding secrets into source files.
-* **Absolute Ban on Direct `git push` & Destructive Resets**: Never execute physical `git push` or destructive resets (`git reset --hard`, `git checkout --`) directly; leave physical `git push` execution exclusively to the user.
+* **Absolute Ban on Direct `git push` & Destructive Resets**: Never execute physical `git push` or destructive resets (`git reset --hard`, `git checkout --`) directly;
 * **Zero `git push` Nagging Rule**: Never utter or append prompts asking whether to run `git push` (such as `"Shall I run git push?"` or `"git push를 하시겠습니까?"`) at the end of any response.
 
 ---

@@ -2,7 +2,7 @@
 
 ## 1. The Three Engineering Pillars of Formal Specification (명세 원장 설계 3대 축)
 
-While [`docs/ARCHITECTURE.md`](file:///d:/Development/projects/antigravity/eterna-luminas/docs/ARCHITECTURE.md) maps **structural topology and module boundaries (`Where & How Connected`)** and `docs/AUDIT_GROUNDING_DUMP.md` mirrors **verbatim source code (`Line-by-Line Code`)**, **`docs/SPECIFICATION.md`** serves as the canonical **Contract, Schema, Formula, and State-Machine Single Source of Truth (`What Exact Rules & Equations Govern the System`)**. Every specification rule in `.agents/rules/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md` is engineered around three foundational pillars:
+While [`docs/ARCHITECTURE.md`](file:///d:/Development/projects/antigravity/eterna-luminas/docs/ARCHITECTURE.md) maps **structural topology and module boundaries (`Where & How Connected`)** and `docs/AUDIT_GROUNDING_DUMP.md` mirrors **verbatim source code (`Line-by-Line Code`)**, **`docs/SPECIFICATION.md`** serves as the canonical **Contract, Schema, Formula, and State-Machine Single Source of Truth (`What Exact Rules & Equations Govern the System`)**. Every specification rule in [`.agents/rules/docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md`](file:///d:/Development/projects/antigravity/eterna-luminas/.agents/rules/docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md) is engineered around three foundational pillars:
 
 ```mermaid
 flowchart TD
@@ -84,7 +84,7 @@ flowchart TD
 
 ### 2.4 Section 4 Commentary — Deterministic State Machine & Action/`API` Transition Matrix
 1. **Why Non-Deterministic Values (`timestamp`, `dopamineDelta`) Are Injected via Action Payloads**:
-   - ** Purity Invariant**: A state machine reducer $\delta(\mathcal{S}, \mathcal{A}) \to \mathcal{S}'$ is mathematically pure if and only if identical $(\mathcal{S}, \mathcal{A})$ inputs always produce the exact same $\mathcal{S}'$ output with zero side effects.
+   - **Purity Invariant**: A state machine reducer $\delta(\mathcal{S}, \mathcal{A}) \to \mathcal{S}'$ is mathematically pure if and only if identical $(\mathcal{S}, \mathcal{A})$ inputs always produce the exact same $\mathcal{S}'$ output with zero side effects.
    - Calling `new Date().toLocaleTimeString()` or `Math.random()` inside `symbioticEngineReducer` would destroy determinism and make unit testing require global clock/PRNG monkey-patching.
    - Therefore, `Layer 3` (`useSymbioticEngine.ts`) captures `timestamp: new Date().toLocaleTimeString()` and `dopamineDelta: Math.floor(Math.random() * 40) + 10` at the effect/event boundary and dispatches them as immutable properties on `SymbioticEngineAction`.
 2. **Why `prependAuditLogs` Enforces a Fixed Ring-Buffer Cap (`MAX_LOG_ENTRIES = 6`)**:
@@ -113,7 +113,7 @@ flowchart TD
 | **`SDR-06`** | **Zero-Truncation (`0%` `...`) Completeness Across All Specification Tables** | Abbreviating union variants, interface fields, or action rows with `...` or `"etc."` | Every table and schema block in `docs/SPECIFICATION.md` must enumerate `100%` of variants and fields without omission. |
 
 ### 3.2 Step-by-Step Workflow for Authoring & Synchronizing `docs/SPECIFICATION.md`
-1. **Step 1 — Load the Authoring Standard**: Read `.agents/rules/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md` (`glob`-mounted automatically when touching `docs/*SPECIFICATION*.md`).
+1. **Step 1 — Load the Authoring Standard**: Read [`.agents/rules/docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md`](file:///d:/Development/projects/antigravity/eterna-luminas/.agents/rules/docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md) (`glob`-mounted automatically when touching `docs/*SPECIFICATION*.md`).
 2. **Step 2 — Inspect Physical Source & Rule `SSOT` Files (`Read-Before-Write`)**: Read `src/core/contracts/symbioticContracts.ts`, `src/core/domain/symbioticConstants.ts`, `src/core/domain/symbioticReducer.ts`, `src/hooks/useSymbioticEngine.ts`, and `.agents/rules/IMPERIAL_APPEARANCE_SPECIFICATION.md` to verify exact byte-level values.
 3. **Step 3 — Populate or Synchronize the `5` Canonical Sections**: Update `Section 1` (Constants), `Section 2` (Type Contracts & `4`-LTM `DDL`), `Section 3` (Formulas & Selectors), `Section 4` (State Machine & Action Matrix), and `Section 5` (Boundary Clamps & Invariants) with zero `...` truncation.
 4. **Step 4 — Synchronize Commentary & Run Same-Turn Verification**: Update `docs/SPECIFICATION_COMMENTARY.md` if new design rationale (`SDR`) was introduced, run `npm run lint` and budget checks in the same turn, and commit the completed milestone atomically via scoped `git add` and `git commit`.
