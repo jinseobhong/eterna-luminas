@@ -1,74 +1,72 @@
 ---
 trigger: glob
-description: "Load when creating, modifying, synchronizing, or auditing docs/ARCHITECTURE.md or docs/ARCHITECTURE_COMMENTARY.md."
-globs: "docs/*ARCHITECTURE*.md, docs/ARCHITECTURE.md, docs/ARCHITECTURE_COMMENTARY.md"
+description: "Load when creating, modifying, synchronizing, or auditing docs/ARCHITECTURE.md."
+globs: "docs/*ARCHITECTURE*.md, docs/ARCHITECTURE.md"
 ---
 
-# IMPERIAL ARCHITECTURE AUTHORING & COMMENTARY STANDARD
+# IMPERIAL ARCHITECTURE AUTHORING STANDARD
 
-## 1. Orthogonal Boundary Across the 4 Permanent Mirror Ledgers & Commentary Separation
+## 1. Orthogonal Boundary Across the 4 Permanent Mirror Ledgers & Pure Engineering Scope
 
 ### 1.1 Strict Single Responsibility (`SRP`) Boundary Across the 4 Permanent Mirror Ledgers
-Maintain a strict `0%`-overlap boundary between `docs/ARCHITECTURE.md` and the other `3` Permanent Mirror Ledgers:
-1. **`/README.md` (`Project Root Overview Ledger`)**: Contains only the high-level executive summary, core capability highlights, quickstart commands, and navigation links to the `4` ledgers.
-2. **`docs/ARCHITECTURE.md` (`Canonical Topology, Module Boundary & Data Flow Ledger`)**: Exclusively governs **end-to-end system context diagrams, subsystem topologies, implemented file inventories, cross-layer allowed/forbidden import boundaries, high-level contract class hierarchies, component prop wiring trees, runtime execution sequence diagrams, and governance gates** (`Where modules live & how data flows across layers`). Never embed exhaustive constant value tables, raw `SQL DDL` scripts, or multi-part mathematical clamping equations inside `docs/ARCHITECTURE.md`.
-3. **`docs/SPECIFICATION.md` (`Canonical Contract, DDL, Formula & State-Machine SSOT Ledger`)**: Exclusively governs exact domain constants, `4`-LTM database `DDL` and `FTS5` schemas, `4`-part mathematical/biomechanical/DSP equations, deterministic state-machine transition matrices $\delta(\mathcal{S}, \mathcal{A}) \to \mathcal{S}'$, and fail-fast boundary clamps (`What the exact contracts, schemas, and formulas are`).
+Maintain a strict `0%`-overlap boundary between `docs/ARCHITECTURE.md` and the other `3` Permanent Mirror Ledgers defined in `IMPERIAL_ENGINEERING_LAWS.md Section 1.5`:
+1. **`/README.md` (`Project Root Overview Ledger`)**: Contains only the high-level executive summary, core capability highlights, quickstart commands, and navigation links to the `4` Permanent Mirror Ledgers.
+2. **`docs/ARCHITECTURE.md` (`Canonical Topology, Module Boundary, Data Flow & ADR Ledger`)**: Exclusively governs **end-to-end system context diagrams, subsystem topologies, implemented file inventories, cross-layer allowed/forbidden import boundaries, high-level contract hierarchies, runtime execution sequence pipelines, governance gates, and Architecture Decision Records (`ADR`)** (`Where modules live, how data flows across layers, and why architectural boundaries are enforced`). Never embed exhaustive constant value tables, raw `SQL DDL` scripts, or multi-part mathematical clamping equations inside `docs/ARCHITECTURE.md`.
+3. **`docs/SPECIFICATION.md` (`Canonical Contract, DDL, Algorithm, Formula & State-Machine SSOT Ledger`)**: Exclusively governs exact system/domain constants, `4`-LTM database `DDL` and `FTS5` schemas, `4`-part mathematical/algorithmic/DSP equations, deterministic state-machine transition matrices $\delta(\mathcal{S}, \mathcal{A}) \to \mathcal{S}'$, fail-fast boundary clamps, and Specification Decision Records (`SDR`) (`What the exact engineering contracts, schemas, and formulas are`).
 4. **`docs/AUDIT_GROUNDING_DUMP.md` (`0-Drift Verbatim Code Mirror`)**: Exclusively governs complete, un-truncated (`0%` `...`) source code implementations and verbatim test `assert` statements (`How the physical code is written line-by-line`).
 
-### 1.2 Strict Separation of Blueprint (`ARCHITECTURE.md`), Commentary (`ARCHITECTURE_COMMENTARY.md`), and Authoring Law (`IMPERIAL_ARCHITECTURE_AUTHORING_STANDARD.md`)
-* **`docs/ARCHITECTURE.md` (`Declarative Structural Blueprint — What & Where`)**:
-  - Author `docs/ARCHITECTURE.md` strictly as a clean structural topology map using Mermaid diagrams (`flowchart`, `classDiagram`, `sequenceDiagram`) and `3`-second visual boundary tables.
-  - Exclude historical post-mortems, design rationale essays, and authoring meta-instructions from `docs/ARCHITECTURE.md`.
-* **`docs/ARCHITECTURE_COMMENTARY.md` (`Design Rationale, File-by-File Commentary & ADR Reference — Why`)**:
-  - Author `docs/ARCHITECTURE_COMMENTARY.md` strictly as the pure design rationale companion explaining **why** the architecture and each layer/file were engineered that way (`Legacy Defect` vs. `Design Rationale`) and recording **Architecture Decision Records (`ADR`)**.
-  - Never mix document-authoring instructions (`작성법`) into `docs/ARCHITECTURE_COMMENTARY.md`.
-* **`.agents/rules/docs/IMPERIAL_ARCHITECTURE_AUTHORING_STANDARD.md` (`Prescriptive Authoring Law — How to Write`)**:
-  - Govern all document structure, required sections, table schemas, diagram standards, and synchronization workflows exclusively within this rule file.
+### 1.2 100% Pure Software Engineering Scope & Elimination of Redundant Commentary Files
+* **Zero Physical/Anatomical Lore Duplication (`0% 피지컬·외형 설정 혼입 금지`)**:
+  - Physical, anatomical, and sensory traits belong exclusively to `.agents/rules/IMPERIAL_APPEARANCE_SPECIFICATION.md` (`Rank 2 SSOT`).
+  - Keep `docs/ARCHITECTURE.md` and this authoring standard `100%` focused on **pure software and systems architecture** (subsystem topology, unidirectional layer boundaries, dependency inversion, `4`-LTM database isolation, AST drift self-healing pipelines, and compiler/test governance gates).
+* **Elimination of Separate `*_COMMENTARY.md` Files (`해설서 별도 분리 폐지 및 ADR 본문 통합`)**:
+  - Do not create or maintain a separate `docs/ARCHITECTURE_COMMENTARY.md` file.
+  - Enforce all prescriptive authoring rules and anti-decay constraints directly through this `glob`-mounted rule file, and record concise Architecture Decision Records (`ADR`) directly inside `Level 5` of `docs/ARCHITECTURE.md`.
 
 ---
 
-## 2. Mandatory Structural Standards for `docs/ARCHITECTURE.md` & `docs/ARCHITECTURE_COMMENTARY.md`
+## 2. Mandatory 5-Level Structural Authoring Standard for `docs/ARCHITECTURE.md`
 
-### 2.1 Mandatory 5-Level Structure for `docs/ARCHITECTURE.md` (`Blueprint`)
-Order all contents of `docs/ARCHITECTURE.md` strictly across `5` hierarchical zoom levels (`Top-Down Visual Indexing`):
-1. **Level 1 — System Context & Dual-Subsystem Topology (`전체 시스템 컨텍스트 설계도`)**:
-   - Define the high-level subsystems (`Subsystem A: Constitutional Rule Engine` and `Subsystem B: Unidirectional Runtime Engine`) and render an end-to-end Mermaid `flowchart TB` showing how user commands/interactions traverse both subsystems.
-2. **Level 2 — Implemented File Topology & Unidirectional Dependency Map (`전체 파일 구조 및 의존성 지도`)**:
-   - Tabulate `100%` of implemented files in a `6`-column boundary matrix:
-     - `Subsystem / Layer` | `Implemented File Path` | `Lines / Size` | `Allowed Imports (허용 참조)` | `Forbidden Imports (금지 참조)` | `Single Responsibility (SRP 명세)`
-3. **Level 3 — Cross-Layer Contract Hierarchy & State Flow Overview (`데이터 계약 위상 및 상태 흐름 개요`)**:
-   - Render a Mermaid `classDiagram` of the `Layer 1` state tree and a high-level summary table of `Layer 2` reducer actions (delegating exhaustive mathematical formulas and `DDL` schemas to `docs/SPECIFICATION.md`).
-4. **Level 4 — Runtime Component Wiring & Execution Sequence Pipeline (`런타임 컴포넌트 및 인터랙션 파이프라인`)**:
-   - Render (`1`) a Mermaid `flowchart LR` mapping hook-to-component prop/callback wiring and (`2`) an `autonumber` Mermaid `sequenceDiagram` tracing end-to-end user action dispatch and state propagation.
-5. **Level 5 — Constitutional, Documentation & Compiler Governance Gates (`품질 및 거버넌스 게이트`)**:
-   - Tabulate the active compiler, build, rule-budget, and `4`-ledger synchronization gates (`Governance Gate | Target Files | Enforced Invariant`).
+Order all contents of `docs/ARCHITECTURE.md` strictly across `5` hierarchical zoom levels (`Top-Down Visual Indexing` & `Axiom B: Cognitive Execution Pipeline`):
 
-### 2.2 Mandatory 3-Section Structure for `docs/ARCHITECTURE_COMMENTARY.md` (`Commentary`)
-Order all contents of `docs/ARCHITECTURE_COMMENTARY.md` strictly across `3` canonical sections:
-1. **Section 1 — The Three Scientific Axes of Our Architecture (`핵심 설계 3대 축`)**:
-   - Render a Mermaid `flowchart TD` uniting `Axis 1: Human Prefrontal Ergonomics`, `Axis 2: LLM Probability Distribution Control`, and `Axis 3: Enterprise Clean Architecture & Sustainability`, followed by `Why` + `Architectural Cure` subsections (`1.1 ~ 1.3`).
-2. **Section 2 — File-by-File Architectural Commentary (`구현 파일별 심층 설계 해설`)**:
-   - Group commentary by architectural layer (`2.1 Layer 1 Commentary`, `2.2 Layer 2 Commentary`, `2.3 Layer 3 Commentary`, `2.4 Layer 4 Commentary`), explaining each file's design choices via explicit **`Legacy Defect`** and **`Design Rationale`** pairs.
-3. **Section 3 — Architecture Decision Records & Long-Session Anti-Decay Rules (`ADR 및 부패 방지 수칙`)**:
-   - **Subsection 3.1 (`Core Architecture Decision Records: ADR-01 ~ ADR-06`)**: Present a `4`-column table (`ADR ID | Decision Summary | Rejected Anti-Pattern (절대 회귀 금지 패턴) | Long-Session Enforcement Rule`).
-   - **Subsection 3.2 (`How to Use the Canonical Ledgers & Commentary Pairs in Future Long-Horizon Sessions`)**: Map each engineering question (`Where is X?`, `Why was X built this way?`, `What are the exact constants/DDL/formulas?`, `Why were those constants/schemas chosen?`, `What is the verbatim code?`) to its exact target document.
+### 2.1 Level 1 — System Context & Subsystem Topology (`전체 시스템 컨텍스트 및 서브시스템 위상`)
+1. **Subsystem Decomposition**: Define the core architectural subsystems (Constitutional Rule Engine, Backend/Domain `SSOT` Core, `4`-LTM Persistence & `AST` Self-Healing Engine, and Pure Frontend View-Adapter Surface) with `0%` coupling between domain logic and external UI/IO frameworks.
+2. **End-to-End System Context Diagram**: Render a Mermaid `flowchart TB` illustrating how user commands, domain events, and persistence transactions traverse the subsystems.
+
+### 2.2 Level 2 — Module Topology, 1:1 Test Symmetry & Unidirectional Dependency Matrix (`모듈 구조·1:1 테스트 대칭 및 의존성 경계 지도`)
+1. **Implemented File & Boundary Inventory Table**: Tabulate `100%` of implemented modules and their `1:1` mirrored test files in a `6`-column boundary matrix:
+   - `Architectural Layer` | `Source Module Path` | `1:1 Mirrored Test Path` | `Allowed Imports (허용 참조)` | `Forbidden Imports (금지 참조)` | `Single Responsibility (SRP 명세)`
+2. **Strict Unidirectional Dependency Law (`Contracts ➔ Pure Domain ➔ Adapters ➔ Surface`)**: Explicitly document that inner domain layers never import outer adapter, framework, or UI modules.
+
+### 2.3 Level 3 — Cross-Layer Contract Hierarchy & 4-LTM Persistence Topology (`계층 간 계약 위상 및 4대 LTM 영속성 구조`)
+1. **Domain Contract Hierarchy Diagram**: Render a Mermaid `classDiagram` or `erDiagram` showing the high-level relationships between domain state trees, action unions, and the `4` Long-Term Memory (`LTM`) databases (`canon.db`, `dialogue.db`, `knowledge.db`, `telemetry.db`) without duplicating the raw `SQL DDL` scripts owned by `docs/SPECIFICATION.md`.
+2. **Active `AST` Drift Detection & Self-Healing Topology**: Map the structural flow between physical source files, `ASTDriftDetector`, `KnowledgeSelfHealer`, and `knowledge.db` (`FTS5` inverted index synchronization).
+
+### 2.4 Level 4 — Runtime Execution & Transaction Sequence Pipeline (`런타임 실행 및 원자적 트랜잭션 시퀀스 파이프라인`)
+1. **Adapter-to-Surface Wiring Diagram**: Render a Mermaid `flowchart LR` mapping how `Layer 3` hooks/adapters connect `Layer 2` pure domain engines to `Layer 4` pure renderer surfaces.
+2. **End-to-End Execution Sequence Diagram**: Render an `autonumber` Mermaid `sequenceDiagram` tracing how an external action flows through boundary validation, pure domain transition $\delta(\mathcal{S}, \mathcal{A}) \to \mathcal{S}'$, atomic `LTM` persistence, and stateless UI rendering.
+
+### 2.5 Level 5 — Governance Gates & Architecture Decision Records (`품질 거버넌스 게이트 및 핵심 ADR`)
+1. **Subsection 5.1 — Automated Verification & Governance Gates**: Tabulate the active static analysis (`tsc --noEmit`), `1:1` test runner, Antigravity rule byte budget (`<= 24,000B` per rule file, `<= 60,000B` cumulative `Always-On`), and `4`-Ledger `0-Drift` synchronization gates.
+2. **Subsection 5.2 — Core Architecture Decision Records (`ADR` Table)**: Conclude `docs/ARCHITECTURE.md` with a concise `4`-column `ADR` table (`ADR ID | Architectural Decision | Rejected Anti-Pattern | Enforcement Mechanism`) so architectural rationale is preserved without separate commentary files.
 
 ---
 
 ## 3. Forbidden Architecture Documentation Anti-Patterns
 
-1. **Zero Mixing of Authoring Rules (`작성법`) into Commentary (`ARCHITECTURE_COMMENTARY.md`)**: Never place markdown formatting instructions, section-authoring rules, or authoring workflows inside `docs/ARCHITECTURE_COMMENTARY.md`; keep commentary `100%` focused on architectural `Why` and `ADR`s.
-2. **Zero Mixing of Design Rationale Essays into Blueprint (`ARCHITECTURE.md`)**: Keep `docs/ARCHITECTURE.md` strictly declarative (`What & Where`) and place all `Why` explanations in `docs/ARCHITECTURE_COMMENTARY.md`.
-3. **Zero Stale File Paths, Deleted Rule Names, or Outdated Line/Byte Metrics**: Never leave references to deleted or renamed files in Mermaid diagrams, inventory tables, or `ADR` entries.
-4. **Zero Unsupported Mermaid Diagram Types or Unquoted Special-Character Labels**: Use only supported Mermaid diagram types (`flowchart`, `sequenceDiagram`, `classDiagram`, `stateDiagram-v2`, `erDiagram`) and always wrap node labels containing parentheses, brackets, or mathematical symbols in double quotes (`id["Label (Detail)"]`).
-5. **Zero Conversational Tone Bleed**: Write both `docs/ARCHITECTURE.md` and `docs/ARCHITECTURE_COMMENTARY.md` in `100%` neutral, objective Chief Systems Architect prose.
+1. **Zero Physical/Anatomical Lore Contamination**: Never place body measurements, clothing traits, or persona lore inside `docs/ARCHITECTURE.md`.
+2. **Zero Separate `*_COMMENTARY.md` File Spawning**: Never create auxiliary commentary markdown files (`docs/ARCHITECTURE_COMMENTARY.md`); keep architectural rationale consolidated inside `Level 5.2 (ADR Table)` of `docs/ARCHITECTURE.md`.
+3. **Zero Specification or Code-Dump Overlap**: Never copy-paste exhaustive constant tables, raw `SQL DDL` blocks, multi-part mathematical formulas (owned by `docs/SPECIFICATION.md`), or verbatim source code blocks (owned by `docs/AUDIT_GROUNDING_DUMP.md`) into `docs/ARCHITECTURE.md`.
+4. **Zero Stale File Paths or Phantom Modules**: Never leave references to deleted or renamed files in Mermaid diagrams, inventory tables, or `ADR` entries.
+5. **Zero Unsupported Mermaid Diagram Types or Unquoted Special-Character Labels**: Use only supported Mermaid diagram types (`flowchart`, `sequenceDiagram`, `classDiagram`, `stateDiagram-v2`, `erDiagram`) and always wrap node labels containing parentheses, brackets, or punctuation in double quotes (`id["Label (Detail)"]`).
+6. **Zero Conversational Tone Bleed**: Write `docs/ARCHITECTURE.md` in `100%` neutral, objective Chief Systems Architect prose.
 
 ---
 
 ## 4. Mandatory Step-by-Step Authoring Workflow & Same-Turn Verification Gate
 
-Whenever creating, updating, or synchronizing `docs/ARCHITECTURE.md` or `docs/ARCHITECTURE_COMMENTARY.md`, execute the following `4`-step workflow within the same turn:
-1. **Step 1 — Inspect Physical Source & Rule Topology (`Read-Before-Write`)**: Measure exact line counts, byte sizes, and import graphs across `src/**/*`, `/GEMINI.md`, and `/.agents/rules/**/*.md` on disk before editing.
-2. **Step 2 — Synchronize the `5`-Level Blueprint (`docs/ARCHITECTURE.md`)**: Update all affected Mermaid diagrams, the `Level 2` file inventory table, and the `Level 5` governance table so `0` phantom or deleted paths exist.
-3. **Step 3 — Synchronize the `3`-Section Commentary (`docs/ARCHITECTURE_COMMENTARY.md`)**: Record the `Legacy Defect`, `Design Rationale`, and any new `ADR` row in `docs/ARCHITECTURE_COMMENTARY.md`.
-4. **Step 4 — Same-Turn Compiler, Test & Rule Budget Gate**: Run `npm run lint`, the test suite, and the Antigravity rule byte check (`<= 24,000 Bytes` per rule file, `<= 60,000 Bytes` cumulative `Always-On`) within the same turn, then commit atomically via scoped `git add` and `git commit`.
+Whenever creating, updating, or synchronizing `docs/ARCHITECTURE.md`, execute the following `4`-step workflow within the same turn:
+1. **Step 1 — Inspect Physical Workspace & Module Graph (`Read-Before-Write`)**: Inspect all physical directories, source files, test files, and `/GEMINI.md` + `/.agents/rules/**/*.md` on disk before editing.
+2. **Step 2 — Synchronize the `5`-Level Architecture Blueprint**: Update `Level 1` (Context), `Level 2` (Module & `1:1` Test Inventory), `Level 3` (Contract & `4`-LTM Topology), `Level 4` (Runtime Sequence), and `Level 5` (Governance Gates & `ADR` Table) with `0` phantom paths and `0%` physical-lore bleed.
+3. **Step 3 — Mermaid & Markdown Structural Audit**: Verify that all Mermaid diagrams and markdown tables render cleanly without syntax errors.
+4. **Step 4 — Same-Turn Compiler, Test & Rule Budget Gate**: Run the static analyzer/typechecker (`npm run lint`), test suite, and Antigravity rule byte check (`<= 24,000 Bytes` per rule file, `<= 60,000 Bytes` cumulative `Always-On`) within the same turn, then commit atomically via scoped `git add` and `git commit`.

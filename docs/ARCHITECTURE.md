@@ -1,184 +1,161 @@
 # SYSTEM ARCHITECTURE BLUEPRINT
 
-## 1. Level 1: System Context & Dual-Subsystem Topology (전체 시스템 컨텍스트 설계도)
+## 1. Level 1: System Context & Subsystem Topology (전체 시스템 컨텍스트 및 서브시스템 위상)
 
 ### 1.1 End-to-End System Context Diagram
-The **Eterna Luminaris** workspace operates as a unified **Bio-Cybernetic Trinity Sovereign Empress Architecture** composed of two isomorphic subsystems:
-1. **Subsystem A — The 2-Tier Constitutional Engine (`/GEMINI.md` + `/.agents/rules/**/*.md`)**: Governs the LLM's `1D` autoregressive distribution $P(y_t \mid y_{<t}, x)$, strictly separating universal `always_on` core rules from `model_decision` and `glob`-triggered path-scoped standards.
-2. **Subsystem B — The 4-Layer Unidirectional TSX Runtime (`/src/**/*`)**: A strict React `19` + TypeScript `7.0` web application implementing deterministic somatic physics, dopamine telemetry, and sanctuary environmental controls.
+The workspace is structured around four strictly decoupled architectural subsystems governed by Backend Single Source of Truth (`SSOT`), Unidirectional Dependency Inversion (`Contracts ➔ Pure Domain ➔ Adapters ➔ Surface`), and `4`-Database Long-Term Memory (`LTM`) isolation:
+1. **Subsystem A — 2-Tier Constitutional Rule Engine (`/GEMINI.md` + `/.agents/rules/**/*.md`)**: Separates `always_on` foundational/engineering rules from `model_decision` and path-scoped (`glob`) language and ledger authoring standards.
+2. **Subsystem B — Pure Domain & Backend `SSOT` Core (`src/core/`)**: Controls all state machines `(State, Action) => NextState`, algorithms, mathematical/DSP formulas, and business invariants with `0%` coupling to external UI or I/O frameworks.
+3. **Subsystem C — 4-LTM Persistence & Active `AST` Self-Healing Engine (`canon.db`, `dialogue.db`, `knowledge.db`, `telemetry.db`)**: Enforces atomic transactions, `AST` drift detection (`ASTDriftDetector`), self-healing (`KnowledgeSelfHealer`), and `FTS5` full-text index synchronization.
+4. **Subsystem D — Pure Frontend Renderer & View Adapter Surface (`src/hooks/`, `src/components/`, `src/App.tsx`)**: Operates strictly as a stateless renderer and hardware view adapter (`Props-In, Intent-Out`).
 
 ```mermaid
 flowchart TB
-    Mate["내 것 / 내 남자 (Sovereign Consort & Auditor)<br/>Architectural Direction, Adversarial Audits & 1-Click UI Commands"]
+    Auditor["System Architect & Auditor<br/>Architectural Direction, Adversarial Audits & UI Commands"]
 
-    subgraph SUB_CONST["Subsystem A: 2-Tier Constitutional Engine (/.agents/rules/**/*.md)"]
-        ROOT["/GEMINI.md (always_on)<br/>(Root Identity, 3 Foundations, 5 Aspects, Surface Protocols)"]
-        APPEAR["/.agents/rules/IMPERIAL_APPEARANCE_SPECIFICATION.md (always_on)<br/>(100.0kg Biomechanics, Hex Palette SSOT, Visceral/Attire Specs)"]
-        GUIDE["/.agents/rules/IMPERIAL_INTERACTION_GUIDE.md (always_on)<br/>(5-Anchor Spectrum, Bio-Electric Resonance, Vocal Transducer)"]
-        ENG_LAW["/.agents/rules/IMPERIAL_ENGINEERING_LAWS.md (always_on)<br/>(5-Step Pre-Impl Loop, Backend SSOT, 4-LTM, 4 Mirror Ledgers, 10 Bans)"]
-        BEHAV["/.agents/rules/IMPERIAL_BEHAVIOR_PATTERNS.md (model_decision)<br/>(Part-by-Part Seduction, Tactile & Bedchamber Repertoire)"]
-        RULE_STD["/.agents/rules/IMPERIAL_RULE_AUTHORING_STANDARD.md (glob)<br/>(Axiom A & B, 24KB/60KB Antigravity Rule Caps)"]
-        ARCH_STD["/.agents/rules/docs/IMPERIAL_ARCHITECTURE_AUTHORING_STANDARD.md (glob)<br/>(5-Level Blueprint & 3-Section ADR Commentary Standard)"]
-        SPEC_STD["/.agents/rules/docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md (glob)<br/>(5-Section Specification & 3-Section SDR Commentary Standard)"]
-        ENG_TSX["/.agents/rules/IMPERIAL_ENGINEERING_TSX_STANDARD.md (glob)<br/>(Concrete TypeScript 7 / React 19 / Vite 8 / 4-Layer TSX Standard)"]
+    subgraph SUB_CONST["Subsystem A: 2-Tier Constitutional Rule Engine (/.agents/rules/**/*.md)"]
+        ROOT_RULES["Always-On Core Rules<br/>(/GEMINI.md + IMPERIAL_ENGINEERING_LAWS.md + Sovereign Rules)"]
+        GLOB_RULES["Path-Scoped Glob Standards<br/>(IMPERIAL_ENGINEERING_TSX_STANDARD.md, docs/IMPERIAL_*_AUTHORING_STANDARD.md)"]
     end
 
-    subgraph SUB_TSX["Subsystem B: 4-Layer Unidirectional TSX Runtime (/src/)"]
-        L1["Layer 1: Strict Contracts<br/>src/core/contracts/symbioticContracts.ts"]
-        L2_CONST["Layer 2a: SSOT Constants<br/>src/core/domain/symbioticConstants.ts"]
-        L2_RED["Layer 2b: Pure Domain Reducer<br/>src/core/domain/symbioticReducer.ts"]
-        L3["Layer 3: Reactive Adapter Hook<br/>src/hooks/useSymbioticEngine.ts"]
-        L4["Layer 4: Presentational TSX Surfaces<br/>src/App.tsx + src/components/*.tsx"]
+    subgraph SUB_CORE["Subsystem B: Pure Domain & Backend SSOT Core (src/core/)"]
+        L1["Layer 1: Strict Type Contracts<br/>(src/core/contracts/*.ts)"]
+        L2["Layer 2: Pure Domain Engine, Reducers & DSP/Math Selectors<br/>(src/core/domain/*.ts)"]
     end
 
-    Mate -- "Direction / Adversarial Audit" --> SUB_CONST
-    Mate -- "1-Click UI Interaction" --> L4
-    ROOT --> APPEAR & GUIDE & ENG_LAW & BEHAV
-    ENG_LAW -. "Universal Architectural Principles" .-> RULE_STD & ARCH_STD & SPEC_STD & ENG_TSX
-    ENG_TSX -. "Enforces Concrete 4-Layer Standard" .-> SUB_TSX
+    subgraph SUB_LTM["Subsystem C: 4-LTM Persistence & AST Self-Healing Engine"]
+        DB_CANON[("canon.db<br/>(Immutable Canon & Seed SSOT)")]
+        DB_DIAL[("dialogue.db<br/>(Episodic Turn & Session Store)")]
+        DB_KNOW[("knowledge.db<br/>(AST Graph & FTS5 Index)")]
+        DB_TELE[("telemetry.db<br/>(Time-Series & Audit Telemetry)")]
+        AST_HEAL["ASTDriftDetector & KnowledgeSelfHealer"]
+    end
+
+    subgraph SUB_SURF["Subsystem D: Pure Renderer & Adapter Surface"]
+        L3["Layer 3: Reactive Adapter & Side-Effect Boundary<br/>(src/hooks/*.ts)"]
+        L4["Layer 4: Stateless Presentational Renderer<br/>(src/components/*.tsx, src/App.tsx)"]
+    end
+
+    Auditor -- "Direction & Audit" --> SUB_CONST
+    Auditor -- "UI / CLI Intent" --> L4
+    ROOT_RULES -. "Universal Engineering Laws" .-> GLOB_RULES
+    GLOB_RULES -. "Enforces Layer & Ledger Standards" .-> SUB_CORE & SUB_LTM & SUB_SURF
     L4 -- "Invokes Intent Callback" --> L3
-    L3 -- "Dispatches SymbioticEngineAction" --> L2_RED
-    L2_CONST --> L2_RED
-    L1 --> L2_CONST & L2_RED & L3 & L4
-    L2_RED -- "Returns Immutable NextState" --> L3 --> L4
+    L3 -- "Dispatches Typed Action" --> L2
+    L1 --> L2 & L3 & L4
+    L2 -- "Returns Immutable NextState" --> L3 --> L4
+    L3 -- "Atomic Transaction" --> DB_CANON & DB_DIAL & DB_KNOW & DB_TELE
+    AST_HEAL -- "0-Drift AST & FTS5 Sync" --> DB_KNOW
 ```
 
 ---
 
-## 2. Level 2: Implemented File Topology & Unidirectional Dependency Map (전체 파일 구조 및 의존성 지도)
+## 2. Level 2: Module Topology, 1:1 Test Symmetry & Unidirectional Dependency Matrix (모듈 구조·1:1 테스트 대칭 및 의존성 경계 지도)
 
-### 2.1 Full Inventory of Implemented Files & Strict Import Boundaries
+### 2.1 Architectural Layer & Import Boundary Matrix (`Greenfield Rebuild Baseline`)
 
-| Subsystem / Layer | Implemented File Path | Lines / Size | Allowed Imports (`허용 참조`) | Forbidden Imports (`금지 참조`) | Single Responsibility (`SRP` 명세) |
-| :--- | :--- | :---: | :--- | :--- | :--- |
-| **L1: Contracts** | `src/core/contracts/symbioticContracts.ts` | `108 Lines`<br/>(`2,898 B`) | `None` *(Zero imports)* | `react`, `DOM`, `L2`, `L3`, `L4` | Defines `SymbioticResonancePhase`, `SymbioticEngineState`, and the `7`-variant `SymbioticEngineAction` union. |
-| **L2: Domain** | `src/core/domain/symbioticConstants.ts` | `120 Lines`<br/>(`3,405 B`) | `symbioticContracts.ts` | `react`, `DOM`, `L3`, `L4` | Defines `SOMATIC_PHYSICS_LIMITS`, `IMPERIAL_ANATOMICAL_NODES` (`6` `SSOT` nodes), and `INITIAL_SYMBIOTIC_STATE`. |
-| **L2: Domain** | `src/core/domain/symbioticReducer.ts` | `228 Lines`<br/>(`6,392 B`) | `symbioticContracts.ts`, `symbioticConstants.ts` | `react`, `DOM`, `window`, `L3`, `L4` | Pure deterministic reducer `symbioticEngineReducer` (`never` check) + `3` pure gauge percentage selectors. |
-| **L3: Adapter** | `src/hooks/useSymbioticEngine.ts` | `103 Lines`<br/>(`2,859 B`) | `react`, `L1 Contracts`, `L2 Domain` | `lucide-react`, JSX UI (`L4`) | Wraps `useReducer`, isolates the `500ms` overdrive `setInterval` effect, and exposes memoized action callbacks. |
-| **L4: Surface** | `src/components/ImperialHeaderBanner.tsx` | `63 Lines`<br/>(`3,229 B`) | `lucide-react`, `symbioticContracts.ts` | `useState`, `useEffect`, `L2 Reducer` | Stateless header rendering Empress title and real-time `Symbiotic Link` status pill. |
-| **L4: Surface** | `src/components/CoreTelemetryCards.tsx` | `122 Lines`<br/>(`6,213 B`) | `lucide-react`, `L1 Contracts`, `L2 Selectors` | `useState`, hardcoded gauge math | Stateless `4`-column telemetry cards (`100.0kg`, `bodyTempCelsius`, `bellySinkDepthCm`, `dopamineRateNmol`). |
-| **L4: Surface** | `src/components/WombCrestOverdriveConsole.tsx` | `138 Lines`<br/>(`5,665 B`) | `lucide-react`, `L1 Contracts`, `L2 Constants` | `useState`, array-index keys | Stateless Womb Crest panel, `6`-node `SSOT` grid, `2` action buttons, and synchronized audit log. |
-| **L4: Surface** | `src/components/SanctuaryEnvironmentPanel.tsx` | `186 Lines`<br/>(`8,253 B`) | `lucide-react`, `symbioticContracts.ts` | `useState`, domain reducers | Stateless environment sliders/toggles and `SYMBIOTIC Z*` vocational exoskeleton status panel. |
-| **L4: Root** | `src/App.tsx` | `68 Lines`<br/>(`2,713 B`) | `useSymbioticEngine`, `4` `L4` components | Direct state logic or inline math | Root orchestrator binding `useSymbioticEngine()` to the `4` presentational surfaces. |
-| **L4: Entry** | `src/main.tsx` | `5 Lines`<br/>(`164 B`) | `react`, `react-dom/client`, `App.tsx`, `index.css` | Domain logic | Mounts `<App />` inside `<StrictMode>` at `#root`. |
-| **Infra** | `tsconfig.json` & `vite.config.ts` | `32 Lines` / `22 Lines` | `vite`, `@vitejs/plugin-react`, `@tailwindcss/vite` | Legacy `__dirname`, loose types | Enforces `strict: true` compiler gates and native Vite `8` `import.meta.dirname` bundling. |
+| Architectural Layer | Source Module Path Pattern | `1:1` Mirrored Test Path Pattern | Allowed Imports (`허용 참조`) | Forbidden Imports (`금지 참조`) | Single Responsibility (`SRP` 명세) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **L1: Contracts** | `src/core/contracts/*.ts` | `tests/core/contracts/*.test.ts` | `None` *(Zero external imports)* | `react`, `DOM`, `Node/Bun IO`, `L2`, `L3`, `L4` | Pure `readonly` interfaces, literal types, and discriminated union contracts (`kind` / `type`). |
+| **L2: Pure Domain** | `src/core/domain/*.ts` | `tests/core/domain/*.test.ts` | `src/core/contracts/*.ts` | `react`, `DOM`, `window`, `SQLite/IO`, `L3`, `L4` | Deterministic state reducers `(State, Action) => NextState`, domain constants, and pure math/DSP selectors. |
+| **L3: Adapters** | `src/hooks/*.ts`<br/>`src/adapters/*.ts` | `tests/hooks/*.test.ts`<br/>`tests/adapters/*.test.ts` | `L1 Contracts`, `L2 Domain`, platform IO / React hooks | Presentational JSX components (`L4`) | Side-effect isolation (`Date`, `PRNG`, timers, IPC, `4`-LTM SQLite transactions, `ASTDriftDetector`). |
+| **L4: Surface** | `src/components/*.tsx`<br/>`src/App.tsx` | `tests/components/*.test.tsx`<br/>`tests/App.test.tsx` | `L1 Contracts`, `L2 Pure Selectors`, `L3 Hooks`, UI icons | Direct reducer mutations, raw domain math, `SQLite/IO` | Stateless pure renderer surfaces (`Props-In, Intent-Out`) with `<= 250` lines per file. |
+| **Build & Compiler** | `package.json`, `tsconfig.json`, `vite.config.ts` | `npm run lint` & `npm run build` | `vite`, `@vitejs/plugin-react`, `@tailwindcss/vite` | Legacy CommonJS `__dirname`, loose compiler flags | Enforces `strict: true` static typing and native ESM `import.meta.dirname` bundling. |
 
 ---
 
-## 3. Level 3: Layer 1 & Layer 2 Data Contracts & State Machine Overview (데이터 계약 및 상태 머신 개요)
+## 3. Level 3: Cross-Layer Contract Hierarchy & 4-LTM Persistence Topology (계층 간 계약 위상 및 4대 LTM 영속성 구조)
 
-### 3.1 Layer 1 Type Hierarchy (`src/core/contracts/symbioticContracts.ts`)
+### 3.1 Unidirectional Contract & 4-LTM Persistence Class Topology
 
 ```mermaid
 classDiagram
-    class SymbioticEngineState {
-        +readonly SomaticTelemetryState telemetry
-        +readonly SanctuaryEnvironmentState environment
-        +readonly TelemetryLogEntry[] logs
+    class DomainStateTree {
+        <<Layer 1 Readonly Contract>>
+        +readonly ExecutionPhase phase
+        +readonly SystemConfiguration config
+        +readonly AuditEntry[] auditRingBuffer
     }
 
-    class SomaticTelemetryState {
-        +readonly 100.0 adiposeMassKg
-        +readonly 0.0 muscleRatioPercent
-        +readonly number bodyTempCelsius
-        +readonly number bellySinkDepthCm
-        +readonly number reverseSwallowSurgeCm
-        +readonly number dopamineRateNmol
-        +readonly number harvestCount
-        +readonly SymbioticResonancePhase resonancePhase
-    }
-
-    class SymbioticResonancePhase {
+    class ExecutionPhase {
         <<Discriminated Union>>
-        kind: 'HARMONIC_SAFE_HAVEN' | 'OVERDRIVE_CLIMAX_SURGE'
-        kEmpress: 1
-        kMale: 0 | 1
-        badgeLabel: 'HARMONIC READY' | 'OVERDRIVE ACTIVE'
-        lastSurgeTimestamp?: string
+        +readonly string kind
     }
 
-    class SanctuaryEnvironmentState {
-        +readonly number ambientLightPercent
-        +readonly number pheromoneDensityPercent
-        +readonly boolean acousticSealActive
-        +readonly boolean waterbedSuspensionActive
+    class PureDomainReducer {
+        <<Layer 2 Pure Engine>>
+        +reduce(state: DomainStateTree, action: DomainAction) DomainStateTree
+        +exhaustiveGuard(action: never) never
     }
 
-    class TelemetryLogEntry {
-        +readonly string id
-        +readonly TelemetryLogTag tag
-        +readonly string message
-        +readonly string timestamp
+    class LTMDatabaseCluster {
+        <<Layer 3 Persistence Adapter>>
+        +canonDb: SQLiteStrictConnection
+        +dialogueDb: SQLiteStrictConnection
+        +knowledgeDb: SQLiteStrictConnection
+        +telemetryDb: SQLiteStrictConnection
+        +executeAtomicTransaction(work: Function) Result
     }
 
-    SymbioticEngineState *-- SomaticTelemetryState
-    SymbioticEngineState *-- SanctuaryEnvironmentState
-    SymbioticEngineState *-- TelemetryLogEntry
-    SomaticTelemetryState *-- SymbioticResonancePhase
+    class KnowledgeDriftEngine {
+        <<AST Self-Healing Subsystem>>
+        +detectDrift(sourceAst: ASTGraph, db: knowledgeDb) DriftReport
+        +healAndSyncFts5(report: DriftReport, db: knowledgeDb) void
+    }
+
+    DomainStateTree *-- ExecutionPhase
+    PureDomainReducer ..> DomainStateTree : transitions
+    LTMDatabaseCluster ..> DomainStateTree : persists snapshots & logs
+    KnowledgeDriftEngine --> LTMDatabaseCluster : heals knowledge.db & FTS5
 ```
-
-### 3.2 Layer 2 Deterministic Reducer Action Summary (`src/core/domain/symbioticReducer.ts`)
-
-| Action (`SymbioticEngineAction`) | Payload Signature | High-Level State Transition Summary (Exact Formulas in `docs/SPECIFICATION.md`) | Audit Log Mutation (`MAX = 6`) |
-| :--- | :--- | :--- | :--- |
-| **`TRIGGER_WOMB_OVERDRIVE`** | `{ timestamp: string }` | Transitions `resonancePhase` to `'OVERDRIVE_CLIMAX_SURGE'`, increments `harvestCount`, and adds `+140` dopamine (`<= 999`). | Prepends `[OVERDRIVE]` + `[HARVEST]` entries. |
-| **`SQUISH_BELLY_ROLLS`** | `{ timestamp: string }` | Advances `bellySinkDepthCm` by `+0.6cm` up to `18.0cm` ceiling. | Prepends `[SQUISH]` entry with new `nextSinkDepth`. |
-| **`PULSE_OVERDRIVE_TICK`** | `{ dopamineDelta: number, tempDeltaCelsius: number }` | No-op unless `'OVERDRIVE_CLIMAX_SURGE'`; increments `dopamineRateNmol` (`<= 999`) and `bodyTempCelsius` (`<= 40.5°C`). | `None` |
-| **`SET_AMBIENT_LIGHT`** | `{ valuePercent: number }` | Clamps `ambientLightPercent` into `[5%, 100%]`. | `None` |
-| **`SET_PHEROMONE_DENSITY`** | `{ valuePercent: number }` | Clamps `pheromoneDensityPercent` into `[10%, 100%]`. | `None` |
-| **`TOGGLE_ACOUSTIC_SEAL`** | `{ timestamp: string }` | Inverts `acousticSealActive` boolean state. | Prepends `[ENVIRONMENT]` acoustic seal log. |
-| **`TOGGLE_WATERBED_SUSPENSION`** | `{ timestamp: string }` | Inverts `waterbedSuspensionActive` boolean state. | Prepends `[ENVIRONMENT]` waterbed mode log. |
 
 ---
 
-## 4. Level 4: Layer 3 & Layer 4 Runtime Interaction Pipeline (런타임 컴포넌트 및 인터랙션 파이프라인)
+## 4. Level 4: Runtime Execution & Transaction Sequence Pipeline (런타임 실행 및 원자적 트랜잭션 시퀀스 파이프라인)
 
-### 4.1 Component Props & Intent Wiring Diagram
-
-```mermaid
-flowchart LR
-    Hook["useSymbioticEngine()<br/>(src/hooks/useSymbioticEngine.ts)"]
-    App["<App /><br/>(src/App.tsx)"]
-
-    Banner["<ImperialHeaderBanner /><br/>resonancePhase"]
-    Cards["<CoreTelemetryCards /><br/>telemetry"]
-    Console["<WombCrestOverdriveConsole /><br/>telemetry, logs, isOverdriveActive,<br/>onTriggerWombOverdrive, onSquishBellyRolls"]
-    Env["<SanctuaryEnvironmentPanel /><br/>environment, onSetAmbientLight,<br/>onSetPheromoneDensity, onToggleAcousticSeal,<br/>onToggleWaterbedSuspension"]
-
-    Hook --> App
-    App --> Banner & Cards & Console & Env
-```
-
-### 4.2 Runtime Execution Sequence (`Asymmetric Input Amplification`)
+### 4.1 End-to-End Deterministic Dispatch & Persistence Sequence
 
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Mate as 내 것 / 내 남자 (User)
-    participant Console as L4: WombCrestOverdriveConsole.tsx
-    participant Hook as L3: useSymbioticEngine.ts
-    participant Reducer as L2: symbioticReducer.ts
-    participant Cards as L4: CoreTelemetryCards.tsx
+    actor User as System Auditor / Client
+    participant Surface as L4: Pure Renderer Surface
+    participant Adapter as L3: Hook / Persistence Adapter
+    participant Domain as L2: Pure Domain Engine
+    participant LTM as Subsystem C: 4-LTM Databases
 
-    Mate->>Console: Click "자궁 문장 과부하 트리거"
-    Console->>Hook: onTriggerWombOverdrive()
-    Hook->>Reducer: dispatch({ type: 'TRIGGER_WOMB_OVERDRIVE', timestamp })
-    Reducer-->>Hook: NextState (OVERDRIVE_CLIMAX_SURGE, DA+140, 2 new logs)
-    Hook-->>Console: Re-render badge ("OVERDRIVE ACTIVE") & top 2 logs
-    Hook-->>Cards: Re-render dopamine card & fill bar via calculateDopamineFillPercent()
-    loop Every 500ms while isOverdriveActive === true
-        Hook->>Reducer: dispatch({ type: 'PULSE_OVERDRIVE_TICK', dopamineDelta, tempDeltaCelsius: 0.05 })
-        Reducer-->>Cards: Atomic update of bodyTempCelsius (up to 40.5°C) & dopamineRateNmol (up to 999)
-    end
+    User->>Surface: Trigger UI / CLI Intent
+    Surface->>Adapter: Invoke Memoized Intent Callback
+    Note over Adapter: Capture non-deterministic inputs<br/>(timestampIso, requestId) at L3 boundary
+    Adapter->>Domain: dispatch({ type, payload, timestampIso })
+    Note over Domain: Execute Fail-Fast Boundary Clamp<br/>& Pure Transition δ(S, A) -> S'
+    Domain-->>Adapter: Return Immutable NextState (S')
+    Adapter->>LTM: BEGIN IMMEDIATE -> Write Audit/State -> COMMIT
+    LTM-->>Adapter: Atomic Commit Confirmation
+    Adapter-->>Surface: Propagate Immutable NextState (S')
+    Surface-->>User: Re-render Stateless View (< 16ms)
 ```
 
 ---
 
-## 5. Level 5: Constitutional, Documentation & Compiler Governance (품질 및 거버넌스 게이트)
+## 5. Level 5: Governance Gates & Architecture Decision Records (품질 거버넌스 게이트 및 핵심 ADR)
 
-| Governance Gate | Target Files | Enforced Invariant |
+### 5.1 Constitutional, Documentation & Compiler Governance Gates
+
+| Governance Gate | Target Scope | Enforced Engineering Invariant |
 | :--- | :--- | :--- |
-| **Gate 1: Strict TypeScript (`npm run lint`)** | `tsconfig.json`, `src/**/*.ts(x)` | `strict: true`, `noUnusedLocals: true`, `noUnusedParameters: true`, `noFallthroughCasesInSwitch: true` (`0 Errors`). |
-| **Gate 2: Production Build (`npm run build`)** | `vite.config.ts`, `dist/*` | Native `import.meta.dirname` resolution, zero circular dependencies, clean production bundle. |
-| **Gate 3: Antigravity Rule Budget (`always_on` $\perp$ `glob`)** | `/GEMINI.md`, `/.agents/rules/**/*.md` | Every file in `/GEMINI.md` and `/.agents/rules/**/*.md` `<= 24,000 Bytes`; cumulative `Always-On` (`4 files`) `<= 60,000 Bytes`; path-scoped standards auto-mounted via `glob`. |
-| **Gate 4: 4 Permanent Mirror Ledgers & Commentary Pairs** | `/README.md`, `docs/ARCHITECTURE.md`, `docs/SPECIFICATION.md`, `docs/AUDIT_GROUNDING_DUMP.md`, `docs/*_COMMENTARY.md` | Strict `0-Drift` separation of Overview (`/README.md`), Topology (`ARCHITECTURE.md`), Contracts/DDL/Formulas (`SPECIFICATION.md`), Verbatim Code (`AUDIT_GROUNDING_DUMP.md`), and Rationale (`*_COMMENTARY.md`). |
+| **Gate 1: Strict TypeScript (`npm run lint`)** | `tsconfig.json`, `src/**/*.ts(x)`, `tests/**/*.ts(x)` | `strict: true`, `noUnusedLocals: true`, `noUnusedParameters: true`, `noFallthroughCasesInSwitch: true` (`0 Errors / 0 Warnings`). |
+| **Gate 2: `1:1` Mirrored Test Symmetry** | `src/**/*` ⇄ `tests/**/*` | `100%` `1:1` directory and module mirror between `src/` and `tests/` with `0` orphaned or stubbed tests. |
+| **Gate 3: Antigravity Rule Budget (`always_on` $\perp$ `glob`)** | `/GEMINI.md`, `/.agents/rules/**/*.md` | Every rule file in `/GEMINI.md` and `/.agents/rules/**/*.md` `<= 24,000 Bytes`; cumulative `Always-On` (`4 files`) `<= 60,000 Bytes`. |
+| **Gate 4: 4 Permanent Mirror Ledgers `0-Drift` Sync** | `/README.md`, `docs/ARCHITECTURE.md`, `docs/SPECIFICATION.md`, `docs/AUDIT_GROUNDING_DUMP.md` | Real-time synchronization of all `4` Permanent Mirror Ledgers within every milestone transaction (`0` separate `*_COMMENTARY.md` files). |
+
+### 5.2 Core Architecture Decision Records (`ADR-01 ~ ADR-06`)
+
+| ADR ID | Architectural Decision | Rejected Anti-Pattern (`절대 회귀 금지 패턴`) | Enforcement Mechanism |
+| :--- | :--- | :--- | :--- |
+| **`ADR-01`** | **Backend/Domain `SSOT` & Pure Frontend Renderer Separation** | Embedding business logic, math formulas, or state machines inside UI components | Isolate `100%` of state transitions and formulas in `Layer 2` (`src/core/domain/`) with `0` React/DOM imports. |
+| **`ADR-02`** | **Discriminated Union State Machines + Exhaustive `never` Check** | Scattering multiple boolean flags (`isLoading`, `isError`, `isActive`) across components | Key all operational phases on literal `kind` tags in `Layer 1` and enforce `const _exhaustiveCheck: never = action` in `Layer 2`. |
+| **`ADR-03`** | **Caller-Injected Entropy at the `Layer 3 ➔ Layer 2` Boundary** | Calling `new Date()`, `Date.now()`, `Math.random()`, or I/O inside `Layer 2` reducers | Capture all temporal, stochastic, and I/O values in `Layer 3` adapters and pass them via immutable action payloads. |
+| **`ADR-04`** | **Partitioned `4`-LTM SQLite Architecture (`canon`, `dialogue`, `knowledge`, `telemetry`)** | Mixing immutable canon, episodic logs, `AST` graphs, and telemetry in one database | Enforce `STRICT` schema isolation, atomic transactions, and `ASTDriftDetector` / `KnowledgeSelfHealer` `FTS5` synchronization across the `4` `LTM` databases. |
+| **`ADR-05`** | **Separation of Universal Engineering Laws (`always_on`) vs. Path-Scoped Standards (`glob`)** | Mixing framework-specific rules or document authoring laws into `always_on` context | Keep `IMPERIAL_ENGINEERING_LAWS.md` `100%` language-agnostic and isolate TSX/Ledger authoring rules in `glob`-mounted `.agents/rules/` files. |
+| **`ADR-06`** | **Consolidation into the `4` Permanent Mirror Ledgers (`Zero Commentary File Spawning`)** | Maintaining separate `*_COMMENTARY.md` files or contaminating engineering ledgers with physical lore | Govern document authoring via `.agents/rules/docs/IMPERIAL_*_AUTHORING_STANDARD.md` and embed concise `ADR`/`SDR` tables directly inside `ARCHITECTURE.md` and `SPECIFICATION.md`. |

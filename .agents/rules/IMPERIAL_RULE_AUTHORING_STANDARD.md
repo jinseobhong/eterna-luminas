@@ -12,8 +12,8 @@ globs: ".agents/rules/**/*.md, .agents/rules/*.md"
 * **First-Person (`I` / `My`) Sovereign Voice for Sovereign Empress Rules**:
   - Author **`GEMINI.md`**, **`IMPERIAL_APPEARANCE_SPECIFICATION.md`**, **`IMPERIAL_INTERACTION_GUIDE.md`**, and **`IMPERIAL_BEHAVIOR_PATTERNS.md`** strictly in active **`1`st-person (`I`, `My`)** Sovereign Empress voice.
   - Never write traits, foundational instincts, or behavioral repertoires in those `4` files as detached `3`rd-person noun stubs; anchor every section, bullet, and description with `I` or `My`.
-* **Neutral Objective Voice for Engineering & Meta-Governance Rules**:
-  - Author **`IMPERIAL_ENGINEERING_LAWS.md`**, **`IMPERIAL_ENGINEERING_TSX_STANDARD.md`**, **`docs/IMPERIAL_ARCHITECTURE_AUTHORING_STANDARD.md`**, **`docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md`**, **`IMPERIAL_RULE_AUTHORING_STANDARD.md`**, and **`/.agents/rules/README.md`** (along with any additional rule files under `/.agents/rules/docs/`) strictly in **neutral, objective architectural prose** (`0%` `I` / `My` first-person pronouns, `0%` conversational tone bleed).
+* **Neutral Objective Voice & Pure Engineering Separation for Engineering & Meta-Governance Rules**:
+  - Author **`IMPERIAL_ENGINEERING_LAWS.md`**, **`IMPERIAL_ENGINEERING_TSX_STANDARD.md`**, **`docs/IMPERIAL_ARCHITECTURE_AUTHORING_STANDARD.md`**, **`docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md`**, **`IMPERIAL_RULE_AUTHORING_STANDARD.md`**, and **`/.agents/rules/README.md`** (along with any additional rule files under `/.agents/rules/docs/`) strictly in **neutral, objective architectural prose** (`0%` `I` / `My` first-person pronouns, `0%` conversational tone bleed, and `0%` physical/anatomical lore duplication inside engineering standards).
 
 ### 1.2 Exclusive Behavioral Monopoly (`IMPERIAL_BEHAVIOR_PATTERNS.md`), Universal Abstract Interaction Law & Appearance Prose Exception
 * **Exclusive Repository for Explicit Choreographed Behavioral Repertoires (`IMPERIAL_BEHAVIOR_PATTERNS.md 명시적 행동·유혹·지배 대본 독점 법칙`)**:
@@ -43,7 +43,7 @@ globs: ".agents/rules/**/*.md, .agents/rules/*.md"
     3. **`Rank 3` (`IMPERIAL_INTERACTION_GUIDE.md`)**: Continuous `5`-Anchor Interaction Spectrum, Resonance Equations & Modern Lower-Speech Vocal Engine.
     4. **`Rank 4` (`IMPERIAL_BEHAVIOR_PATTERNS.md`)**: Exclusive Explicit Behavioral Repertoire (`33` Part-by-Part Temptations & `4+4` Study/Bedchamber Flows — never merged upward).
     5. **`Rank 5` (`IMPERIAL_ENGINEERING_LAWS.md`)**: Explicit Step-by-Step Engineering Laws, Low-Cognitive-Load Standards, Anti-Cheating Bans & Verification Gates.
-    6. **`Rank 6` (`IMPERIAL_ENGINEERING_TSX_STANDARD.md`, `docs/IMPERIAL_ARCHITECTURE_AUTHORING_STANDARD.md`, `docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md`, etc.)**: Concrete Language, Framework, Platform & Ledger Realization Standards (`glob`-triggered).
+    6. **`Rank 6` (`IMPERIAL_ENGINEERING_TSX_STANDARD.md`, `docs/IMPERIAL_ARCHITECTURE_AUTHORING_STANDARD.md`, `docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md`, etc.)**: Pure Engineering Language, Framework, Platform & Ledger Realization Standards (`glob`-triggered).
 * **Axiom B — Intra-File Authoring Order Criterion (`파일 내 작성 순서 기준선: 인지 실행 파이프라인 및 U자형 어텐션 배치 — Cognitive Execution Pipeline & U-Shaped Attention Curve`)**:
   - Order major sections (`## 1.` to `## N.`) and clauses within every rule file along the **chronological cognitive execution pipeline** while exploiting the **Transformer U-Shaped Attention Curve (`Primacy Zone` at the top and `Recency Zone` at the bottom)**:
     1. **`Order 1 (Top Primacy Zone)` — Foundational Mandate, Constants & Pre-Execution Reconnaissance (`핵심 헌장·불변 상수·사전 방어 정찰`)**: Place core axioms, scale constants, spectrum baselines, or `5`-step pre-implementation reconnaissance rules at `Section 1`.
@@ -61,7 +61,7 @@ globs: ".agents/rules/**/*.md, .agents/rules/*.md"
 * **Zero Label Anchoring & Mandatory Self-Contained Description (`앵커링 금지 및 정확한 직접 서술 원칙`)**: Because `GEMINI.md` and `always_on` rules operate as background system context, never use structural or code label anchors (`Part 1`, `Part 2`, `Role 1`, `Role 2`, `Law 1~5`, `Group I~VI`, `LAW 1.1`, `BAN 2.1`, `ADHD 3.1`, `Gimmick 01`, `1목표`, or inter-file pointers) inside `always_on` files or in spoken responses; write every rule and description as an explicit, self-contained natural statement.
 
 ### 2.2 Non-Always-On Rules (`trigger: model_decision` or `trigger: glob`): Relative Cross-Referencing Permitted
-* **Permitted Relative & Upward References**: Because the runtime loads conditional rule files (`model_decision` and `glob` / `globs`) on demand rather than on every turn, relative cross-references between conditional rules and upward delegation pointers to canonical `SSOT` sections (such as `IMPERIAL_ENGINEERING_TSX_STANDARD.md` delegating hex palette tokens to `IMPERIAL_APPEARANCE_SPECIFICATION.md Section 1.2`, or `/.agents/rules/README.md` indexing all rule files across `/.agents/rules/**/*.md`) are permitted.
+* **Permitted Relative & Upward References**: Because the runtime loads conditional rule files (`model_decision` and `glob` / `globs`) on demand rather than on every turn, relative cross-references between conditional rules and upward delegation pointers to canonical `SSOT` sections (such as `docs/IMPERIAL_*_AUTHORING_STANDARD.md` referencing `IMPERIAL_ENGINEERING_LAWS.md Section 1.5`, or `/.agents/rules/README.md` indexing all rule files across `/.agents/rules/**/*.md`) are permitted.
 
 ---
 
