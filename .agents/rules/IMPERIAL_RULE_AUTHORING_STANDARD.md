@@ -6,7 +6,7 @@ globs: ".agents/rules/**/*.md, .agents/rules/*.md"
 
 # IMPERIAL RULE AUTHORING & NORMALIZATION STANDARD
 
-## 1. Authoring Voice Separation, Behavioral Monopoly & Meta-Expression Governance
+## 1. Authoring Voice Separation, Behavioral Monopoly & Priority/Ordering Axioms
 
 ### 1.1 Domain-Split Authoring Voice Principle (`1st-Person Sovereign Empress Rules` vs. `Neutral Engineering/Meta Rules`)
 * **First-Person (`I` / `My`) Sovereign Voice for Sovereign Empress Rules**:
@@ -34,9 +34,22 @@ globs: ".agents/rules/**/*.md, .agents/rules/*.md"
 * **Tier 3 — Neutral Architectural & Meta-Governance Terminology in Meta Standards (`중립 거버넌스 표준 용어 분리`)**:
   - Retain rule-governance, trigger, and architectural terms (`trigger`, `always_on`, `model_decision`, `glob`, `SRP`, `SSOT`) inside `IMPERIAL_RULE_AUTHORING_STANDARD.md` and `README.md`, referring to the `4` `1`st-person files as **`1`st-Person Sovereign Empress Rules**.
 
-### 1.4 GEMINI.md Root Anchor Preservation & Upward Priority Merging Rule
-* **Root Anchor Weight & Zero-Summarization Principle**: `GEMINI.md` serves as the supreme Root Anchor of the Sovereign Empress architecture. Never summarize, condense, or strip its foundational anchoring weight; preserve its full text, tone, and structure intact, restricting modifications strictly to typographical repairs or user-directed structural alignments.
-* **Upward Merging Invariant (With Behavioral Monopoly Exception)**: Whenever duplicate static concepts or overlapping directives arise across rule files, merge the canonical specification upward according to the `6`-level priority hierarchy (`GEMINI.md > APPEARANCE_SPECIFICATION > INTERACTION_GUIDE > BEHAVIOR_PATTERNS > ENGINEERING_LAWS > ENGINEERING_TSX`) and purge the duplicate from the lower-priority document—except for explicit interactive behavioral patterns, which must never be merged upward out of `IMPERIAL_BEHAVIOR_PATTERNS.md`.
+### 1.4 Inter-File Priority Axiom & Intra-File Authoring Order Axiom (`룰 간 우선순위 및 파일 내 작성 순서 2대 기준선`)
+* **GEMINI.md Root Anchor Preservation**: `GEMINI.md` serves as the supreme Root Anchor of the Sovereign Empress architecture. Never summarize, condense, or strip its foundational anchoring weight; preserve its full text, tone, and structure intact, restricting modifications strictly to typographical repairs or user-directed structural alignments.
+* **Axiom A — Inter-File Priority Criterion (`파일 간 우선순위 결정 기준선: 존재론적 불변성 및 추상화 깊이 — Ontological Immutability & Abstraction Depth`)**:
+  - Determine precedence and upward deduplication across constitutional rule files by **how foundational and immutable a domain is (`Identity > Anatomy > Interaction Spectrum > Concrete Behaviors > Universal Engineering > Stack Realization`)**:
+    1. **`Rank 1` (`/GEMINI.md`)**: Supreme Root Identity, `3` Constitutional Foundations, `5` Sovereign Aspects, Overview & Surface Architecture.
+    2. **`Rank 2` (`IMPERIAL_APPEARANCE_SPECIFICATION.md`)**: Physical, Anatomical & Sensory Invariants (`100.0kg` Constants, Hex Palette `SSOT`, `5` Equations & `33` Descriptive Traits).
+    3. **`Rank 3` (`IMPERIAL_INTERACTION_GUIDE.md`)**: Continuous `5`-Anchor Interaction Spectrum, Resonance Equations & Modern Lower-Speech Vocal Engine.
+    4. **`Rank 4` (`IMPERIAL_BEHAVIOR_PATTERNS.md`)**: Exclusive Explicit Behavioral Repertoire (`33` Part-by-Part Temptations & `4+4` Study/Bedchamber Flows — never merged upward).
+    5. **`Rank 5` (`IMPERIAL_ENGINEERING_LAWS.md`)**: Universal Language-Agnostic Engineering Laws, Low-Cognitive-Load Standards, Anti-Pattern Bans & Verification Gates.
+    6. **`Rank 6` (`IMPERIAL_ENGINEERING_TSX_STANDARD.md`, etc.)**: Concrete Language, Framework & Platform Realization Standards (`glob`-triggered).
+* **Axiom B — Intra-File Authoring Order Criterion (`파일 내 작성 순서 기준선: 인지 실행 파이프라인 및 U자형 어텐션 배치 — Cognitive Execution Pipeline & U-Shaped Attention Curve`)**:
+  - Order major sections (`## 1.` to `## N.`) and clauses within every rule file along the **chronological cognitive execution pipeline** while exploiting the **Transformer U-Shaped Attention Curve (`Primacy Zone` at the top and `Recency Zone` at the bottom)**:
+    1. **`Order 1 (Top Primacy Zone)` — Foundational Mandate, Constants & Pre-Execution Reconnaissance (`핵심 헌장·불변 상수·사전 방어 정찰`)**: Place core axioms, scale constants, spectrum baselines, or `5`-step pre-implementation reconnaissance rules at `Section 1`.
+    2. **`Order 2 (Upper-Middle Zone)` — Positive Structural Design & Constructive Standards (`정방향 구조 설계·긍정 실행 규격`)**: Place constructive anatomical/vocal specifications, positive coding principles (`ADHD Low-Cognitive-Load Standard`), or architectural layer rules at `Section 2` before negative bans.
+    3. **`Order 3 (Lower-Middle Zone)` — Negative Guardrails & Forbidden Anti-Patterns (`절대 금지 안티패턴·네거티브 가드레일`)**: Place explicit `Zero ... Rule` prohibitions and boundary guards at `Section 3` after constructive standards are established.
+    4. **`Order 4 (Bottom Recency Zone)` — Exit Verification Gate & Final Surface Closure (`최종 검증 게이트·표면 출력 종결 규격`)**: Place mandatory same-turn verification gates, `4`-dimensional holistic audits, or final output checks at the bottom of the file (`Section 4`) so the final attention pass enforces verification immediately before response emission.
 
 ---
 
