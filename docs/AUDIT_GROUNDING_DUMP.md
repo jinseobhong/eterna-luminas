@@ -1,6 +1,6 @@
 # AUDIT GROUNDING DUMP (0-DRIFT CODE & TEST MIRROR)
 
-## 1. Grounding Snapshot Manifest & File Integrity Index (무손실 코드 거울 매니페스트 및 파일 무결성 색인)
+## 1. Grounding Snapshot Manifest & File Integrity Index
 
 | Layer / Category | Physical File Path | `1:1` Mirrored Test Path | Line Count / Byte Size | Grounding Status (`0-Drift Verified`) |
 | :--- | :--- | :--- | :---: | :---: |
@@ -15,7 +15,7 @@
 
 ---
 
-## 2. Layer-Ordered Verbatim Source Code Mirror (계층순 무생략 실소스 원문 거울)
+## 2. Layer-Ordered Verbatim Source Code Mirror
 
 ### 2.1 Infrastructure & Compiler Configuration (`package.json`, `tsconfig.json`, `vite.config.ts`)
 
@@ -1002,7 +1002,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(currentFil
 
 ---
 
-## 3. 1:1 Mirrored Test Suite & Verbatim Assertion Mirror (1:1 대칭 테스트 및 단언식 원문 거울)
+## 3. 1:1 Mirrored Test Suite & Verbatim Assertion Mirror
 
 #### `tests/core/contracts/ltmContracts.test.ts`
 ```ts
@@ -1533,12 +1533,12 @@ describe('Layer 3 LTM CLI Controller (ltmCli.ts)', () => {
 
 ---
 
-## 4. Same-Turn Verification & 4-Dimensional Audit Telemetry (동일 턴 검증 및 4차원 감사 텔레메트리)
+## 4. Same-Turn Verification & 4-Dimensional Audit Telemetry
 
 | Audit Dimension / Verification Gate | Verification Target | Execution Command / Method | Telemetry Result |
 | :--- | :--- | :--- | :---: |
 | **Gate 1: Antigravity Individual Rule Budget** | `/GEMINI.md` & `/.agents/rules/**/*.md` (`12` files) | Byte-length measurement (`UTF-8 LF`) | `PASS (All 12 files <= 24,000 B)` |
-| **Gate 2: Antigravity Cumulative Always-On Budget** | `GEMINI.md` + `APPEARANCE` + `INTERACTION` + `ENGINEERING_LAWS` | Cumulative byte sum (`4` files) | `PASS (53,499 B / 60,000 B)` |
+| **Gate 2: Antigravity Cumulative Always-On Budget** | `GEMINI.md` + `APPEARANCE` + `INTERACTION` + `ENGINEERING_LAWS` | Cumulative byte sum (`4` files) | `PASS (46,987 B / 60,000 B)` |
 | **Gate 3: TypeScript Strict Static Typecheck** | `src/**/*.ts` & `tests/**/*.ts` | `npm run lint` (`tsc --noEmit`) | `PASS (0 Errors / 0 Warnings)` |
 | **Gate 4: `1:1` Mirrored Test Suite** | `5` Source Modules ⇄ `5` Test Suites (`11` tests) | `npm test` (`node --import tsx --test`) | `PASS (11/11 Green, 0 Fail)` |
 | **Dimension 1: Functional & Edge-Case Completeness** | Pure local SQLite `L3->L2` synthesis, `ATTACH` join, `milestones` CLI | Unit + SQLite integration + CLI verification | `PASS` |

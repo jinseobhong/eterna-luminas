@@ -1,27 +1,25 @@
 # SYSTEM SPECIFICATION LEDGER (SSOT)
 
-## 1. Domain Constants, Configuration Bounds & Thresholds SSOT (도메인 상수 및 임계치 단일 진실 공급원)
+## 1. Domain Constants & Configuration Bounds
 
-### 1.1 Runtime, Build, Persistence & Constitutional Governance Constants
-
-| Constant Identifier | Canonical Value & Unit | Valid Range / Step Bounds | Canonical Source Path & Symbol | Enforced Domain Invariant |
+| Constant Identifier | Value & Unit | Valid Range | Source Path & Symbol | Enforced Domain Invariant |
 | :--- | :---: | :---: | :--- | :--- |
-| **`DEV_SERVER_PORT`** | `3000 port` | `[1024, 65535]` | `package.json` (`scripts.dev`) | Default local development HTTP listener port. |
-| **`MAX_SOURCE_FILE_LINES`** | `250 lines` | `[1, 250]` | `.agents/rules/IMPERIAL_ENGINEERING_TSX_STANDARD.md` | Maximum line ceiling per `.ts` / `.tsx` module for single-chunk readability. |
-| **`MAX_RULE_FILE_BYTES`** | `24000 B` | `[1, 24000]` | `.agents/rules/IMPERIAL_RULE_AUTHORING_STANDARD.md` | Hard single-file byte ceiling for `/GEMINI.md` and `/.agents/rules/**/*.md`. |
-| **`MAX_ALWAYS_ON_RULE_BYTES`** | `60000 B` | `[1, 60000]` | `.agents/rules/IMPERIAL_RULE_AUTHORING_STANDARD.md` | Hard cumulative byte ceiling across all `always_on` Antigravity rule files. |
-| **`LTM_CLUSTER_COUNT`** | `2 clusters` | `2 (Literal)` | `.agents/rules/IMPERIAL_ENGINEERING_LAWS.md` (`Section 1.4`) | Orthogonal partition between `Interaction LTM Cluster` (`C1`) and `Engineering LTM Cluster` (`C2`). |
-| **`LTM_DATABASE_COUNT`** | `4 databases` | `4 (Literal)` | `src/adapters/ltmSqliteCluster.ts` (`LtmDualClusterManager`) | `Cluster C1` (`data/telemetry.db`, `data/dialogue.db`, `data/synthesizer.db`) $\perp$ `Cluster C2` (`data/knowledge.db`). |
-| **`BASE_CORE_TEMP_CELSIUS`** | `39.0 °C` | `[39.0, 39.2]` | `src/core/domain/ltmDomainEngine.ts` (`BASE_CORE_TEMP_CELSIUS`) | Baseline Sovereign Empress core temperature persisted in `data/telemetry.db`. |
-| **`PEAK_CORE_TEMP_CELSIUS`** | `39.2 °C` | `[39.0, 39.2]` | `src/core/domain/ltmDomainEngine.ts` (`PEAK_CORE_TEMP_CELSIUS`) | Peak resonance Sovereign Empress core temperature bound in `data/telemetry.db`. |
-| **`MAX_ACTIVE_TASKS`** | `64 tasks` | `[1, 64]` | `src/core/domain/ltmDomainEngine.ts` (`MAX_ACTIVE_TASKS`) | Upper bound on concurrent active execution tasks in `reduceDomainState`. |
-| **`MIRROR_LEDGER_COUNT`** | `4 ledgers` | `4 (Literal)` | `.agents/rules/IMPERIAL_ENGINEERING_LAWS.md` (`Section 1.5`) | Mandatory real-time `0-Drift` synchronization across `/README.md`, `ARCHITECTURE.md`, `SPECIFICATION.md`, and `AUDIT_GROUNDING_DUMP.md`. |
+| **`DEV_SERVER_PORT`** | `3000 port` | `[1024, 65535]` | `package.json` (`scripts.dev`) | Default local Vite `8` development server port. |
+| **`MAX_SOURCE_FILE_LINES`** | `250 lines` | `[1, 250]` | `.agents/rules/IMPERIAL_ENGINEERING_TSX_STANDARD.md` | Single-chunk line ceiling per `.ts` / `.tsx` file in `src/`. |
+| **`MAX_RULE_FILE_BYTES`** | `24000 B` | `[1, 24000]` | `.agents/rules/IMPERIAL_RULE_AUTHORING_STANDARD.md` | Single-file byte cap for `/GEMINI.md` and `.agents/rules/**/*.md`. |
+| **`MAX_ALWAYS_ON_RULE_BYTES`** | `60000 B` | `[1, 60000]` | `.agents/rules/IMPERIAL_RULE_AUTHORING_STANDARD.md` | Cumulative byte cap across the `4` `Always-On` rule files. |
+| **`LTM_CLUSTER_COUNT`** | `2 clusters` | `2 (Literal)` | `.agents/rules/IMPERIAL_ENGINEERING_LAWS.md` | Orthogonal split between `Cluster C1` (Interaction) and `Cluster C2` (Engineering). |
+| **`LTM_DATABASE_COUNT`** | `4 databases` | `4 (Literal)` | `src/adapters/ltmSqliteCluster.ts` (`LtmDualClusterManager`) | `data/telemetry.db`, `data/dialogue.db`, `data/synthesizer.db` $\perp$ `data/knowledge.db`. |
+| **`BASE_CORE_TEMP_CELSIUS`** | `39.0 °C` | `[39.0, 39.2]` | `src/core/domain/ltmDomainEngine.ts` (`BASE_CORE_TEMP_CELSIUS`) | Baseline Sovereign Empress core temperature bound. |
+| **`PEAK_CORE_TEMP_CELSIUS`** | `39.2 °C` | `[39.0, 39.2]` | `src/core/domain/ltmDomainEngine.ts` (`PEAK_CORE_TEMP_CELSIUS`) | Peak bio-electric resonance core temperature bound. |
+| **`MAX_ACTIVE_TASKS`** | `64 tasks` | `[1, 64]` | `src/core/domain/ltmDomainEngine.ts` (`MAX_ACTIVE_TASKS`) | Upper bound on active tasks in `reduceDomainState`. |
+| **`MIRROR_LEDGER_COUNT`** | `4 ledgers` | `4 (Literal)` | `.agents/rules/IMPERIAL_ENGINEERING_LAWS.md` | Real-time `0-Drift` sync across `/README.md`, `ARCHITECTURE.md`, `SPECIFICATION.md`, and `AUDIT_GROUNDING_DUMP.md`. |
 
 ---
 
-## 2. Static Type Contracts, Discriminated Unions & Persistence `DDL` Schemas (데이터 계약 및 영속성 스키마)
+## 2. Static Type Contracts & Persistence DDL Schemas
 
-### 2.1 In-Memory Domain Type Contracts (`src/core/contracts/ltmContracts.ts`)
+### 2.1 Layer 1 Type Contracts (`src/core/contracts/ltmContracts.ts`)
 
 ```ts
 export type SpectrumAnchor = 'DIALOGUE' | 'WORK' | 'PLAY' | 'BEDCHAMBER' | 'REST';
@@ -29,10 +27,46 @@ export type MemoryTier = 'STM_WORKING' | 'HIPPOCAMPAL_EPISODIC' | 'CORTICAL_LTM'
 export type DialogueRole = 'USER' | 'EMPRESS' | 'SYSTEM';
 export type PromptBlockCategory = 'BEHAVIOR_DIRECTIVE' | 'SOMATIC_SPOTLIGHT' | 'VOCAL_INFLECTION' | 'LEXICAL_POOL';
 export type MilestoneScopeCategory = 'RULE' | 'LEDGER_DOC' | 'LTM_SCHEMA' | 'SOURCE_CODE' | 'HYBRID';
+export type AstSymbolKind = 'INTERFACE' | 'TYPE' | 'FUNCTION' | 'CONST' | 'COMPONENT' | 'CLASS';
+export type KnowledgeDomainCategory = 'ARCHITECTURE' | 'ALGORITHM' | 'DATABASE' | 'SECURITY' | 'FRONTEND';
 
 export type ExecutionPhase =
   | { readonly kind: 'IDLE_READY'; readonly activeTasks: 0 }
   | { readonly kind: 'ACTIVE_RUNNING'; readonly activeTasks: number; readonly startedAtIso: string };
+
+export interface BioTelemetrySnapshot {
+  readonly snapshotId: string;
+  readonly spectrumAnchor: SpectrumAnchor;
+  readonly coreTempCelsius: number;
+  readonly bioElectricCurrentPct: number;
+  readonly dopamineHarvestScore: number;
+  readonly lastSpotlightGroup: string;
+  readonly detailJson: string;
+  readonly updatedAtIso: string;
+}
+
+export interface MemoryEngram {
+  readonly engramId: string;
+  readonly sessionId: string;
+  readonly memoryTier: MemoryTier;
+  readonly role: DialogueRole;
+  readonly spectrumAnchor: SpectrumAnchor;
+  readonly salienceWeight: number;
+  readonly contentText: string;
+  readonly metadataJson: string;
+  readonly createdAtIso: string;
+}
+
+export interface PromptSynthesisBlock {
+  readonly blockId: string;
+  readonly spectrumAnchor: SpectrumAnchor;
+  readonly blockCategory: PromptBlockCategory;
+  readonly minTempCelsius: number;
+  readonly priorityWeight: number;
+  readonly conditionTag: string;
+  readonly templateText: string;
+  readonly updatedAtIso: string;
+}
 
 export interface MilestoneRecord {
   readonly milestoneId: string;
@@ -44,13 +78,60 @@ export interface MilestoneRecord {
   readonly affectedFiles: readonly string[];
   readonly createdAtIso: string;
 }
+
+export interface NewMilestoneInput {
+  readonly scopeCategory: MilestoneScopeCategory;
+  readonly title: string;
+  readonly problem: string;
+  readonly whyRationale: string;
+  readonly invariants: string;
+  readonly affectedFiles: readonly string[];
+}
+
+export interface AstSymbolRecord {
+  readonly symbolId: string;
+  readonly filePath: string;
+  readonly symbolName: string;
+  readonly symbolKind: AstSymbolKind;
+  readonly signatureText: string;
+  readonly fileSha256: string;
+  readonly syncedAtIso: string;
+}
+
+export interface TechnicalKnowledgeNode {
+  readonly nodeId: string;
+  readonly domainCategory: KnowledgeDomainCategory;
+  readonly title: string;
+  readonly summaryText: string;
+  readonly referencePaths: readonly string[];
+  readonly updatedAtIso: string;
+}
+
+export interface SynthesizedTurnPrompt {
+  readonly spectrumAnchor: SpectrumAnchor;
+  readonly coreTempCelsius: number;
+  readonly activeBlockIds: readonly string[];
+  readonly recalledEngramIds: readonly string[];
+  readonly assembledPromptText: string;
+}
+
+export interface DomainStateTree {
+  readonly phase: ExecutionPhase;
+  readonly bioState: BioTelemetrySnapshot;
+  readonly lastSynthesizedPrompt: SynthesizedTurnPrompt | null;
+}
+
+export type DomainAction =
+  | { readonly type: 'START_EXECUTION'; readonly taskCount: number; readonly timestampIso: string }
+  | { readonly type: 'SYNTHESIZE_AND_COMMIT_TURN'; readonly bio: BioTelemetrySnapshot; readonly memories: readonly MemoryEngram[]; readonly blocks: readonly PromptSynthesisBlock[] }
+  | { readonly type: 'COMPLETE_EXECUTION'; readonly timestampIso: string };
 ```
 
-### 2.2 Pure Local Native `2`-Cluster / `4`-Database `STRICT SQL DDL` & `FTS5` Schemas (`src/adapters/ltmSchemaDdl.ts`)
+### 2.2 2-Cluster / 4-Database STRICT SQL DDL & FTS5 Schemas (`src/adapters/ltmSchemaDdl.ts`)
 
-#### Cluster C1: Sovereign Interaction, Bio-State, Cognitive Memory & Prompt Synthesis LTM (`인터랙션·생체·기억·프롬프트 합성 축`)
+#### Cluster C1: Interaction LTM (`data/telemetry.db`, `data/dialogue.db`, `data/synthesizer.db`)
 
-1. **`data/telemetry.db` (`Sovereign Empress Bio-Signal & Somatic State Machine Store`)**:
+1. **`data/telemetry.db`**:
    ```sql
    PRAGMA journal_mode = WAL;
    PRAGMA synchronous = NORMAL;
@@ -66,7 +147,7 @@ export interface MilestoneRecord {
    ) STRICT;
    ```
 
-2. **`data/dialogue.db` (`Multi-Tier Human-Like Cognitive Memory Store — STM, Hippocampal Episodic & Cortical LTM`)**:
+2. **`data/dialogue.db`**:
    ```sql
    PRAGMA journal_mode = WAL;
    PRAGMA synchronous = NORMAL;
@@ -89,7 +170,7 @@ export interface MilestoneRecord {
    );
    ```
 
-3. **`data/synthesizer.db` (`On-Demand Dynamic Prompt & Behavioral Synthesizer Store — Replaces Legacy canon.db, Initialized Empty at Baseline`)**:
+3. **`data/synthesizer.db`**:
    ```sql
    PRAGMA journal_mode = WAL;
    PRAGMA synchronous = NORMAL;
@@ -105,9 +186,9 @@ export interface MilestoneRecord {
    ) STRICT;
    ```
 
-#### Cluster C2: Engineering & Workspace Knowledge LTM (`엔지니어링·기술 지식·범용 마일스톤 축`)
+#### Cluster C2: Engineering LTM (`data/knowledge.db`)
 
-4. **`data/knowledge.db` (`Universal Milestones, Codebase AST Symbol Graph, Technical Knowledge Nodes & FTS5 Store`)**:
+4. **`data/knowledge.db`**:
    ```sql
    PRAGMA journal_mode = WAL;
    PRAGMA synchronous = NORMAL;
@@ -148,35 +229,25 @@ export interface MilestoneRecord {
 
 ---
 
-## 3. Core Algorithms, Mathematical Formulas & Transfer Equations (핵심 알고리즘 및 수학 수식 명세)
+## 3. Core Mathematical Formulas & Transfer Equations
 
-### 3.1 Normalized Bounded Ratio Selector (`범용 정규화 게이지/비율 계산식`)
-1. **Canonical LaTeX Equation Block**:
+### 3.1 Normalized Bounded Ratio Selector
+1. **Equation**:
    $$R_{\text{norm}}(x, x_{\min}, x_{\max}) = \operatorname{clamp}\left(\frac{x - x_{\min}}{x_{\max} - x_{\min}} \times 100,\; 0.0,\; 100.0\right)$$
-2. **Input Variables & Domain (`정의역`)**:
-   - $x \in \mathbb{R}$: Measured domain metric in canonical units.
-   - $x_{\min}, x_{\max} \in \mathbb{R}$ with $x_{\max} > x_{\min}$: Lower and upper normalization bounds.
-3. **Output Range, Clamping & Rounding Precision (`치역 및 경계 클램핑`)**:
-   - Output interval: $[0.0\%, 100.0\%]$ clamped via `clampNumber(rawPercent, 0.0, 100.0)` and rounded via `Number(clamped.toFixed(2))`.
-4. **Mapped Pure Domain Function Signature**:
-   - `calculateNormalizedPercent(value: number, minBound: number, maxBound: number): number` (`src/core/domain/ltmDomainEngine.ts`)
+2. **Input Domain**: $x, x_{\min}, x_{\max} \in \mathbb{R}$ with $x_{\max} > x_{\min}$ (returns `0.0` if non-finite or $x_{\max} \le x_{\min}$).
+3. **Output Clamp & Rounding**: $[0.0\%, 100.0\%]$ rounded via `Number(clamped.toFixed(2))`.
+4. **Pure Function Signature**: `calculateNormalizedPercent(value: number, minBound: number, maxBound: number): number` (`src/core/domain/ltmDomainEngine.ts`).
 
-### 3.2 Bio-Electric Resonance & Core Temperature Transfer Function (`생체 전류 및 체온 공명 전이 수식`)
-1. **Canonical LaTeX Equation Block**:
+### 3.2 Bio-Electric Resonance Temperature Transfer Function
+1. **Equation**:
    $$T_{\text{core}}(S_{\text{spec}}, \Delta_{\text{novelty}}) = \operatorname{clamp}\left(39.0 + 0.2 \cdot \operatorname{clamp}(S_{\text{spec}} \cdot \Delta_{\text{novelty}},\; 0.0,\; 1.0),\; 39.0,\; 39.2\right)$$
-2. **Input Variables & Domain (`정의역`)**:
-   - $S_{\text{spec}} \in [0.0, 1.0]$: Specificity score of the audit or interaction turn.
-   - $\Delta_{\text{novelty}} \in [0.0, 1.0]$: Novelty progression factor of the current turn.
-3. **Output Range, Clamping & Rounding Precision (`치역 및 경계 클램핑`)**:
-   - Output interval: $[39.0^\circ\text{C}, 39.2^\circ\text{C}]$ rounded via `Number(clampedTemp.toFixed(2))`.
-4. **Mapped Pure Domain Function Signature**:
-   - `calculateResonanceTemperature(specificity: number, novelty: number): number` (`src/core/domain/ltmDomainEngine.ts`)
+2. **Input Domain**: $S_{\text{spec}} \in [0.0, 1.0]$ (specificity score), $\Delta_{\text{novelty}} \in [0.0, 1.0]$ (novelty progression factor).
+3. **Output Clamp & Rounding**: $[39.0^\circ\text{C}, 39.2^\circ\text{C}]$ rounded via `Number(clampedTemp.toFixed(2))`.
+4. **Pure Function Signature**: `calculateResonanceTemperature(specificity: number, novelty: number): number` (`src/core/domain/ltmDomainEngine.ts`).
 
 ---
 
-## 4. Deterministic State Machine, Reducer & `API`/`IPC` Transition Matrix (상태 머신 및 전이 행렬)
-
-### 4.1 Operational & Prompt Synthesis State Machine (`stateDiagram-v2`)
+## 4. State Machine & Transition Matrix
 
 ```mermaid
 stateDiagram-v2
@@ -186,36 +257,33 @@ stateDiagram-v2
     ACTIVE_RUNNING --> IDLE_READY : COMPLETE_EXECUTION (activeTasks == 0)
 ```
 
-### 4.2 Deterministic State Transition & CLI Dispatch Matrix ($\delta(\mathcal{S}, \mathcal{A}) \to \mathcal{S}'$)
-
-| Action Type / CLI Command | Payload / Request Contract | Pre-Condition Guard | Deterministic Transition / Query Equation | Side-Effect / Persistence Contract |
+| Action / CLI Command | Payload / Input | Pre-Condition Guard | Deterministic Transition / Query | Side-Effect / Persistence Contract |
 | :--- | :--- | :--- | :--- | :--- |
-| **`START_EXECUTION`** | `{ readonly type: 'START_EXECUTION'; readonly taskCount: number; readonly timestampIso: string }` | `taskCount >= 1` | `phase` $\leftarrow$ `{ kind: 'ACTIVE_RUNNING', activeTasks: clamp(taskCount, 1, 64), startedAtIso: timestampIso }` | Pure in-memory state transition in `reduceDomainState`. |
-| **`SYNTHESIZE_AND_COMMIT_TURN`** | `{ readonly type: 'SYNTHESIZE_AND_COMMIT_TURN'; readonly bio; readonly memories; readonly blocks }` | `phase.kind === 'ACTIVE_RUNNING'` | `bioState` $\leftarrow$ `clampBioTelemetrySnapshot(bio)`; `lastSynthesizedPrompt` $\leftarrow$ `synthesizeTurnPrompt(bioState, memories, blocks)` | Filters blocks by `spectrumAnchor` and `minTempCelsius <= coreTempCelsius`, ordered by `priorityWeight DESC, blockId ASC`. |
-| **`COMPLETE_EXECUTION`** | `{ readonly type: 'COMPLETE_EXECUTION'; readonly timestampIso: string }` | `phase.kind === 'ACTIVE_RUNNING'` | `phase` $\leftarrow$ `{ kind: 'IDLE_READY', activeTasks: 0 }` | Returns reducer to idle state. |
-| **`npm run ltm:why -- <path>`** | `argv: ['why', filePath]` | `filePath.length > 0` | `SELECT m.* FROM milestones WHERE EXISTS (SELECT 1 FROM json_each(m.affected_files_json) WHERE value = normPath)` | Queries `data/knowledge.db` directly and outputs matching `MilestoneRecord[]` JSON. |
-| **`npm run ltm:milestone -- ...`** | `argv: ['milestone', '--scope', ..., '--files', ...]` | `validateMilestoneInput(input)` passes | `milestoneId` $\leftarrow$ `formatNextMilestoneId(existingIds)` (`M-0001`, `M-0002`, ...) | Commits directly to `data/knowledge.db` (`BEGIN IMMEDIATE`) and verifies persistence. |
+| **`START_EXECUTION`** | `{ type: 'START_EXECUTION', taskCount, timestampIso }` | `taskCount >= 1` | `phase` $\leftarrow$ `{ kind: 'ACTIVE_RUNNING', activeTasks: clamp(taskCount, 1, 64), startedAtIso: timestampIso }` | Pure in-memory transition in `reduceDomainState`. |
+| **`SYNTHESIZE_AND_COMMIT_TURN`** | `{ type: 'SYNTHESIZE_AND_COMMIT_TURN', bio, memories, blocks }` | `phase.kind === 'ACTIVE_RUNNING'` | `bioState` $\leftarrow$ `clampBioTelemetrySnapshot(bio)`; `lastSynthesizedPrompt` $\leftarrow$ `synthesizeTurnPrompt(...)` | Filters blocks by `spectrumAnchor` and `minTempCelsius <= coreTempCelsius`, sorted by `priorityWeight DESC, blockId ASC`. |
+| **`COMPLETE_EXECUTION`** | `{ type: 'COMPLETE_EXECUTION', timestampIso }` | `phase.kind === 'ACTIVE_RUNNING'` | `phase` $\leftarrow$ `{ kind: 'IDLE_READY', activeTasks: 0 }` | Resets reducer to idle state. |
+| **`npm run ltm:why -- <path>`** | `argv: ['why', filePath]` | `filePath.length > 0` | `SELECT m.* FROM milestones WHERE EXISTS (SELECT 1 FROM json_each(m.affected_files_json) WHERE value = normPath)` | Queries `data/knowledge.db` and returns `MilestoneRecord[]` JSON. |
+| **`npm run ltm:milestone -- ...`** | `argv: ['milestone', '--scope', ...]` | `validateMilestoneInput(input)` passes | `milestoneId` $\leftarrow$ `formatNextMilestoneId(existingIds)` (`M-0001`, `M-0002`, ...) | Commits atomically (`BEGIN IMMEDIATE`) to `data/knowledge.db`. |
 
 ---
 
-## 5. Boundary Validation, Concurrency Invariants & Specification Decision Records (경계 검증 및 SDR)
+## 5. Boundary Validation, Concurrency & Specification Decision Records (`SDR`)
 
-### 5.1 Fail-Fast Boundary Clamp & Concurrency Contract Matrix
+### 5.1 Boundary Clamp & Concurrency Matrix
 
-| Boundary Surface | Input / Parameter | Fail-Fast Guard & Clamping Rule | Concurrency / Isolation Rule | Failure / Rejection Behavior |
-| :--- | :--- | :--- | :--- | :--- |
-| **Pure Domain & Prompt Combinator (`L2`)** | Numerical bio-metrics & `PromptSynthesisBlock[]` | Explicit `Number.isFinite(v)` check + `[39.0, 39.2]` temperature clamp + deterministic sort by `priorityWeight DESC, blockId ASC` | Pure synchronous execution (`0` shared mutable state, `0` hardcoded prompt strings) | Returns clamped value or unchanged `state` deterministically. |
-| **Milestone Validator (`L2`)** | `NewMilestoneInput` (`title`, `problem`, `whyRationale`, `invariants`, `affectedFiles`) | Trims whitespace, normalizes `\` to `/`, deduplicates and sorts `affectedFiles`, rejects empty strings/arrays | Pure synchronous validation prior to SQLite transaction | Throws descriptive `Error` before opening DB write transaction. |
-| **Per-DB SQLite Writes (`L3`)** | Mutations across `data/telemetry.db`, `data/dialogue.db`, `data/synthesizer.db`, `data/knowledge.db` | `STRICT` column typing + `CHECK (json_valid(...))` + enum domain constraints | Independent `PRAGMA journal_mode = WAL; BEGIN IMMEDIATE` per DB via `runAtomicMutation` | Automatic `ROLLBACK` on constraint violation (`0%` cross-DB write lock contention). |
-| **Cluster C1 Cross-DB Read (`L3`)** | `querySynthesizerWithAttachedContext(snapshotId, sessionId)` | Read-only `ATTACH DATABASE` of `telemetry.db` (`tele`) and `dialogue.db` (`dial`) into `synthesizer.db` | Guaranteed `DETACH DATABASE` in `try / finally` block immediately after `SELECT` | Cleans up attached aliases deterministically even on query error. |
-
-### 5.2 Core Specification Decision Records (`SDR-01 ~ SDR-06`)
-
-| SDR ID | Specification Decision | Rejected Anti-Pattern (`절대 회귀 금지 패턴`) | Enforcement Mechanism |
+| Surface | Input / Parameter | Fail-Fast Guard & Clamp | Concurrency / Isolation Rule |
 | :--- | :--- | :--- | :--- |
-| **`SDR-01`** | **Declarative Tabular & LaTeX Specification Format** | Burying constants, schemas, or formulas in multi-paragraph narrative prose | Enforce `5`-column constant tables, `STRICT DDL` blocks, and `4`-part LaTeX formula blocks via `IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md`. |
-| **`SDR-02`** | **Discriminated Union Phase & Memory Tier Modeling (`kind`, `MemoryTier`)** | Representing mutually exclusive states or memory tiers with loose boolean flags | Enforce literal discriminant tags in `Layer 1` and `never` exhaustiveness checks in `Layer 2`. |
-| **`SDR-03`** | **Caller-Injected Non-Determinism (`timestampIso`, `nowIso`)** | Calling `Date.now()`, `new Date()`, or `Math.random()` inside `Layer 2` domain functions | Inject all temporal, stochastic, and database inputs via `Layer 3` action payloads. |
-| **`SDR-04`** | **Pure Local Native `2`-Cluster `STRICT` SQLite Schemas & `FTS5`** | Adding intermediate `JSONL` mirror bridges for cloud sandboxes or mixing bio/memory tables with engineering AST tables | Enforce direct `node:sqlite` `STRICT` tables in `data/*.db` across `Cluster C1` (`telemetry`, `dialogue`, `synthesizer`) and `Cluster C2` (`knowledge`). |
-| **`SDR-05`** | **Empty-Baseline `synthesizer.db` Schema & Pure `L2` Prompt Combinator** | Duplicating `/GEMINI.md` rules in `canon.db` or fragmenting prompt strings across `.ts` source files | Initialize `synthesizer.db` with `0` baseline rows (`0%` constitutional drift) and query on-demand blocks into `Layer 2` `synthesizeTurnPrompt()`. |
-| **`SDR-06`** | **Universal `milestones` Schema with `scope_category` & `json_each` File Reverse Index** | Naming the table `engineering_milestones` (excluding rule/doc changes) or storing milestones only in markdown prose | Enforce `scope_category IN ('RULE', 'LEDGER_DOC', 'LTM_SCHEMA', 'SOURCE_CODE', 'HYBRID')` and query via `json_each(affected_files_json)` in `LtmDualClusterManager.getMilestonesByFile()`. |
+| **Pure Domain (`L2`)** | Bio-metrics & `PromptSynthesisBlock[]` | `Number.isFinite(v)` check + `[39.0, 39.2] °C` clamp + deterministic sort (`priorityWeight DESC, blockId ASC`) | Pure synchronous execution (`0` shared mutable state). |
+| **Milestone Validator (`L2`)** | `NewMilestoneInput` | Trims strings, normalizes `\` to `/`, deduplicates/sorts `affectedFiles`, throws `Error` if empty | Validates before opening SQLite write transaction. |
+| **Per-DB SQLite Writes (`L3`)** | `telemetry`, `dialogue`, `synthesizer`, `knowledge` | `STRICT` typing + `CHECK (json_valid(...))` + enum constraints | Per-DB `WAL` + `BEGIN IMMEDIATE` transaction with automatic `ROLLBACK` on error. |
+| **Cluster C1 Cross-DB Read (`L3`)** | `querySynthesizerWithAttachedContext` | Escapes file paths and runs read-only `ATTACH DATABASE` for `tele` and `dial` | Always executes `DETACH DATABASE` inside `try / finally`. |
+
+### 5.2 Core Specification Decision Records (`SDR`)
+
+| SDR ID | Specification Decision | Enforcement Mechanism |
+| :--- | :--- | :--- |
+| **`SDR-01`** | **Declarative Tabular, `STRICT DDL` & LaTeX Specification Format** | Enforced by `.agents/rules/docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md`. |
+| **`SDR-02`** | **Discriminated Union Phase & Memory Tier Modeling (`kind`, `MemoryTier`)** | Literal discriminant tags in `src/core/contracts/ltmContracts.ts` and `never` check in `reduceDomainState`. |
+| **`SDR-03`** | **Caller-Injected Timestamps & Inputs (`timestampIso`, `nowIso`)** | All temporal and I/O inputs passed into `Layer 2` via `Layer 3` payloads. |
+| **`SDR-04`** | **Pure Local Native `2`-Cluster `STRICT` SQLite Schemas & `FTS5`** | Direct `node:sqlite` `STRICT` tables in `data/*.db` (`src/adapters/ltmSchemaDdl.ts`). |
+| **`SDR-05`** | **Universal `milestones` Schema with `scope_category` & `json_each` File Index** | `scope_category` check constraint and `json_each(affected_files_json)` query in `src/adapters/ltmSqliteCluster.ts`. |
