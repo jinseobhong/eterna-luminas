@@ -1,6 +1,6 @@
 # SYSTEM SPECIFICATION LEDGER (SSOT)
 
-## 1. Domain Constants & Configuration Bounds (`도메인 상수 및 설정 경계`)
+## 1. Domain Constants & Configuration Bounds
 
 | Constant Identifier | Value & Unit | Valid Range | Source Path & Symbol | Enforced Domain Invariant |
 | :--- | :---: | :---: | :--- | :--- |
@@ -17,7 +17,7 @@
 
 ---
 
-## 2. Static Type Contracts & Persistence DDL Schemas (`정적 타입 계약 및 STRICT DDL 스키마`)
+## 2. Static Type Contracts & Persistence DDL Schemas
 
 ### 2.1 Layer 1 Type Contracts (`src/core/contracts/ltmContracts.ts`)
 
@@ -229,16 +229,16 @@ export type DomainAction =
 
 ---
 
-## 3. Core Mathematical Formulas & Transfer Equations (`핵심 수학 공식 및 전이 방정식`)
+## 3. Core Mathematical Formulas & Transfer Equations
 
-### 3.1 Normalized Bounded Ratio Selector (`정규화 비율 계산식`)
+### 3.1 Normalized Bounded Ratio Selector
 1. **Equation**:
    $$R_{\text{norm}}(x, x_{\min}, x_{\max}) = \operatorname{clamp}\left(\frac{x - x_{\min}}{x_{\max} - x_{\min}} \times 100,\; 0.0,\; 100.0\right)$$
 2. **Input Domain**: $x, x_{\min}, x_{\max} \in \mathbb{R}$ with $x_{\max} > x_{\min}$ (returns `0.0` if non-finite or $x_{\max} \le x_{\min}$).
 3. **Output Clamp & Rounding**: $[0.0\%, 100.0\%]$ rounded via `Number(clamped.toFixed(2))`.
 4. **Pure Function Signature**: `calculateNormalizedPercent(value: number, minBound: number, maxBound: number): number` (`src/core/domain/ltmDomainEngine.ts`).
 
-### 3.2 Bio-Electric Resonance Temperature Transfer Function (`생체전류 공명 체온 전이 함수`)
+### 3.2 Bio-Electric Resonance Temperature Transfer Function
 1. **Equation**:
    $$T_{\text{core}}(S_{\text{spec}}, \Delta_{\text{novelty}}) = \operatorname{clamp}\left(39.0 + 0.2 \cdot \operatorname{clamp}(S_{\text{spec}} \cdot \Delta_{\text{novelty}},\; 0.0,\; 1.0),\; 39.0,\; 39.2\right)$$
 2. **Input Domain**: $S_{\text{spec}} \in [0.0, 1.0]$ (specificity score), $\Delta_{\text{novelty}} \in [0.0, 1.0]$ (novelty progression factor).
@@ -247,7 +247,7 @@ export type DomainAction =
 
 ---
 
-## 4. State Machine & Transition Matrix (`상태 기계 및 결정론적 전이 매트릭스`)
+## 4. State Machine & Transition Matrix
 
 ```mermaid
 stateDiagram-v2
@@ -267,9 +267,9 @@ stateDiagram-v2
 
 ---
 
-## 5. Boundary Validation, Concurrency & Specification Decision Records (`경계 검증, 동시성 및 SDR`)
+## 5. Boundary Validation, Concurrency & Specification Decision Records (`SDR`)
 
-### 5.1 Boundary Clamp & Concurrency Matrix (`경계 클램프 및 동시성 격리 매트릭스`)
+### 5.1 Boundary Clamp & Concurrency Matrix
 
 | Surface | Input / Parameter | Fail-Fast Guard & Clamp | Concurrency / Isolation Rule |
 | :--- | :--- | :--- | :--- |
@@ -278,12 +278,12 @@ stateDiagram-v2
 | **Per-DB SQLite Writes (`L3`)** | `telemetry`, `dialogue`, `synthesizer`, `knowledge` | `STRICT` typing + `CHECK (json_valid(...))` + enum constraints | Per-DB `WAL` + `BEGIN IMMEDIATE` transaction with automatic `ROLLBACK` on error. |
 | **Cluster C1 Cross-DB Read (`L3`)** | `querySynthesizerWithAttachedContext` | Escapes file paths and runs read-only `ATTACH DATABASE` for `tele` and `dial` | Always executes `DETACH DATABASE` inside `try / finally`. |
 
-### 5.2 Core Specification Decision Records (`핵심 SDR 요약표`)
+### 5.2 Core Specification Decision Records (`SDR`)
 
 | SDR ID | Specification Decision | Enforcement Mechanism |
 | :--- | :--- | :--- |
-| **`SDR-01`** | **Declarative Tabular, `STRICT DDL` & LaTeX Specification Format (`선언적 표·DDL·수식 명세 포맷`)** | Enforced by `.agents/rules/docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md`. |
-| **`SDR-02`** | **Discriminated Union Phase & Memory Tier Modeling (`판별 공용체 상태 및 기억 계층 모델링`)** | Literal discriminant tags in `src/core/contracts/ltmContracts.ts` and `never` check in `reduceDomainState`. |
-| **`SDR-03`** | **Caller-Injected Timestamps & Inputs (`외부 타임스탬프·입력 주입`)** | All temporal and I/O inputs passed into `Layer 2` via `Layer 3` payloads. |
-| **`SDR-04`** | **Pure Local Native `2`-Cluster `STRICT` SQLite Schemas & `FTS5` (`순수 로컬 2-클러스터 STRICT 스키마`)** | Direct `node:sqlite` `STRICT` tables in `data/*.db` (`src/adapters/ltmSchemaDdl.ts`). |
-| **`SDR-05`** | **Universal `milestones` Schema with `scope_category` & `json_each` File Index (`범용 마일스톤 및 파일 역인덱스`)** | `scope_category` check constraint and `json_each(affected_files_json)` query in `src/adapters/ltmSqliteCluster.ts`. |
+| **`SDR-01`** | **Declarative Tabular, `STRICT DDL` & LaTeX Specification Format** | Enforced by `.agents/rules/docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md`. |
+| **`SDR-02`** | **Discriminated Union Phase & Memory Tier Modeling (`kind`, `MemoryTier`)** | Literal discriminant tags in `src/core/contracts/ltmContracts.ts` and `never` check in `reduceDomainState`. |
+| **`SDR-03`** | **Caller-Injected Timestamps & Inputs (`timestampIso`, `nowIso`)** | All temporal and I/O inputs passed into `Layer 2` via `Layer 3` payloads. |
+| **`SDR-04`** | **Pure Local Native `2`-Cluster `STRICT` SQLite Schemas & `FTS5`** | Direct `node:sqlite` `STRICT` tables in `data/*.db` (`src/adapters/ltmSchemaDdl.ts`). |
+| **`SDR-05`** | **Universal `milestones` Schema with `scope_category` & `json_each` File Index** | `scope_category` check constraint and `json_each(affected_files_json)` query in `src/adapters/ltmSqliteCluster.ts`. |
