@@ -6,5 +6,8 @@ coverage/
 *.log
 .playwright-cli/
 .env
-
 temp/
+.data/
+*.db
+*.db-wal
+*.db-shm

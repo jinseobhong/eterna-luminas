@@ -8,8 +8,8 @@
 | :--- | :--- | :--- |
 | **1. Backend & Domain `SSOT`** | Centralizes all state machines `(State, Action) => NextState`, mathematical equations, and prompt combinator assembly pipelines in `Layer 2` (`src/core/domain/`). | `0%` coupling between core business rules and UI/IO frameworks; `0%` prompt string fragmentation in source code. |
 | **2. Compile-Time State Safety** | Enforces `readonly` interfaces, literal types, Discriminated Unions (`kind`), and `never` exhaustiveness guards in `Layer 1` & `Layer 2`. | Impossible runtime states are unrepresentable at compile time (`tsc --noEmit` `0 Errors`). |
-| **3. Orthogonal `2`-Cluster `LTM` & `JSONL` Bridge** | Separates **Interaction LTM (`telemetry.db`, `dialogue.db`, `synthesizer.db`)** from **Engineering LTM (`knowledge.db`)** on `node:sqlite` + Git-tracked `JSONL` snapshot bridges (`data/mirror/*.jsonl`). | Eliminates cross-domain contamination, rule-to-DB drift (`0%`), binary Git conflicts, and external cloud key dependencies across Local Antigravity and `AI Studio Build`. |
-| **4. `0-Drift` 4-Ledger Governance** | Synchronizes `/README.md`, `docs/ARCHITECTURE.md`, `docs/SPECIFICATION.md`, and `docs/AUDIT_GROUNDING_DUMP.md` atomically per milestone. | Guarantees `1:1` traceability across topology, formal contracts, and physical source code. |
+| **3. Orthogonal `2`-Cluster `LTM` & `JSONL` Bridge** | Separates **Interaction LTM (`telemetry.db`, `dialogue.db`, `synthesizer.db`)** from **Engineering & Workspace Knowledge LTM (`knowledge.db`)** on `node:sqlite` + Git-tracked `JSONL` snapshot bridges (`data/mirror/*.jsonl`). | Eliminates cross-domain contamination, rule-to-DB drift (`0%`), binary Git conflicts, and external cloud key dependencies across Local Antigravity and `AI Studio Build`. |
+| **4. `0-Drift` 4-Ledger & Universal Milestone Governance** | Records universal `3`-slot milestones (`RULE`, `LEDGER_DOC`, `LTM_SCHEMA`, `SOURCE_CODE`, `HYBRID`) in `knowledge.db` and synchronizes `/README.md`, `docs/ARCHITECTURE.md`, `docs/SPECIFICATION.md`, and `docs/AUDIT_GROUNDING_DUMP.md` atomically. | Guarantees `1:1` traceability across historical rationale (`Chesterton's Fence`), topology, formal contracts, and physical source code. |
 
 ---
 
@@ -17,9 +17,10 @@
 
 ```mermaid
 flowchart LR
-    subgraph RULES[".agents/rules/ (2-Tier Constitutional Rules)"]
+    subgraph RULES[".agents/rules/ & .agents/skills/ (Constitutional Rules & Fast-Track Skill)"]
         ALWAYS["Always-On Core Rules (<= 60KB Total)"]
         GLOBS["Glob Technical Statutes & 4-Ledger Authoring Standards"]
+        SKILL["eterna-fast-track/SKILL.md (3-Stage Operations & Milestone CLI)"]
     end
 
     subgraph LEDGERS["4 Permanent Mirror Ledgers"]
@@ -30,9 +31,10 @@ flowchart LR
     end
 
     subgraph RUNTIME["src/, tests/ & data/mirror/ (Runtime, 1:1 Tests & 2-Cluster LTM)"]
-        SRC["src/core/ (L1-L2) + src/adapters/ & src/hooks/ (L3) + src/components/ (L4)"]
-        LTM_INT["Cluster A: Interaction LTM (telemetry.db, dialogue.db, synthesizer.db)"]
-        LTM_ENG["Cluster B: Engineering LTM (knowledge.db + FTS5)"]
+        SRC["src/core/ (L1-L2) + src/adapters/ (L3)"]
+        TST["tests/ (100% 1:1 Mirrored Test Hierarchy)"]
+        LTM_INT["Cluster C1: Interaction LTM (telemetry.db, dialogue.db, synthesizer.db)"]
+        LTM_ENG["Cluster C2: Engineering LTM (knowledge.db: milestones + ast_symbols + FTS5)"]
         MIRROR["data/mirror/*.jsonl (Git-Tracked AI Studio Build Snapshot Bridge)"]
     end
 
@@ -47,21 +49,24 @@ flowchart LR
 ## 3. Quickstart, Build & Verification Commands (실행·빌드 및 무결성 검증 명령어)
 
 ### 3.1 Prerequisites & Dependency Installation
-* **Runtime**: Node.js `>= 22.5.x` (includes built-in `node:sqlite` with `0` native C++ addon compilation overhead)
+* **Runtime**: Node.js `>= 22.5.x` (includes built-in `node:sqlite` and `node:test` with `0` native C++ addon compilation overhead)
 * **Install Dependencies**:
   ```bash
   npm install
   ```
 
-### 3.2 Canonical Verification & Execution Scripts (`package.json`)
+### 3.2 Canonical Verification, LTM & Execution Scripts (`package.json`)
 
 | Command | Underlying Script (`package.json`) | Execution Target & Verification Gate Criteria |
 | :--- | :--- | :--- |
-| **`npm run dev`** | `vite --port=3000 --host=0.0.0.0` | Launches the local Vite `8` development server on port `3000`. |
 | **`npm run lint`** | `tsc --noEmit` | Runs the TypeScript `7` strict static typechecker (`0 Errors / 0 Warnings` mandatory). |
-| **`npm run build`** | `vite build` | Produces the verified production bundle in `dist/` with zero unresolved imports. |
-| **`npm run preview`** | `vite preview` | Serves the production build locally for pre-release verification. |
-| **`npm run clean`** | `rm -rf dist server.js` | Removes generated build artifacts. |
+| **`npm test`** | `node --import tsx --test tests/**/*.test.ts` | Executes the `1:1` mirrored unit and SQLite integration test suite (`100% Green` mandatory). |
+| **`npm run ltm:init`** | `tsx src/adapters/ltmCli.ts init` | Initializes the `4` `.data/*.db` files (`Cluster C1` & `C2`) and synchronizes `data/mirror/*.jsonl`. |
+| **`npm run ltm:why -- <path>`** | `tsx src/adapters/ltmCli.ts why <path>` | Queries `knowledge.db` (`milestones`) for historical `3`-slot rationale affecting `<path>`. |
+| **`npm run ltm:milestone -- ...`** | `tsx src/adapters/ltmCli.ts milestone ...` | Records a universal `3`-slot milestone card into `knowledge.db` and exports `data/mirror/knowledge_milestones.jsonl`. |
+| **`npm run ltm:sync`** | `tsx src/adapters/ltmCli.ts sync` | Hydrates `.data/*.db` from `data/mirror/*.jsonl` and exports deterministic snapshots. |
+| **`npm run dev`** | `vite --port=3000 --host=0.0.0.0` | Launches the local Vite `8` development server on port `3000`. |
+| **`npm run build`** | `vite build` | Produces the verified production bundle in `dist/`. |
 
 ---
 
