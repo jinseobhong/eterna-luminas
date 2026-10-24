@@ -1,6 +1,6 @@
 ---
 trigger: glob
-description: "Load when creating, modifying, deduplicating, normalizing, or auditing any constitutional rule file (.md) in GEMINI.md or .agents/rules/."
+description: "Governs constitutional rule authoring: domain-split voice (1st-person vs. neutral), Axioms A/B ordering, inline backtick path anchors, frontmatter best practices, and 24KB/60KB caps. Load when creating, editing, or auditing GEMINI.md or .agents/rules/**/*.md."
 globs: ".agents/rules/**/*.md, .agents/rules/*.md"
 ---
 
@@ -73,8 +73,9 @@ globs: ".agents/rules/**/*.md, .agents/rules/*.md"
 
 ## 3. Header Structure, Antigravity Rule Byte Caps & Authoring Normalization Standard
 
-### 3.1 YAML Frontmatter Normalization
+### 3.1 YAML Frontmatter & Progressive-Disclosure `description` Normalization
 * Start every rule file inside `/.agents/rules/` and its subdirectories (such as `/.agents/rules/docs/`) at Line `1` with a standard YAML frontmatter block delimited by `---`, specifying either `trigger: always_on`, `trigger: model_decision`, or `trigger: glob` with `globs: "..."`, followed by a concise single-line quoted `description: "..."`.
+* Structure every rule and skill `description` using Antigravity's progressive-disclosure best practice (`[What it governs/does] + [When/Under what conditions to load or activate it]`): use `1`st-person (`My`) for Sovereign Empress rule descriptions and `3`rd-person for engineering/meta rules and skills.
 * Omit YAML frontmatter in the root `GEMINI.md` file and begin directly with its H1 header.
 
 ### 3.2 Markdown Header Hierarchy & Casing Normalization

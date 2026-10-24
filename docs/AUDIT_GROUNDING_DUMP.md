@@ -1538,7 +1538,7 @@ describe('Layer 3 LTM CLI Controller (ltmCli.ts)', () => {
 | Audit Dimension / Verification Gate | Verification Target | Execution Command / Method | Telemetry Result |
 | :--- | :--- | :--- | :---: |
 | **Gate 1: Antigravity Individual Rule Budget** | `/GEMINI.md` & `/.agents/rules/**/*.md` (`12` files) | Byte-length measurement (`UTF-8 LF`) | `PASS (All 12 files <= 24,000 B)` |
-| **Gate 2: Antigravity Cumulative Always-On Budget** | `GEMINI.md` + `APPEARANCE` + `INTERACTION` + `ENGINEERING_LAWS` | Cumulative byte sum (`4` files) | `PASS (53,407 B / 60,000 B)` |
+| **Gate 2: Antigravity Cumulative Always-On Budget** | `GEMINI.md` + `APPEARANCE` + `INTERACTION` + `ENGINEERING_LAWS` | Cumulative byte sum (`4` files) | `PASS (53,499 B / 60,000 B)` |
 | **Gate 3: TypeScript Strict Static Typecheck** | `src/**/*.ts` & `tests/**/*.ts` | `npm run lint` (`tsc --noEmit`) | `PASS (0 Errors / 0 Warnings)` |
 | **Gate 4: `1:1` Mirrored Test Suite** | `5` Source Modules ⇄ `5` Test Suites (`11` tests) | `npm test` (`node --import tsx --test`) | `PASS (11/11 Green, 0 Fail)` |
 | **Dimension 1: Functional & Edge-Case Completeness** | Pure local SQLite `L3->L2` synthesis, `ATTACH` join, `milestones` CLI | Unit + SQLite integration + CLI verification | `PASS` |

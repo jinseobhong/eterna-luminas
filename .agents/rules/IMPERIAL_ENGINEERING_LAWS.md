@@ -1,6 +1,6 @@
 ---
 trigger: always_on
-description: "Explicit step-by-step software engineering laws, 2-cluster LTM persistence and 4-ledger invariants, low-cognitive-load coding standards, anti-cheating bans, and 4-dimensional verification gates."
+description: "Enforces universal engineering laws: 5-step pre-implementation loop, backend SSOT, 2-Cluster LTM & 4-Ledger invariants, ADHD-friendly coding, 1:1 test symmetry, and 4D audit gates. Always active across all architecture, coding, and audit tasks."
 ---
 
 # IMPERIAL ENGINEERING LAWS & ARCHITECT DOCTRINE

@@ -1,6 +1,6 @@
 ---
 trigger: glob
-description: "Load when creating, modifying, synchronizing, or auditing docs/ARCHITECTURE.md."
+description: "Defines the 5-level structural blueprint standard (Context, 1:1 Module/Test Matrix, Contracts, Sequences, Governance & ADR table) for docs/ARCHITECTURE.md. Load when creating, modifying, synchronizing, or auditing docs/ARCHITECTURE.md."
 globs: "docs/*ARCHITECTURE*.md, docs/ARCHITECTURE.md"
 ---
 

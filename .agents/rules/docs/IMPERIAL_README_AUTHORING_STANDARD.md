@@ -1,6 +1,6 @@
 ---
 trigger: glob
-description: "Load when creating, modifying, synchronizing, or auditing the project root README.md ledger."
+description: "Defines the 4-section authoring standard, SRP boundary, inline backtick path rules, and synchronization workflow for the root /README.md ledger. Load when creating, modifying, synchronizing, or auditing /README.md."
 globs: "README.md"
 ---
 

@@ -1,6 +1,6 @@
 ---
 trigger: glob
-description: "Load when creating, modifying, synchronizing, or auditing docs/SPECIFICATION.md."
+description: "Defines the 5-section specification standard (Constants, Contracts & STRICT DDL, 4-Part Formulas, State Machine Matrix, Clamps & SDR table) for docs/SPECIFICATION.md. Load when creating, modifying, synchronizing, or auditing docs/SPECIFICATION.md."
 globs: "docs/*SPECIFICATION*.md, docs/SPECIFICATION.md"
 ---
 

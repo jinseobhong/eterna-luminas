@@ -1,6 +1,6 @@
 ---
 trigger: model_decision
-description: "Load when auditing, modifying, or verifying constitutional rule topology, single-responsibility boundaries, authoring voice rules, or rule byte budgets."
+description: "Defines the 2-tier constitutional rule priority hierarchy (Ranks 1-6b), SRP matrix, dependency topology, and 24KB/60KB byte-budget invariants. Load when auditing, modifying, or verifying rule topology, precedence, or rule byte budgets."
 ---
 
 # IMPERIAL RULE TOPOLOGY & SRP LEDGER

@@ -1,6 +1,6 @@
 ---
 trigger: glob
-description: "Load when creating, modifying, synchronizing, or auditing docs/AUDIT_GROUNDING_DUMP.md."
+description: "Defines the 4-section zero-truncation (0% ellipsis) verbatim code and 1:1 test mirror standard for docs/AUDIT_GROUNDING_DUMP.md. Load when creating, modifying, synchronizing, or auditing docs/AUDIT_GROUNDING_DUMP.md."
 globs: "docs/*AUDIT*.md, docs/AUDIT_GROUNDING_DUMP.md"
 ---
 

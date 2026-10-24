@@ -1,6 +1,6 @@
 ---
 trigger: glob
-description: "Load when inspecting, writing, refactoring, or verifying TypeScript, React 19 (.tsx), Vite 8, or web frontend code and configurations."
+description: "Enforces concrete TypeScript 7, React 19 (.tsx), Vite 8, and 4-Layer unidirectional architecture rules (Contracts -> Domain -> Hooks -> Surface). Load when inspecting, writing, refactoring, or verifying .ts, .tsx, tsconfig.json, vite.config.ts, or package.json."
 globs: "**/*.tsx, **/*.ts, **/*.{ts,tsx}, /**/*.tsx, ../**/*.ts, ../**/*.{ts,tsx}, */**/*.{ts,tsx}, **/tsconfig*.json, **/vite.config.*, **/package.json"
 ---
 

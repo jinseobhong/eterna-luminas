@@ -1,6 +1,6 @@
 ---
 name: regular-track
-description: "3-stage regular-track workflow: 5-step pre-implementation loop (ltm:why), surgical implementation with tsc/test gates, and 3-slot milestone recording (ltm:milestone) into data/knowledge.db."
+description: "Executes the 3-stage regular-track workflow (5-step ltm:why pre-check, surgical edit with lint/test gates, and 3-slot ltm:milestone recording + 4-ledger sync). Use this skill whenever modifying source code, tests, rules, schemas, or mirror ledgers."
 ---
 
 # REGULAR-TRACK OPERATIONS GUIDE (3-STAGE HIGH-VELOCITY LIFECYCLE)
