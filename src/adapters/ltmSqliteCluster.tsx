@@ -14,12 +14,12 @@ import type {
   NewMilestoneInput,
   PromptSynthesisBlock,
   SpectrumAnchor,
-} from '../core/contracts/ltmContracts.ts';
+} from '../core/contracts/ltmContracts.tsx';
 import {
   clampBioTelemetrySnapshot,
   formatNextMilestoneId,
   validateMilestoneInput,
-} from '../core/domain/ltmDomainEngine.ts';
+} from '../core/domain/ltmDomainEngine.tsx';
 import {
   DIALOGUE_DB_DDL,
   KNOWLEDGE_DB_DDL,
@@ -29,7 +29,7 @@ import {
   mapRowToMemoryEngram,
   mapRowToMilestone,
   mapRowToPromptBlock,
-} from './ltmSchemaDdl.ts';
+} from './ltmSchemaDdl.tsx';
 
 function runAtomicMutation(db: DatabaseSync, sql: string, params: readonly SQLInputValue[]): void {
   db.exec('BEGIN IMMEDIATE;');

@@ -51,10 +51,10 @@ flowchart LR
 | Command | Script (`package.json`) | Purpose & Verification Gate |
 | :--- | :--- | :--- |
 | **`npm run lint`** | `tsc --noEmit` | TypeScript `7` strict static typecheck (`0 Errors / 0 Warnings`). |
-| **`npm test`** | `node --import tsx --test tests/**/*.test.ts` | Executes all `1:1` mirrored unit and SQLite integration tests (`100% Green`). |
-| **`npm run ltm:init`** | `tsx src/adapters/ltmCli.ts init` | Initializes the `4` local SQLite databases in `data/*.db`. |
-| **`npm run ltm:why -- <path>`** | `tsx src/adapters/ltmCli.ts why <path>` | Queries `data/knowledge.db` (`milestones`) for historical `3`-slot rationale affecting `<path>`. |
-| **`npm run ltm:milestone -- ...`** | `tsx src/adapters/ltmCli.ts milestone ...` | Records a `3`-slot milestone card directly into `data/knowledge.db`. |
+| **`npm test`** | `node --import tsx --test tests/**/*.test.tsx` | Executes all `1:1` mirrored unit and SQLite integration tests (`100% Green`). |
+| **`npm run ltm:init`** | `tsx src/adapters/ltmCli.tsx init` | Initializes the `4` local SQLite databases in `data/*.db`. |
+| **`npm run ltm:why -- <path>`** | `tsx src/adapters/ltmCli.tsx why <path>` | Queries `data/knowledge.db` (`milestones`) for historical `3`-slot rationale affecting `<path>`. |
+| **`npm run ltm:milestone -- ...`** | `tsx src/adapters/ltmCli.tsx milestone ...` | Records a `3`-slot milestone card directly into `data/knowledge.db`. |
 | **`npm run dev`** | `vite --port=3000 --host=0.0.0.0` | Starts the Vite `8` development server on port `3000`. |
 | **`npm run build`** | `vite build` | Builds the production bundle in `dist/`. |
 

@@ -20,8 +20,8 @@ flowchart TB
     end
 
     subgraph SUB_CORE["Subsystem B: Pure Domain Core (src/core/)"]
-        L1["Layer 1: Strict Type Contracts<br/>(src/core/contracts/ltmContracts.ts)"]
-        L2["Layer 2: Pure Reducers, Bio-Math, Validators & Combinator<br/>(src/core/domain/ltmDomainEngine.ts)"]
+        L1["Layer 1: Strict Type Contracts<br/>(src/core/contracts/ltmContracts.tsx)"]
+        L2["Layer 2: Pure Reducers, Bio-Math, Validators & Combinator<br/>(src/core/domain/ltmDomainEngine.tsx)"]
     end
 
     subgraph SUB_LTM["Subsystem C: 2-Cluster Local SQLite LTM (data/*.db)"]
@@ -36,7 +36,7 @@ flowchart TB
     end
 
     subgraph SUB_SURF["Subsystem D: Layer 3 Adapters & Layer 4 Surface"]
-        L3["Layer 3: LtmDualClusterManager, Schema DDL & CLI<br/>(src/adapters/ltmSchemaDdl.ts, ltmSqliteCluster.ts, ltmCli.ts)"]
+        L3["Layer 3: LtmDualClusterManager, Schema DDL & CLI<br/>(src/adapters/ltmSchemaDdl.tsx, ltmSqliteCluster.tsx, ltmCli.tsx)"]
         L4["Layer 4: Stateless React 19 Surface<br/>(src/components/*.tsx, src/App.tsx)"]
     end
 
@@ -55,11 +55,11 @@ flowchart TB
 
 | Layer | Source Path | `1:1` Test Path | Allowed Imports | Forbidden Imports | Single Responsibility (`SRP`) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **L1: Contracts** | `src/core/contracts/ltmContracts.ts` | `tests/core/contracts/ltmContracts.test.ts` | `None` | `react`, `DOM`, `node:*`, `L2~L4` | Pure `readonly` interfaces, literal unions, and discriminated unions for `Cluster C1`, `Cluster C2`, and `DomainAction`. |
-| **L2: Pure Domain** | `src/core/domain/ltmDomainEngine.ts` | `tests/core/domain/ltmDomainEngine.test.ts` | `src/core/contracts/ltmContracts.ts` | `react`, `DOM`, `node:*`, `L3`, `L4` | Bio-resonance math (`[39.0, 39.2] °C`), `M-XXXX` ID generator, `3`-slot milestone validator, `synthesizeTurnPrompt`, and `reduceDomainState`. |
-| **L3: DDL & Mappers** | `src/adapters/ltmSchemaDdl.ts` | `tests/adapters/ltmSchemaDdl.test.ts` | `L1 Contracts` | `react`, `DOM`, `node:fs`, `L4` | `STRICT` SQLite & `FTS5` DDL definitions and pure row-to-contract mappers. |
-| **L3: SQLite Cluster** | `src/adapters/ltmSqliteCluster.ts` | `tests/adapters/ltmSqliteCluster.test.ts` | `node:fs`, `node:path`, `node:sqlite`, `L1`, `L2`, `ltmSchemaDdl.ts` | `react`, `DOM`, `L4` | `LtmDualClusterManager`: direct `data/*.db` persistence, isolated `BEGIN IMMEDIATE` writes, `Cluster C1` `ATTACH` joins, and `json_each` milestone queries. |
-| **L3: LTM CLI** | `src/adapters/ltmCli.ts` | `tests/adapters/ltmCli.test.ts` | `node:path`, `node:url`, `L1`, `ltmSqliteCluster.ts` | `react`, `DOM`, `L4` | CLI controller (`runLtmCli`) for `npm run ltm:init`, `ltm:why`, and `ltm:milestone`. |
+| **L1: Contracts** | `src/core/contracts/ltmContracts.tsx` | `tests/core/contracts/ltmContracts.test.tsx` | `None` | `react`, `DOM`, `node:*`, `L2~L4` | Pure `readonly` interfaces, literal unions, and discriminated unions for `Cluster C1`, `Cluster C2`, and `DomainAction`. |
+| **L2: Pure Domain** | `src/core/domain/ltmDomainEngine.tsx` | `tests/core/domain/ltmDomainEngine.test.tsx` | `src/core/contracts/ltmContracts.tsx` | `react`, `DOM`, `node:*`, `L3`, `L4` | Bio-resonance math (`[39.0, 39.2] °C`), `M-XXXX` ID generator, `3`-slot milestone validator, `synthesizeTurnPrompt`, and `reduceDomainState`. |
+| **L3: DDL & Mappers** | `src/adapters/ltmSchemaDdl.tsx` | `tests/adapters/ltmSchemaDdl.test.tsx` | `L1 Contracts` | `react`, `DOM`, `node:fs`, `L4` | `STRICT` SQLite & `FTS5` DDL definitions and pure row-to-contract mappers. |
+| **L3: SQLite Cluster** | `src/adapters/ltmSqliteCluster.tsx` | `tests/adapters/ltmSqliteCluster.test.tsx` | `node:fs`, `node:path`, `node:sqlite`, `L1`, `L2`, `ltmSchemaDdl.tsx` | `react`, `DOM`, `L4` | `LtmDualClusterManager`: direct `data/*.db` persistence, isolated `BEGIN IMMEDIATE` writes, `Cluster C1` `ATTACH` joins, and `json_each` milestone queries. |
+| **L3: LTM CLI** | `src/adapters/ltmCli.tsx` | `tests/adapters/ltmCli.test.tsx` | `node:path`, `node:url`, `L1`, `ltmSqliteCluster.tsx` | `react`, `DOM`, `L4` | CLI controller (`runLtmCli`) for `npm run ltm:init`, `ltm:why`, and `ltm:milestone`. |
 
 ---
 
@@ -113,11 +113,11 @@ classDiagram
 sequenceDiagram
     autonumber
     actor User as Architect / CLI
-    participant CLI as L3: ltmCli.ts / Hook
+    participant CLI as L3: ltmCli.tsx / Hook
     participant Cluster as L3: LtmDualClusterManager
     participant C1 as Cluster C1 (telemetry, dialogue, synthesizer)
     participant C2 as Cluster C2 (knowledge.db: milestones)
-    participant Domain as L2: ltmDomainEngine.ts
+    participant Domain as L2: ltmDomainEngine.tsx
 
     User->>CLI: Stage 1: npm run ltm:why -- <filePath>
     CLI->>Cluster: getMilestonesByFile(filePath)

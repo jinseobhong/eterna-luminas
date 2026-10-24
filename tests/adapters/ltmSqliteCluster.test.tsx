@@ -9,7 +9,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { describe, it } from 'node:test';
-import { LtmDualClusterManager } from '../../src/adapters/ltmSqliteCluster.ts';
+import { LtmDualClusterManager } from '../../src/adapters/ltmSqliteCluster.tsx';
 
 describe('Layer 3 Pure Local Native Dual-Cluster SQLite LTM (ltmSqliteCluster.ts)', () => {
   it('supports L3->L2 sequential queries and ATTACH DATABASE cross-DB joins across Cluster C1', () => {

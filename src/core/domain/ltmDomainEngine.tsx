@@ -12,7 +12,7 @@ import type {
   NewMilestoneInput,
   PromptSynthesisBlock,
   SynthesizedTurnPrompt,
-} from '../contracts/ltmContracts.ts';
+} from '../contracts/ltmContracts.tsx';
 
 export const BASE_CORE_TEMP_CELSIUS = 39.0;
 export const PEAK_CORE_TEMP_CELSIUS = 39.2;

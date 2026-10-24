@@ -13,7 +13,7 @@ import type {
   MemoryEngram,
   MilestoneRecord,
   PromptSynthesisBlock,
-} from '../../../src/core/contracts/ltmContracts.ts';
+} from '../../../src/core/contracts/ltmContracts.tsx';
 
 describe('Layer 1 LTM Contracts (ltmContracts.ts)', () => {
   it('enforces discriminated union invariants on ExecutionPhase', () => {
@@ -75,7 +75,7 @@ describe('Layer 1 LTM Contracts (ltmContracts.ts)', () => {
       problem: 'Legacy 4-LTM lacked SoC and caused canon.db rule drift',
       whyRationale: 'Separated Interaction vs Engineering LTM and replaced canon.db with synthesizer.db',
       invariants: 'Zero constitutional DB duplication and 1:1 test symmetry',
-      affectedFiles: ['src/core/contracts/ltmContracts.ts'],
+      affectedFiles: ['src/core/contracts/ltmContracts.tsx'],
       createdAtIso: '2026-10-24T10:00:00.000Z',
     };
 

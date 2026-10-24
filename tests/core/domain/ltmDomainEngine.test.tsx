@@ -11,7 +11,7 @@ import type {
   DomainStateTree,
   MemoryEngram,
   PromptSynthesisBlock,
-} from '../../../src/core/contracts/ltmContracts.ts';
+} from '../../../src/core/contracts/ltmContracts.tsx';
 import {
   calculateNormalizedPercent,
   calculateResonanceTemperature,
@@ -19,7 +19,7 @@ import {
   reduceDomainState,
   synthesizeTurnPrompt,
   validateMilestoneInput,
-} from '../../../src/core/domain/ltmDomainEngine.ts';
+} from '../../../src/core/domain/ltmDomainEngine.tsx';
 
 describe('Layer 2 Pure Domain Engine (ltmDomainEngine.ts)', () => {
   it('calculates normalized percentage and clamps out-of-range or NaN inputs', () => {

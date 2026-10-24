@@ -15,7 +15,7 @@ import {
   mapRowToMemoryEngram,
   mapRowToMilestone,
   mapRowToPromptBlock,
-} from '../../src/adapters/ltmSchemaDdl.ts';
+} from '../../src/adapters/ltmSchemaDdl.tsx';
 
 describe('Layer 3 LTM Schema DDL & Row Mappers (ltmSchemaDdl.ts)', () => {
   it('defines STRICT tables and WAL pragmas across all 4 LTM DDL strings', () => {

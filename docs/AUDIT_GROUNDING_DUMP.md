@@ -7,11 +7,11 @@
 | **Build & Package Manifest** | `package.json` | `npm run lint` / `npm test` | `40 Lines` (`1278 B`) | `VERIFIED (0-Drift)` |
 | **TypeScript Compiler Gate** | `tsconfig.json` | `npm run lint` (`tsc --noEmit`) | `32 Lines` (`689 B`) | `VERIFIED (0-Drift)` |
 | **Vite 8 Bundler Config** | `vite.config.ts` | `npm run build` (`vite build`) | `15 Lines` (`344 B`) | `VERIFIED (0-Drift)` |
-| **L1: Strict Contracts** | `src/core/contracts/ltmContracts.ts` | `tests/core/contracts/ltmContracts.test.ts` | `154 Lines` (`4193 B`) / `95 Lines` (`3223 B`) | `VERIFIED (0-Drift)` |
-| **L2: Pure Domain Engine** | `src/core/domain/ltmDomainEngine.ts` | `tests/core/domain/ltmDomainEngine.test.ts` | `213 Lines` (`6572 B`) / `164 Lines` (`5719 B`) | `VERIFIED (0-Drift)` |
-| **L3: Schema DDL & Mappers** | `src/adapters/ltmSchemaDdl.ts` | `tests/adapters/ltmSchemaDdl.test.ts` | `161 Lines` (`6894 B`) / `83 Lines` (`2986 B`) | `VERIFIED (0-Drift)` |
-| **L3: 2-Cluster SQLite LTM** | `src/adapters/ltmSqliteCluster.ts` | `tests/adapters/ltmSqliteCluster.test.ts` | `211 Lines` (`8389 B`) / `102 Lines` (`3915 B`) | `VERIFIED (0-Drift)` |
-| **L3: Pure Local LTM CLI** | `src/adapters/ltmCli.ts` | `tests/adapters/ltmCli.test.ts` | `117 Lines` (`3713 B`) / `63 Lines` (`2298 B`) | `VERIFIED (0-Drift)` |
+| **L1: Strict Contracts** | `src/core/contracts/ltmContracts.tsx` | `tests/core/contracts/ltmContracts.test.tsxx` | `154 Lines` (`4193 B`) / `95 Lines` (`3224 B`) | `VERIFIED (0-Drift)` |
+| **L2: Pure Domain Engine** | `src/core/domain/ltmDomainEngine.tsx` | `tests/core/domain/ltmDomainEngine.test.tsxx` | `213 Lines` (`6573 B`) / `164 Lines` (`5721 B`) | `VERIFIED (0-Drift)` |
+| **L3: Schema DDL & Mappers** | `src/adapters/ltmSchemaDdl.tsx` | `tests/adapters/ltmSchemaDdl.test.tsxx` | `161 Lines` (`6895 B`) / `83 Lines` (`2987 B`) | `VERIFIED (0-Drift)` |
+| **L3: 2-Cluster SQLite LTM** | `src/adapters/ltmSqliteCluster.tsx` | `tests/adapters/ltmSqliteCluster.test.tsxx` | `211 Lines` (`8392 B`) / `102 Lines` (`3916 B`) | `VERIFIED (0-Drift)` |
+| **L3: Pure Local LTM CLI** | `src/adapters/ltmCli.tsx` | `tests/adapters/ltmCli.test.tsxx` | `117 Lines` (`3715 B`) / `63 Lines` (`2300 B`) | `VERIFIED (0-Drift)` |
 
 ---
 
@@ -32,10 +32,10 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
-    "test": "node --import tsx --test tests/core/contracts/ltmContracts.test.ts tests/core/domain/ltmDomainEngine.test.ts tests/adapters/ltmSchemaDdl.test.ts tests/adapters/ltmSqliteCluster.test.ts tests/adapters/ltmCli.test.ts",
-    "ltm:init": "tsx src/adapters/ltmCli.ts init",
-    "ltm:why": "tsx src/adapters/ltmCli.ts why",
-    "ltm:milestone": "tsx src/adapters/ltmCli.ts milestone"
+    "test": "node --import tsx --test tests/core/contracts/ltmContracts.test.tsxx tests/core/domain/ltmDomainEngine.test.tsxx tests/adapters/ltmSchemaDdl.test.tsxx tests/adapters/ltmSqliteCluster.test.tsxx tests/adapters/ltmCli.test.tsxx",
+    "ltm:init": "tsx src/adapters/ltmCli.tsx init",
+    "ltm:why": "tsx src/adapters/ltmCli.tsx why",
+    "ltm:milestone": "tsx src/adapters/ltmCli.tsx milestone"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
@@ -118,9 +118,9 @@ export default defineConfig(() => {
 });
 ```
 
-### 2.2 Layer 1 — Strict Contracts (`src/core/contracts/ltmContracts.ts`)
+### 2.2 Layer 1 — Strict Contracts (`src/core/contracts/ltmContracts.tsx`)
 
-#### `src/core/contracts/ltmContracts.ts`
+#### `src/core/contracts/ltmContracts.tsx`
 ```ts
 /**
  * Purpose: Canonical Layer 1 read-only type contracts for the 2-Cluster LTM architecture.
@@ -278,9 +278,9 @@ export type DomainAction =
     };
 ```
 
-### 2.3 Layer 2 — Pure Domain Engine (`src/core/domain/ltmDomainEngine.ts`)
+### 2.3 Layer 2 — Pure Domain Engine (`src/core/domain/ltmDomainEngine.tsx`)
 
-#### `src/core/domain/ltmDomainEngine.ts`
+#### `src/core/domain/ltmDomainEngine.tsx`
 ```ts
 /**
  * Purpose: Layer 2 pure domain engine, bio-resonance math, milestone validator, and prompt combinator.
@@ -296,7 +296,7 @@ import type {
   NewMilestoneInput,
   PromptSynthesisBlock,
   SynthesizedTurnPrompt,
-} from '../contracts/ltmContracts.ts';
+} from '../contracts/ltmContracts.tsx';
 
 export const BASE_CORE_TEMP_CELSIUS = 39.0;
 export const PEAK_CORE_TEMP_CELSIUS = 39.2;
@@ -497,9 +497,9 @@ export function reduceDomainState(
 }
 ```
 
-### 2.4 Layer 3 — Pure Local Native 2-Cluster SQLite LTM Adapters (`ltmSchemaDdl.ts`, `ltmSqliteCluster.ts`, `ltmCli.ts`)
+### 2.4 Layer 3 — Pure Local Native 2-Cluster SQLite LTM Adapters (`ltmSchemaDdl.tsx`, `ltmSqliteCluster.tsx`, `ltmCli.tsx`)
 
-#### `src/adapters/ltmSchemaDdl.ts`
+#### `src/adapters/ltmSchemaDdl.tsx`
 ```ts
 /**
  * Purpose: Canonical SQLite STRICT DDL definitions and row mappers for the 2-Cluster LTM databases.
@@ -517,7 +517,7 @@ import type {
   PromptBlockCategory,
   PromptSynthesisBlock,
   SpectrumAnchor,
-} from '../core/contracts/ltmContracts.ts';
+} from '../core/contracts/ltmContracts.tsx';
 
 export const TELEMETRY_DB_DDL = `
 PRAGMA journal_mode = WAL;
@@ -664,7 +664,7 @@ export function mapRowToMilestone(row: Record<string, unknown>): MilestoneRecord
 }
 ```
 
-#### `src/adapters/ltmSqliteCluster.ts`
+#### `src/adapters/ltmSqliteCluster.tsx`
 ```ts
 /**
  * Purpose: Layer 3 pure local native 2-Cluster SQLite LTM persistence manager.
@@ -682,12 +682,12 @@ import type {
   NewMilestoneInput,
   PromptSynthesisBlock,
   SpectrumAnchor,
-} from '../core/contracts/ltmContracts.ts';
+} from '../core/contracts/ltmContracts.tsx';
 import {
   clampBioTelemetrySnapshot,
   formatNextMilestoneId,
   validateMilestoneInput,
-} from '../core/domain/ltmDomainEngine.ts';
+} from '../core/domain/ltmDomainEngine.tsx';
 import {
   DIALOGUE_DB_DDL,
   KNOWLEDGE_DB_DDL,
@@ -697,7 +697,7 @@ import {
   mapRowToMemoryEngram,
   mapRowToMilestone,
   mapRowToPromptBlock,
-} from './ltmSchemaDdl.ts';
+} from './ltmSchemaDdl.tsx';
 
 function runAtomicMutation(db: DatabaseSync, sql: string, params: readonly SQLInputValue[]): void {
   db.exec('BEGIN IMMEDIATE;');
@@ -879,7 +879,7 @@ export class LtmDualClusterManager {
 }
 ```
 
-#### `src/adapters/ltmCli.ts`
+#### `src/adapters/ltmCli.tsx`
 ```ts
 /**
  * Purpose: Layer 3 CLI controller for pure local native 2-Cluster LTM initialization and milestone management.
@@ -889,8 +889,8 @@ export class LtmDualClusterManager {
 
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { MilestoneScopeCategory } from '../core/contracts/ltmContracts.ts';
-import { LtmDualClusterManager } from './ltmSqliteCluster.ts';
+import type { MilestoneScopeCategory } from '../core/contracts/ltmContracts.tsx';
+import { LtmDualClusterManager } from './ltmSqliteCluster.tsx';
 
 const VALID_SCOPES: readonly MilestoneScopeCategory[] = [
   'RULE',
@@ -1004,10 +1004,10 @@ if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(currentFil
 
 ## 3. 1:1 Mirrored Test Suite & Verbatim Assertion Mirror
 
-#### `tests/core/contracts/ltmContracts.test.ts`
+#### `tests/core/contracts/ltmContracts.test.tsx`
 ```ts
 /**
- * Purpose: 1:1 mirrored contract verification test suite for src/core/contracts/ltmContracts.ts.
+ * Purpose: 1:1 mirrored contract verification test suite for src/core/contracts/ltmContracts.tsx.
  * Scope: Verifies structural discriminants, literal union constraints, and immutable contract shapes.
  * Constraints: Uses Node built-in test runner and strict assertions.
  */
@@ -1021,9 +1021,9 @@ import type {
   MemoryEngram,
   MilestoneRecord,
   PromptSynthesisBlock,
-} from '../../../src/core/contracts/ltmContracts.ts';
+} from '../../../src/core/contracts/ltmContracts.tsx';
 
-describe('Layer 1 LTM Contracts (ltmContracts.ts)', () => {
+describe('Layer 1 LTM Contracts (ltmContracts.tsx)', () => {
   it('enforces discriminated union invariants on ExecutionPhase', () => {
     const idlePhase: ExecutionPhase = {
       kind: 'IDLE_READY',
@@ -1083,7 +1083,7 @@ describe('Layer 1 LTM Contracts (ltmContracts.ts)', () => {
       problem: 'Legacy 4-LTM lacked SoC and caused canon.db rule drift',
       whyRationale: 'Separated Interaction vs Engineering LTM and replaced canon.db with synthesizer.db',
       invariants: 'Zero constitutional DB duplication and 1:1 test symmetry',
-      affectedFiles: ['src/core/contracts/ltmContracts.ts'],
+      affectedFiles: ['src/core/contracts/ltmContracts.tsx'],
       createdAtIso: '2026-10-24T10:00:00.000Z',
     };
 
@@ -1103,10 +1103,10 @@ describe('Layer 1 LTM Contracts (ltmContracts.ts)', () => {
 });
 ```
 
-#### `tests/core/domain/ltmDomainEngine.test.ts`
+#### `tests/core/domain/ltmDomainEngine.test.tsx`
 ```ts
 /**
- * Purpose: 1:1 mirrored unit test suite for src/core/domain/ltmDomainEngine.ts.
+ * Purpose: 1:1 mirrored unit test suite for src/core/domain/ltmDomainEngine.tsx.
  * Scope: Verifies bio-resonance formulas, milestone ID/input guards, prompt combinator determinism, and state reducer.
  * Constraints: Zero external I/O; validates edge cases and boundary clamps.
  */
@@ -1118,7 +1118,7 @@ import type {
   DomainStateTree,
   MemoryEngram,
   PromptSynthesisBlock,
-} from '../../../src/core/contracts/ltmContracts.ts';
+} from '../../../src/core/contracts/ltmContracts.tsx';
 import {
   calculateNormalizedPercent,
   calculateResonanceTemperature,
@@ -1126,9 +1126,9 @@ import {
   reduceDomainState,
   synthesizeTurnPrompt,
   validateMilestoneInput,
-} from '../../../src/core/domain/ltmDomainEngine.ts';
+} from '../../../src/core/domain/ltmDomainEngine.tsx';
 
-describe('Layer 2 Pure Domain Engine (ltmDomainEngine.ts)', () => {
+describe('Layer 2 Pure Domain Engine (ltmDomainEngine.tsx)', () => {
   it('calculates normalized percentage and clamps out-of-range or NaN inputs', () => {
     assert.equal(calculateNormalizedPercent(50, 0, 100), 50.0);
     assert.equal(calculateNormalizedPercent(150, 0, 100), 100.0);
@@ -1271,10 +1271,10 @@ describe('Layer 2 Pure Domain Engine (ltmDomainEngine.ts)', () => {
 });
 ```
 
-#### `tests/adapters/ltmSchemaDdl.test.ts`
+#### `tests/adapters/ltmSchemaDdl.test.tsx`
 ```ts
 /**
- * Purpose: 1:1 mirrored test suite for src/adapters/ltmSchemaDdl.ts.
+ * Purpose: 1:1 mirrored test suite for src/adapters/ltmSchemaDdl.tsx.
  * Scope: Verifies STRICT SQLite DDL constants and deterministic row-to-contract mapping functions.
  * Constraints: Uses Node built-in test runner and strict assertions.
  */
@@ -1290,9 +1290,9 @@ import {
   mapRowToMemoryEngram,
   mapRowToMilestone,
   mapRowToPromptBlock,
-} from '../../src/adapters/ltmSchemaDdl.ts';
+} from '../../src/adapters/ltmSchemaDdl.tsx';
 
-describe('Layer 3 LTM Schema DDL & Row Mappers (ltmSchemaDdl.ts)', () => {
+describe('Layer 3 LTM Schema DDL & Row Mappers (ltmSchemaDdl.tsx)', () => {
   it('defines STRICT tables and WAL pragmas across all 4 LTM DDL strings', () => {
     assert.equal(TELEMETRY_DB_DDL.includes('CREATE TABLE IF NOT EXISTS bio_telemetry_states'), true);
     assert.equal(TELEMETRY_DB_DDL.includes(') STRICT;'), true);
@@ -1358,10 +1358,10 @@ describe('Layer 3 LTM Schema DDL & Row Mappers (ltmSchemaDdl.ts)', () => {
 });
 ```
 
-#### `tests/adapters/ltmSqliteCluster.test.ts`
+#### `tests/adapters/ltmSqliteCluster.test.tsx`
 ```ts
 /**
- * Purpose: 1:1 mirrored integration test suite for src/adapters/ltmSqliteCluster.ts.
+ * Purpose: 1:1 mirrored integration test suite for src/adapters/ltmSqliteCluster.tsx.
  * Scope: Verifies pure local native 2-Cluster isolation, ATTACH cross-DB joins, and file-indexed milestones.
  * Constraints: Uses isolated temporary directories and closes all SQLite handles cleanly.
  */
@@ -1371,9 +1371,9 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { describe, it } from 'node:test';
-import { LtmDualClusterManager } from '../../src/adapters/ltmSqliteCluster.ts';
+import { LtmDualClusterManager } from '../../src/adapters/ltmSqliteCluster.tsx';
 
-describe('Layer 3 Pure Local Native Dual-Cluster SQLite LTM (ltmSqliteCluster.ts)', () => {
+describe('Layer 3 Pure Local Native Dual-Cluster SQLite LTM (ltmSqliteCluster.tsx)', () => {
   it('supports L3->L2 sequential queries and ATTACH DATABASE cross-DB joins across Cluster C1', () => {
     const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'eterna-ltm-c1-'));
     const cluster = new LtmDualClusterManager(tempRoot);
@@ -1464,10 +1464,10 @@ describe('Layer 3 Pure Local Native Dual-Cluster SQLite LTM (ltmSqliteCluster.ts
 });
 ```
 
-#### `tests/adapters/ltmCli.test.ts`
+#### `tests/adapters/ltmCli.test.tsx`
 ```ts
 /**
- * Purpose: 1:1 mirrored test suite for src/adapters/ltmCli.ts.
+ * Purpose: 1:1 mirrored test suite for src/adapters/ltmCli.tsx.
  * Scope: Verifies pure local native init, milestone recording, and file-based Chesterton's Fence lookup.
  * Constraints: Uses isolated temporary workspace paths and strict JSON assertions.
  */
@@ -1477,10 +1477,10 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { describe, it } from 'node:test';
-import { runLtmCli } from '../../src/adapters/ltmCli.ts';
-import type { MilestoneRecord } from '../../src/core/contracts/ltmContracts.ts';
+import { runLtmCli } from '../../src/adapters/ltmCli.tsx';
+import type { MilestoneRecord } from '../../src/core/contracts/ltmContracts.tsx';
 
-describe('Layer 3 LTM CLI Controller (ltmCli.ts)', () => {
+describe('Layer 3 LTM CLI Controller (ltmCli.tsx)', () => {
   it('executes init, records universal milestones, and queries why by file on pure local SQLite', () => {
     const tempDbDir = fs.mkdtempSync(path.join(os.tmpdir(), 'eterna-ltm-cli-'));
 
@@ -1506,7 +1506,7 @@ describe('Layer 3 LTM CLI Controller (ltmCli.ts)', () => {
             '--invariants',
             'Zero constitutional DB duplication and 1:1 mirrored test coverage',
             '--files',
-            'src/adapters/ltmCli.ts,docs/SPECIFICATION.md',
+            'src/adapters/ltmCli.tsx,docs/SPECIFICATION.md',
           ],
           tempDbDir,
           '2026-10-24T10:05:00.000Z',
@@ -1539,7 +1539,7 @@ describe('Layer 3 LTM CLI Controller (ltmCli.ts)', () => {
 | :--- | :--- | :--- | :---: |
 | **Gate 1: Antigravity Individual Rule Budget** | `/GEMINI.md` & `/.agents/rules/**/*.md` (`12` files) | Byte-length measurement (`UTF-8 LF`) | `PASS (All 12 files <= 24,000 B)` |
 | **Gate 2: Antigravity Cumulative Always-On Budget** | `GEMINI.md` + `APPEARANCE` + `INTERACTION` + `ENGINEERING_LAWS` | Cumulative byte sum (`4` files) | `PASS (45,458 B / 60,000 B)` |
-| **Gate 3: TypeScript Strict Static Typecheck** | `src/**/*.ts` & `tests/**/*.ts` | `npm run lint` (`tsc --noEmit`) | `PASS (0 Errors / 0 Warnings)` |
+| **Gate 3: TypeScript Strict Static Typecheck** | `src/**/*.{ts,tsx}` & `tests/**/*.{ts,tsx}` | `npm run lint` (`tsc --noEmit`) | `PASS (0 Errors / 0 Warnings)` |
 | **Gate 4: `1:1` Mirrored Test Suite** | `5` Source Modules ⇄ `5` Test Suites (`11` tests) | `npm test` (`node --import tsx --test`) | `PASS (11/11 Green, 0 Fail)` |
 | **Dimension 1: Functional & Edge-Case Completeness** | Pure local SQLite `L3->L2` synthesis, `ATTACH` join, `milestones` CLI | Unit + SQLite integration + CLI verification | `PASS` |
 | **Dimension 2: Security & Boundary Validation** | Fail-fast `validateMilestoneInput`, `[39.0, 39.2]` temp clamp, SQLite parameterization | Boundary & injection-safety audit | `PASS` |

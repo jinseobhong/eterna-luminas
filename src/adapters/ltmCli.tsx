@@ -6,8 +6,8 @@
 
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { MilestoneScopeCategory } from '../core/contracts/ltmContracts.ts';
-import { LtmDualClusterManager } from './ltmSqliteCluster.ts';
+import type { MilestoneScopeCategory } from '../core/contracts/ltmContracts.tsx';
+import { LtmDualClusterManager } from './ltmSqliteCluster.tsx';
 
 const VALID_SCOPES: readonly MilestoneScopeCategory[] = [
   'RULE',

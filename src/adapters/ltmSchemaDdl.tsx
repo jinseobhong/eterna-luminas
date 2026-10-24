@@ -14,7 +14,7 @@ import type {
   PromptBlockCategory,
   PromptSynthesisBlock,
   SpectrumAnchor,
-} from '../core/contracts/ltmContracts.ts';
+} from '../core/contracts/ltmContracts.tsx';
 
 export const TELEMETRY_DB_DDL = `
 PRAGMA journal_mode = WAL;

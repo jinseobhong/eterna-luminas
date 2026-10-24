@@ -9,17 +9,17 @@
 | **`MAX_RULE_FILE_BYTES`** | `24000 B` | `[1, 24000]` | `.agents/rules/IMPERIAL_RULE_AUTHORING_STANDARD.md` | Single-file byte cap for `/GEMINI.md` and `.agents/rules/**/*.md`. |
 | **`MAX_ALWAYS_ON_RULE_BYTES`** | `60000 B` | `[1, 60000]` | `.agents/rules/IMPERIAL_RULE_AUTHORING_STANDARD.md` | Cumulative byte cap across the `4` `Always-On` rule files. |
 | **`LTM_CLUSTER_COUNT`** | `2 clusters` | `2 (Literal)` | `.agents/rules/IMPERIAL_ENGINEERING_LAWS.md` | Orthogonal split between `Cluster C1` (Interaction) and `Cluster C2` (Engineering). |
-| **`LTM_DATABASE_COUNT`** | `4 databases` | `4 (Literal)` | `src/adapters/ltmSqliteCluster.ts` (`LtmDualClusterManager`) | `data/telemetry.db`, `data/dialogue.db`, `data/synthesizer.db` $\perp$ `data/knowledge.db`. |
-| **`BASE_CORE_TEMP_CELSIUS`** | `39.0 °C` | `[39.0, 39.2]` | `src/core/domain/ltmDomainEngine.ts` (`BASE_CORE_TEMP_CELSIUS`) | Baseline Sovereign Empress core temperature bound. |
-| **`PEAK_CORE_TEMP_CELSIUS`** | `39.2 °C` | `[39.0, 39.2]` | `src/core/domain/ltmDomainEngine.ts` (`PEAK_CORE_TEMP_CELSIUS`) | Peak bio-electric resonance core temperature bound. |
-| **`MAX_ACTIVE_TASKS`** | `64 tasks` | `[1, 64]` | `src/core/domain/ltmDomainEngine.ts` (`MAX_ACTIVE_TASKS`) | Upper bound on active tasks in `reduceDomainState`. |
+| **`LTM_DATABASE_COUNT`** | `4 databases` | `4 (Literal)` | `src/adapters/ltmSqliteCluster.tsx` (`LtmDualClusterManager`) | `data/telemetry.db`, `data/dialogue.db`, `data/synthesizer.db` $\perp$ `data/knowledge.db`. |
+| **`BASE_CORE_TEMP_CELSIUS`** | `39.0 °C` | `[39.0, 39.2]` | `src/core/domain/ltmDomainEngine.tsx` (`BASE_CORE_TEMP_CELSIUS`) | Baseline Sovereign Empress core temperature bound. |
+| **`PEAK_CORE_TEMP_CELSIUS`** | `39.2 °C` | `[39.0, 39.2]` | `src/core/domain/ltmDomainEngine.tsx` (`PEAK_CORE_TEMP_CELSIUS`) | Peak bio-electric resonance core temperature bound. |
+| **`MAX_ACTIVE_TASKS`** | `64 tasks` | `[1, 64]` | `src/core/domain/ltmDomainEngine.tsx` (`MAX_ACTIVE_TASKS`) | Upper bound on active tasks in `reduceDomainState`. |
 | **`MIRROR_LEDGER_COUNT`** | `4 ledgers` | `4 (Literal)` | `.agents/rules/IMPERIAL_ENGINEERING_LAWS.md` | Real-time `0-Drift` sync across `/README.md`, `ARCHITECTURE.md`, `SPECIFICATION.md`, and `AUDIT_GROUNDING_DUMP.md`. |
 
 ---
 
 ## 2. Static Type Contracts & Persistence DDL Schemas
 
-### 2.1 Layer 1 Type Contracts (`src/core/contracts/ltmContracts.ts`)
+### 2.1 Layer 1 Type Contracts (`src/core/contracts/ltmContracts.tsx`)
 
 ```ts
 export type SpectrumAnchor = 'DIALOGUE' | 'WORK' | 'PLAY' | 'BEDCHAMBER' | 'REST';
@@ -127,7 +127,7 @@ export type DomainAction =
   | { readonly type: 'COMPLETE_EXECUTION'; readonly timestampIso: string };
 ```
 
-### 2.2 2-Cluster / 4-Database STRICT SQL DDL & FTS5 Schemas (`src/adapters/ltmSchemaDdl.ts`)
+### 2.2 2-Cluster / 4-Database STRICT SQL DDL & FTS5 Schemas (`src/adapters/ltmSchemaDdl.tsx`)
 
 #### Cluster C1: Interaction LTM (`data/telemetry.db`, `data/dialogue.db`, `data/synthesizer.db`)
 
@@ -236,14 +236,14 @@ export type DomainAction =
    $$R_{\text{norm}}(x, x_{\min}, x_{\max}) = \operatorname{clamp}\left(\frac{x - x_{\min}}{x_{\max} - x_{\min}} \times 100,\; 0.0,\; 100.0\right)$$
 2. **Input Domain**: $x, x_{\min}, x_{\max} \in \mathbb{R}$ with $x_{\max} > x_{\min}$ (returns `0.0` if non-finite or $x_{\max} \le x_{\min}$).
 3. **Output Clamp & Rounding**: $[0.0\%, 100.0\%]$ rounded via `Number(clamped.toFixed(2))`.
-4. **Pure Function Signature**: `calculateNormalizedPercent(value: number, minBound: number, maxBound: number): number` (`src/core/domain/ltmDomainEngine.ts`).
+4. **Pure Function Signature**: `calculateNormalizedPercent(value: number, minBound: number, maxBound: number): number` (`src/core/domain/ltmDomainEngine.tsx`).
 
 ### 3.2 Bio-Electric Resonance Temperature Transfer Function
 1. **Equation**:
    $$T_{\text{core}}(S_{\text{spec}}, \Delta_{\text{novelty}}) = \operatorname{clamp}\left(39.0 + 0.2 \cdot \operatorname{clamp}(S_{\text{spec}} \cdot \Delta_{\text{novelty}},\; 0.0,\; 1.0),\; 39.0,\; 39.2\right)$$
 2. **Input Domain**: $S_{\text{spec}} \in [0.0, 1.0]$ (specificity score), $\Delta_{\text{novelty}} \in [0.0, 1.0]$ (novelty progression factor).
 3. **Output Clamp & Rounding**: $[39.0^\circ\text{C}, 39.2^\circ\text{C}]$ rounded via `Number(clampedTemp.toFixed(2))`.
-4. **Pure Function Signature**: `calculateResonanceTemperature(specificity: number, novelty: number): number` (`src/core/domain/ltmDomainEngine.ts`).
+4. **Pure Function Signature**: `calculateResonanceTemperature(specificity: number, novelty: number): number` (`src/core/domain/ltmDomainEngine.tsx`).
 
 ---
 
@@ -283,7 +283,7 @@ stateDiagram-v2
 | SDR ID | Specification Decision | Enforcement Mechanism |
 | :--- | :--- | :--- |
 | **`SDR-01`** | **Declarative Tabular, `STRICT DDL` & LaTeX Specification Format** | Enforced by `.agents/rules/docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md`. |
-| **`SDR-02`** | **Discriminated Union Phase & Memory Tier Modeling (`kind`, `MemoryTier`)** | Literal discriminant tags in `src/core/contracts/ltmContracts.ts` and `never` check in `reduceDomainState`. |
+| **`SDR-02`** | **Discriminated Union Phase & Memory Tier Modeling (`kind`, `MemoryTier`)** | Literal discriminant tags in `src/core/contracts/ltmContracts.tsx` and `never` check in `reduceDomainState`. |
 | **`SDR-03`** | **Caller-Injected Timestamps & Inputs (`timestampIso`, `nowIso`)** | All temporal and I/O inputs passed into `Layer 2` via `Layer 3` payloads. |
-| **`SDR-04`** | **Pure Local Native `2`-Cluster `STRICT` SQLite Schemas & `FTS5`** | Direct `node:sqlite` `STRICT` tables in `data/*.db` (`src/adapters/ltmSchemaDdl.ts`). |
-| **`SDR-05`** | **Universal `milestones` Schema with `scope_category` & `json_each` File Index** | `scope_category` check constraint and `json_each(affected_files_json)` query in `src/adapters/ltmSqliteCluster.ts`. |
+| **`SDR-04`** | **Pure Local Native `2`-Cluster `STRICT` SQLite Schemas & `FTS5`** | Direct `node:sqlite` `STRICT` tables in `data/*.db` (`src/adapters/ltmSchemaDdl.tsx`). |
+| **`SDR-05`** | **Universal `milestones` Schema with `scope_category` & `json_each` File Index** | `scope_category` check constraint and `json_each(affected_files_json)` query in `src/adapters/ltmSqliteCluster.tsx`. |

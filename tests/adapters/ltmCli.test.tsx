@@ -9,8 +9,8 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { describe, it } from 'node:test';
-import { runLtmCli } from '../../src/adapters/ltmCli.ts';
-import type { MilestoneRecord } from '../../src/core/contracts/ltmContracts.ts';
+import { runLtmCli } from '../../src/adapters/ltmCli.tsx';
+import type { MilestoneRecord } from '../../src/core/contracts/ltmContracts.tsx';
 
 describe('Layer 3 LTM CLI Controller (ltmCli.ts)', () => {
   it('executes init, records universal milestones, and queries why by file on pure local SQLite', () => {
