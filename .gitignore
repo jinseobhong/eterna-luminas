@@ -8,6 +8,7 @@ coverage/
 .env
 temp/
 .data/
+data/*.db
 *.db
 *.db-wal
 *.db-shm

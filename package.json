@@ -12,8 +12,7 @@
     "test": "node --import tsx --test tests/core/contracts/ltmContracts.test.ts tests/core/domain/ltmDomainEngine.test.ts tests/adapters/ltmSchemaDdl.test.ts tests/adapters/ltmSqliteCluster.test.ts tests/adapters/ltmCli.test.ts",
     "ltm:init": "tsx src/adapters/ltmCli.ts init",
     "ltm:why": "tsx src/adapters/ltmCli.ts why",
-    "ltm:milestone": "tsx src/adapters/ltmCli.ts milestone",
-    "ltm:sync": "tsx src/adapters/ltmCli.ts sync"
+    "ltm:milestone": "tsx src/adapters/ltmCli.ts milestone"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

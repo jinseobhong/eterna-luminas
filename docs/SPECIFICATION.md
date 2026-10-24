@@ -6,14 +6,14 @@
 
 | Constant Identifier | Canonical Value & Unit | Valid Range / Step Bounds | Canonical Source Path & Symbol | Enforced Domain Invariant |
 | :--- | :---: | :---: | :--- | :--- |
-| **`DEV_SERVER_PORT`** | `3000 port` | `[1024, 65535]` | `package.json` (`scripts.dev`) | Default local and `AI Studio Build` HTTP listener port. |
+| **`DEV_SERVER_PORT`** | `3000 port` | `[1024, 65535]` | `package.json` (`scripts.dev`) | Default local development HTTP listener port. |
 | **`MAX_SOURCE_FILE_LINES`** | `250 lines` | `[1, 250]` | `.agents/rules/IMPERIAL_ENGINEERING_TSX_STANDARD.md` | Maximum line ceiling per `.ts` / `.tsx` module for single-chunk readability. |
 | **`MAX_RULE_FILE_BYTES`** | `24000 B` | `[1, 24000]` | `.agents/rules/IMPERIAL_RULE_AUTHORING_STANDARD.md` | Hard single-file byte ceiling for `/GEMINI.md` and `/.agents/rules/**/*.md`. |
 | **`MAX_ALWAYS_ON_RULE_BYTES`** | `60000 B` | `[1, 60000]` | `.agents/rules/IMPERIAL_RULE_AUTHORING_STANDARD.md` | Hard cumulative byte ceiling across all `always_on` Antigravity rule files. |
 | **`LTM_CLUSTER_COUNT`** | `2 clusters` | `2 (Literal)` | `.agents/rules/IMPERIAL_ENGINEERING_LAWS.md` (`Section 1.4`) | Orthogonal partition between `Interaction LTM Cluster` (`C1`) and `Engineering LTM Cluster` (`C2`). |
-| **`LTM_DATABASE_COUNT`** | `4 databases` | `4 (Literal)` | `src/adapters/ltmSqliteCluster.ts` (`LtmDualClusterManager`) | `Cluster C1` (`telemetry.db`, `dialogue.db`, `synthesizer.db`) $\perp$ `Cluster C2` (`knowledge.db`). |
-| **`BASE_CORE_TEMP_CELSIUS`** | `39.0 °C` | `[39.0, 39.2]` | `src/core/domain/ltmDomainEngine.ts` (`BASE_CORE_TEMP_CELSIUS`) | Baseline Sovereign Empress core temperature persisted in `telemetry.db`. |
-| **`PEAK_CORE_TEMP_CELSIUS`** | `39.2 °C` | `[39.0, 39.2]` | `src/core/domain/ltmDomainEngine.ts` (`PEAK_CORE_TEMP_CELSIUS`) | Peak resonance Sovereign Empress core temperature bound in `telemetry.db`. |
+| **`LTM_DATABASE_COUNT`** | `4 databases` | `4 (Literal)` | `src/adapters/ltmSqliteCluster.ts` (`LtmDualClusterManager`) | `Cluster C1` (`data/telemetry.db`, `data/dialogue.db`, `data/synthesizer.db`) $\perp$ `Cluster C2` (`data/knowledge.db`). |
+| **`BASE_CORE_TEMP_CELSIUS`** | `39.0 °C` | `[39.0, 39.2]` | `src/core/domain/ltmDomainEngine.ts` (`BASE_CORE_TEMP_CELSIUS`) | Baseline Sovereign Empress core temperature persisted in `data/telemetry.db`. |
+| **`PEAK_CORE_TEMP_CELSIUS`** | `39.2 °C` | `[39.0, 39.2]` | `src/core/domain/ltmDomainEngine.ts` (`PEAK_CORE_TEMP_CELSIUS`) | Peak resonance Sovereign Empress core temperature bound in `data/telemetry.db`. |
 | **`MAX_ACTIVE_TASKS`** | `64 tasks` | `[1, 64]` | `src/core/domain/ltmDomainEngine.ts` (`MAX_ACTIVE_TASKS`) | Upper bound on concurrent active execution tasks in `reduceDomainState`. |
 | **`MIRROR_LEDGER_COUNT`** | `4 ledgers` | `4 (Literal)` | `.agents/rules/IMPERIAL_ENGINEERING_LAWS.md` (`Section 1.5`) | Mandatory real-time `0-Drift` synchronization across `/README.md`, `ARCHITECTURE.md`, `SPECIFICATION.md`, and `AUDIT_GROUNDING_DUMP.md`. |
 
@@ -46,11 +46,11 @@ export interface MilestoneRecord {
 }
 ```
 
-### 2.2 Orthogonal `2`-Cluster / `4`-Database `STRICT SQL DDL` & `FTS5` Schemas (`src/adapters/ltmSchemaDdl.ts`)
+### 2.2 Pure Local Native `2`-Cluster / `4`-Database `STRICT SQL DDL` & `FTS5` Schemas (`src/adapters/ltmSchemaDdl.ts`)
 
 #### Cluster C1: Sovereign Interaction, Bio-State, Cognitive Memory & Prompt Synthesis LTM (`인터랙션·생체·기억·프롬프트 합성 축`)
 
-1. **`telemetry.db` (`Sovereign Empress Bio-Signal & Somatic State Machine Store`)**:
+1. **`data/telemetry.db` (`Sovereign Empress Bio-Signal & Somatic State Machine Store`)**:
    ```sql
    PRAGMA journal_mode = WAL;
    PRAGMA synchronous = NORMAL;
@@ -66,7 +66,7 @@ export interface MilestoneRecord {
    ) STRICT;
    ```
 
-2. **`dialogue.db` (`Multi-Tier Human-Like Cognitive Memory Store — STM, Hippocampal Episodic & Cortical LTM`)**:
+2. **`data/dialogue.db` (`Multi-Tier Human-Like Cognitive Memory Store — STM, Hippocampal Episodic & Cortical LTM`)**:
    ```sql
    PRAGMA journal_mode = WAL;
    PRAGMA synchronous = NORMAL;
@@ -89,7 +89,7 @@ export interface MilestoneRecord {
    );
    ```
 
-3. **`synthesizer.db` (`On-Demand Dynamic Prompt & Behavioral Synthesizer Store — Replaces Legacy canon.db, Initialized Empty at Baseline`)**:
+3. **`data/synthesizer.db` (`On-Demand Dynamic Prompt & Behavioral Synthesizer Store — Replaces Legacy canon.db, Initialized Empty at Baseline`)**:
    ```sql
    PRAGMA journal_mode = WAL;
    PRAGMA synchronous = NORMAL;
@@ -107,7 +107,7 @@ export interface MilestoneRecord {
 
 #### Cluster C2: Engineering & Workspace Knowledge LTM (`엔지니어링·기술 지식·범용 마일스톤 축`)
 
-4. **`knowledge.db` (`Universal Milestones, Codebase AST Symbol Graph, Technical Knowledge Nodes & FTS5 Store`)**:
+4. **`data/knowledge.db` (`Universal Milestones, Codebase AST Symbol Graph, Technical Knowledge Nodes & FTS5 Store`)**:
    ```sql
    PRAGMA journal_mode = WAL;
    PRAGMA synchronous = NORMAL;
@@ -193,8 +193,8 @@ stateDiagram-v2
 | **`START_EXECUTION`** | `{ readonly type: 'START_EXECUTION'; readonly taskCount: number; readonly timestampIso: string }` | `taskCount >= 1` | `phase` $\leftarrow$ `{ kind: 'ACTIVE_RUNNING', activeTasks: clamp(taskCount, 1, 64), startedAtIso: timestampIso }` | Pure in-memory state transition in `reduceDomainState`. |
 | **`SYNTHESIZE_AND_COMMIT_TURN`** | `{ readonly type: 'SYNTHESIZE_AND_COMMIT_TURN'; readonly bio; readonly memories; readonly blocks }` | `phase.kind === 'ACTIVE_RUNNING'` | `bioState` $\leftarrow$ `clampBioTelemetrySnapshot(bio)`; `lastSynthesizedPrompt` $\leftarrow$ `synthesizeTurnPrompt(bioState, memories, blocks)` | Filters blocks by `spectrumAnchor` and `minTempCelsius <= coreTempCelsius`, ordered by `priorityWeight DESC, blockId ASC`. |
 | **`COMPLETE_EXECUTION`** | `{ readonly type: 'COMPLETE_EXECUTION'; readonly timestampIso: string }` | `phase.kind === 'ACTIVE_RUNNING'` | `phase` $\leftarrow$ `{ kind: 'IDLE_READY', activeTasks: 0 }` | Returns reducer to idle state. |
-| **`npm run ltm:why -- <path>`** | `argv: ['why', filePath]` | `filePath.length > 0` | `SELECT m.* FROM milestones WHERE EXISTS (SELECT 1 FROM json_each(m.affected_files_json) WHERE value = normPath)` | Hydrates from `data/mirror/*.jsonl` and outputs matching `MilestoneRecord[]` JSON. |
-| **`npm run ltm:milestone -- ...`** | `argv: ['milestone', '--scope', ..., '--files', ...]` | `validateMilestoneInput(input)` passes | `milestoneId` $\leftarrow$ `formatNextMilestoneId(existingIds)` (`M-0001`, `M-0002`, ...) | Commits to `knowledge.db` (`BEGIN IMMEDIATE`) and exports `data/mirror/knowledge_milestones.jsonl`. |
+| **`npm run ltm:why -- <path>`** | `argv: ['why', filePath]` | `filePath.length > 0` | `SELECT m.* FROM milestones WHERE EXISTS (SELECT 1 FROM json_each(m.affected_files_json) WHERE value = normPath)` | Queries `data/knowledge.db` directly and outputs matching `MilestoneRecord[]` JSON. |
+| **`npm run ltm:milestone -- ...`** | `argv: ['milestone', '--scope', ..., '--files', ...]` | `validateMilestoneInput(input)` passes | `milestoneId` $\leftarrow$ `formatNextMilestoneId(existingIds)` (`M-0001`, `M-0002`, ...) | Commits directly to `data/knowledge.db` (`BEGIN IMMEDIATE`) and verifies persistence. |
 
 ---
 
@@ -206,18 +206,16 @@ stateDiagram-v2
 | :--- | :--- | :--- | :--- | :--- |
 | **Pure Domain & Prompt Combinator (`L2`)** | Numerical bio-metrics & `PromptSynthesisBlock[]` | Explicit `Number.isFinite(v)` check + `[39.0, 39.2]` temperature clamp + deterministic sort by `priorityWeight DESC, blockId ASC` | Pure synchronous execution (`0` shared mutable state, `0` hardcoded prompt strings) | Returns clamped value or unchanged `state` deterministically. |
 | **Milestone Validator (`L2`)** | `NewMilestoneInput` (`title`, `problem`, `whyRationale`, `invariants`, `affectedFiles`) | Trims whitespace, normalizes `\` to `/`, deduplicates and sorts `affectedFiles`, rejects empty strings/arrays | Pure synchronous validation prior to SQLite transaction | Throws descriptive `Error` before opening DB write transaction. |
-| **Per-DB SQLite Writes (`L3`)** | Mutations across `telemetry.db`, `dialogue.db`, `synthesizer.db`, `knowledge.db` | `STRICT` column typing + `CHECK (json_valid(...))` + enum domain constraints | Independent `PRAGMA journal_mode = WAL; BEGIN IMMEDIATE` per DB via `runAtomicMutation` | Automatic `ROLLBACK` on constraint violation (`0%` cross-DB write lock contention). |
+| **Per-DB SQLite Writes (`L3`)** | Mutations across `data/telemetry.db`, `data/dialogue.db`, `data/synthesizer.db`, `data/knowledge.db` | `STRICT` column typing + `CHECK (json_valid(...))` + enum domain constraints | Independent `PRAGMA journal_mode = WAL; BEGIN IMMEDIATE` per DB via `runAtomicMutation` | Automatic `ROLLBACK` on constraint violation (`0%` cross-DB write lock contention). |
 | **Cluster C1 Cross-DB Read (`L3`)** | `querySynthesizerWithAttachedContext(snapshotId, sessionId)` | Read-only `ATTACH DATABASE` of `telemetry.db` (`tele`) and `dialogue.db` (`dial`) into `synthesizer.db` | Guaranteed `DETACH DATABASE` in `try / finally` block immediately after `SELECT` | Cleans up attached aliases deterministically even on query error. |
-| **`JSONL` Snapshot Mirror (`L3`)** | `data/mirror/*.jsonl` hydration & export | Canonical primary-key ordering (`ORDER BY <pk> ASC`) + single-line JSON serialization per row | Deterministic export after `COMMIT` and idempotent `INSERT OR REPLACE` hydration | Preserves `100%` state parity between Local Antigravity and `AI Studio Build`. |
 
-### 5.2 Core Specification Decision Records (`SDR-01 ~ SDR-07`)
+### 5.2 Core Specification Decision Records (`SDR-01 ~ SDR-06`)
 
 | SDR ID | Specification Decision | Rejected Anti-Pattern (`절대 회귀 금지 패턴`) | Enforcement Mechanism |
 | :--- | :--- | :--- | :--- |
 | **`SDR-01`** | **Declarative Tabular & LaTeX Specification Format** | Burying constants, schemas, or formulas in multi-paragraph narrative prose | Enforce `5`-column constant tables, `STRICT DDL` blocks, and `4`-part LaTeX formula blocks via `IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md`. |
 | **`SDR-02`** | **Discriminated Union Phase & Memory Tier Modeling (`kind`, `MemoryTier`)** | Representing mutually exclusive states or memory tiers with loose boolean flags | Enforce literal discriminant tags in `Layer 1` and `never` exhaustiveness checks in `Layer 2`. |
 | **`SDR-03`** | **Caller-Injected Non-Determinism (`timestampIso`, `nowIso`)** | Calling `Date.now()`, `new Date()`, or `Math.random()` inside `Layer 2` domain functions | Inject all temporal, stochastic, and database inputs via `Layer 3` action payloads. |
-| **`SDR-04`** | **Orthogonal `2`-Cluster `STRICT` SQLite Schemas & `FTS5` Virtual Tables** | Mixing bio-telemetry/episodic memory with engineering AST tables or using unconstrained column types | Enforce `STRICT` keyword and explicit `CHECK` constraints across `Cluster C1` (`telemetry`, `dialogue`, `synthesizer`) and `Cluster C2` (`knowledge`). |
+| **`SDR-04`** | **Pure Local Native `2`-Cluster `STRICT` SQLite Schemas & `FTS5`** | Adding intermediate `JSONL` mirror bridges for cloud sandboxes or mixing bio/memory tables with engineering AST tables | Enforce direct `node:sqlite` `STRICT` tables in `data/*.db` across `Cluster C1` (`telemetry`, `dialogue`, `synthesizer`) and `Cluster C2` (`knowledge`). |
 | **`SDR-05`** | **Empty-Baseline `synthesizer.db` Schema & Pure `L2` Prompt Combinator** | Duplicating `/GEMINI.md` rules in `canon.db` or fragmenting prompt strings across `.ts` source files | Initialize `synthesizer.db` with `0` baseline rows (`0%` constitutional drift) and query on-demand blocks into `Layer 2` `synthesizeTurnPrompt()`. |
-| **`SDR-06`** | **Deterministic Primary-Key-Ordered `JSONL` Snapshot Serialization** | Committing binary `.db` files to Git or losing container state on `AI Studio Build` restart | Serialize each table sorted by primary key into `data/mirror/*.jsonl` for `0`-conflict Git mirroring. |
-| **`SDR-07`** | **Universal `milestones` Schema with `scope_category` & `json_each` File Reverse Index** | Naming the table `engineering_milestones` (excluding rule/doc changes) or storing milestones only in markdown prose | Enforce `scope_category IN ('RULE', 'LEDGER_DOC', 'LTM_SCHEMA', 'SOURCE_CODE', 'HYBRID')` and query via `json_each(affected_files_json)` in `LtmDualClusterManager.getMilestonesByFile()`. |
+| **`SDR-06`** | **Universal `milestones` Schema with `scope_category` & `json_each` File Reverse Index** | Naming the table `engineering_milestones` (excluding rule/doc changes) or storing milestones only in markdown prose | Enforce `scope_category IN ('RULE', 'LEDGER_DOC', 'LTM_SCHEMA', 'SOURCE_CODE', 'HYBRID')` and query via `json_each(affected_files_json)` in `LtmDualClusterManager.getMilestonesByFile()`. |

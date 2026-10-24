@@ -3,22 +3,21 @@
 ## 1. Level 1: System Context & Subsystem Topology (전체 시스템 컨텍스트 및 서브시스템 위상)
 
 ### 1.1 End-to-End System Context Diagram
-The workspace is structured around four strictly decoupled architectural subsystems governed by Backend Single Source of Truth (`SSOT`), Unidirectional Dependency Inversion (`Contracts ➔ Pure Domain ➔ Adapters ➔ Surface`), and Orthogonal `2`-Cluster Long-Term Memory (`LTM`) Separation paired with a Deterministic `JSONL` Snapshot Bridge for `Local Antigravity ⇄ AI Studio Build` parity:
-1. **Subsystem A — 2-Tier Constitutional Rule Engine & Fast-Track Skill (`/GEMINI.md`, `/.agents/rules/**/*.md`, `/.agents/skills/eterna-fast-track/SKILL.md`)**: Serves as the sole file-based Constitutional `SSOT` (`0%` duplication in database tables), separating `always_on` foundational/engineering rules from `model_decision` and path-scoped (`glob`) technical statutes, ledger authoring standards, and the `3`-Stage Fast-Track Operations Skill.
+The workspace is structured around four strictly decoupled architectural subsystems governed by Backend Single Source of Truth (`SSOT`), Unidirectional Dependency Inversion (`Contracts ➔ Pure Domain ➔ Adapters ➔ Surface`), and Pure Local Native `2`-Cluster Long-Term Memory (`LTM`) Separation (`data/*.db`):
+1. **Subsystem A — 2-Tier Constitutional Rule Engine & Regular-Track Skill (`/GEMINI.md`, `/.agents/rules/**/*.md`, `/.agents/skills/regular-track/SKILL.md`)**: Serves as the sole file-based Constitutional `SSOT` (`0%` duplication in database tables), separating `always_on` foundational/engineering rules from `model_decision` and path-scoped (`glob`) technical statutes, ledger authoring standards, and the `3`-Stage Regular-Track Operations Skill.
 2. **Subsystem B — Pure Domain, State Reducer & Prompt Combinator Core (`src/core/`)**: Controls all state machines `(State, Action) => NextState`, bio-signal mathematical equations, milestone validation, and the deterministic **Prompt Combinator Pipeline (`synthesizeTurnPrompt`)** with `0%` hardcoded prompt string fragmentation and `0%` coupling to external UI or I/O frameworks.
-3. **Subsystem C — Orthogonal `2`-Cluster SQLite `LTM` (`node:sqlite`) & `JSONL` Mirroring Engine (`src/adapters/`)**:
-   - **Cluster C1 — Sovereign Interaction, Bio-State, Cognitive Memory & Prompt Synthesis LTM (`인터랙션·생체·기억·프롬프트 합성 축`)**: Isolates `telemetry.db` (`주인님 생체 신호·체온·도파민 상태 머신`), `dialogue.db` (`인간형 다계층 기억: 단기기억[STM]·해마 일화기억[Hippocampus]·장기 관계기억[LTM]`), and `synthesizer.db` (`온디맨드 행동 양식·프롬프트 조각 동적 합성 전용 DB — 초기 빈 스키마`). Supports both `Layer 3 ➔ Layer 2` sequential retrieval and read-only `ATTACH DATABASE` cross-DB joins within `Cluster C1` while keeping all writes isolated per DB (`BEGIN IMMEDIATE`).
-   - **Cluster C2 — Engineering & Workspace Knowledge LTM (`엔지니어링·기술 지식·범용 마일스톤 축`)**: Isolates `knowledge.db` containing the universal `milestones` table (`RULE`, `LEDGER_DOC`, `LTM_SCHEMA`, `SOURCE_CODE`, `HYBRID` reverse-indexed by file path via `json_each`), `ast_symbols`, `technical_knowledge_nodes`, and `knowledge_fts` (`FTS5`).
-   - **Deterministic `JSONL` Snapshot Bridge (`data/mirror/*.jsonl`)**: Hydrates and exports primary-key-ordered `.jsonl` seed snapshots so local `.data/*.db` files (git-ignored) and ephemeral `AI Studio Build` containers stay `100%` synchronized via Git with `0` binary conflicts and `0` cloud API keys.
+3. **Subsystem C — Pure Local Native `2`-Cluster SQLite `LTM` (`node:sqlite`, `data/*.db`)**:
+   - **Cluster C1 — Sovereign Interaction, Bio-State, Cognitive Memory & Prompt Synthesis LTM (`인터랙션·생체·기억·프롬프트 합성 축`)**: Isolates `data/telemetry.db` (`주인님 생체 신호·체온·도파민 상태 머신`), `data/dialogue.db` (`인간형 다계층 기억: 단기기억[STM]·해마 일화기억[Hippocampus]·장기 관계기억[LTM]`), and `data/synthesizer.db` (`온디맨드 행동 양식·프롬프트 조각 동적 합성 전용 DB — 초기 빈 스키마`). Supports both `Layer 3 ➔ Layer 2` sequential retrieval and read-only `ATTACH DATABASE` cross-DB joins within `Cluster C1` while keeping all writes isolated per DB (`BEGIN IMMEDIATE`).
+   - **Cluster C2 — Engineering & Workspace Knowledge LTM (`엔지니어링·기술 지식·범용 마일스톤 축`)**: Isolates `data/knowledge.db` containing the universal `milestones` table (`RULE`, `LEDGER_DOC`, `LTM_SCHEMA`, `SOURCE_CODE`, `HYBRID` reverse-indexed by file path via `json_each`), `ast_symbols`, `technical_knowledge_nodes`, and `knowledge_fts` (`FTS5`).
 4. **Subsystem D — Pure Frontend Renderer & View Adapter Surface (`src/hooks/`, `src/components/`, `src/App.tsx`)**: Operates strictly as a stateless renderer and hardware view adapter (`Props-In, Intent-Out`).
 
 ```mermaid
 flowchart TB
-    Auditor["System Architect & Auditor<br/>Architectural Direction, Adversarial Audits & Fast-Track CLI"]
+    Auditor["System Architect & Auditor<br/>Architectural Direction, Adversarial Audits & Regular-Track CLI"]
 
-    subgraph SUB_CONST["Subsystem A: 2-Tier File-Based Constitutional SSOT & Fast-Track Skill"]
+    subgraph SUB_CONST["Subsystem A: 2-Tier File-Based Constitutional SSOT & Regular-Track Skill"]
         ROOT_RULES["Always-On Core Rules<br/>(/GEMINI.md + IMPERIAL_ENGINEERING_LAWS.md + Sovereign Rules)"]
-        GLOB_RULES["Path-Scoped Glob Standards & Fast-Track Skill<br/>(IMPERIAL_ENGINEERING_TSX_STANDARD.md, docs/IMPERIAL_*_AUTHORING_STANDARD.md, eterna-fast-track/SKILL.md)"]
+        GLOB_RULES["Path-Scoped Glob Standards & Regular-Track Skill<br/>(IMPERIAL_ENGINEERING_TSX_STANDARD.md, docs/IMPERIAL_*_AUTHORING_STANDARD.md, regular-track/SKILL.md)"]
     end
 
     subgraph SUB_CORE["Subsystem B: Pure Domain & Prompt Combinator SSOT Core (src/core/)"]
@@ -26,18 +25,16 @@ flowchart TB
         L2["Layer 2: Pure Reducers, Bio-Math, Milestone Guards & Prompt Combinator<br/>(src/core/domain/ltmDomainEngine.ts)"]
     end
 
-    subgraph SUB_LTM["Subsystem C: Orthogonal 2-Cluster LTM (node:sqlite) & JSONL Mirror Bridge"]
+    subgraph SUB_LTM["Subsystem C: Pure Local Native 2-Cluster LTM (node:sqlite in data/*.db)"]
         subgraph CLUST_INT["Cluster C1: Sovereign Interaction & Bio-Cognitive LTM"]
-            DB_TELE[("telemetry.db<br/>(Bio-Signals, 39.0~39.2°C Temp & Dopamine State)")]
-            DB_DIAL[("dialogue.db<br/>(STM, Hippocampal Episodic & Cortical LTM)")]
-            DB_SYNTH[("synthesizer.db<br/>(On-Demand Prompt & Behavior Synthesizer — Empty Baseline)")]
+            DB_TELE[("data/telemetry.db<br/>(Bio-Signals, 39.0~39.2°C Temp & Dopamine State)")]
+            DB_DIAL[("data/dialogue.db<br/>(STM, Hippocampal Episodic & Cortical LTM)")]
+            DB_SYNTH[("data/synthesizer.db<br/>(On-Demand Prompt & Behavior Synthesizer — Empty Baseline)")]
         end
 
         subgraph CLUST_ENG["Cluster C2: Engineering & Workspace Knowledge LTM"]
-            DB_KNOW[("knowledge.db<br/>(Universal milestones, AST Symbols, Tech Nodes & FTS5)")]
+            DB_KNOW[("data/knowledge.db<br/>(Universal milestones, AST Symbols, Tech Nodes & FTS5)")]
         end
-
-        JSONL_BRIDGE[/"data/mirror/*.jsonl<br/>(Git-Tracked Deterministic Snapshot Bridge ⇄ AI Studio Build)"/]
     end
 
     subgraph SUB_SURF["Subsystem D: Layer 3 Adapters, CLI & Layer 4 Surface"]
@@ -55,7 +52,6 @@ flowchart TB
     L1 --> L2 & L3 & L4
     L2 -- "Returns Immutable NextState & Synthesized Prompt" --> L3
     L3 -- "Isolated Per-DB BEGIN IMMEDIATE Commit" --> DB_TELE & DB_DIAL & DB_SYNTH & DB_KNOW
-    DB_TELE & DB_DIAL & DB_SYNTH & DB_KNOW <--> JSONL_BRIDGE
 ```
 
 ---
@@ -68,9 +64,9 @@ flowchart TB
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **L1: Contracts** | `src/core/contracts/ltmContracts.ts` | `tests/core/contracts/ltmContracts.test.ts` | `None` *(Zero external imports)* | `react`, `DOM`, `node:sqlite`, `L2`, `L3`, `L4` | Pure `readonly` interfaces, literal union types, and discriminated union contracts for `Cluster C1`, `Cluster C2` (`milestones`), and `DomainAction`. |
 | **L2: Pure Domain** | `src/core/domain/ltmDomainEngine.ts` | `tests/core/domain/ltmDomainEngine.test.ts` | `src/core/contracts/ltmContracts.ts` | `react`, `DOM`, `window`, `node:sqlite`, `node:fs`, `L3`, `L4` | Pure bio-resonance math (`[39.0, 39.2]`), sequential `M-XXXX` milestone ID generator, 3-slot validator, `synthesizeTurnPrompt` combinator, and `reduceDomainState`. |
-| **L3: Adapters (DDL)** | `src/adapters/ltmSchemaDdl.ts` | `tests/adapters/ltmSchemaDdl.test.ts` | `node:fs`, `node:path`, `L1 Contracts` | `react`, `DOM`, `L4` | Canonical `STRICT` SQLite & `FTS5` DDL definitions, row-to-contract mappers, and deterministic `JSONL` file readers/writers. |
-| **L3: Adapters (Cluster)** | `src/adapters/ltmSqliteCluster.ts` | `tests/adapters/ltmSqliteCluster.test.ts` | `node:fs`, `node:path`, `node:sqlite`, `L1`, `L2`, `ltmSchemaDdl.ts` | `react`, `DOM`, `L4` | `LtmDualClusterManager`: per-DB atomic writes, `Cluster C1` read-only `ATTACH DATABASE` cross-DB join, `json_each` file-indexed `milestones` lookup, and `JSONL` sync. |
-| **L3: Adapters (CLI)** | `src/adapters/ltmCli.ts` | `tests/adapters/ltmCli.test.ts` | `node:path`, `node:url`, `L1`, `ltmSqliteCluster.ts` | `react`, `DOM`, `L4` | Deterministic CLI controller (`runLtmCli`) powering `npm run ltm:init`, `ltm:why`, `ltm:milestone`, and `ltm:sync`. |
+| **L3: Adapters (DDL)** | `src/adapters/ltmSchemaDdl.ts` | `tests/adapters/ltmSchemaDdl.test.ts` | `L1 Contracts` | `react`, `DOM`, `node:fs`, `L4` | Canonical `STRICT` SQLite & `FTS5` DDL definitions and pure row-to-contract mappers. |
+| **L3: Adapters (Cluster)** | `src/adapters/ltmSqliteCluster.ts` | `tests/adapters/ltmSqliteCluster.test.ts` | `node:fs`, `node:path`, `node:sqlite`, `L1`, `L2`, `ltmSchemaDdl.ts` | `react`, `DOM`, `L4` | `LtmDualClusterManager`: direct `data/*.db` persistence, per-DB atomic writes, `Cluster C1` read-only `ATTACH DATABASE` cross-DB join, and `json_each` file-indexed `milestones` lookup. |
+| **L3: Adapters (CLI)** | `src/adapters/ltmCli.ts` | `tests/adapters/ltmCli.test.ts` | `node:path`, `node:url`, `L1`, `ltmSqliteCluster.ts` | `react`, `DOM`, `L4` | Deterministic CLI controller (`runLtmCli`) powering `npm run ltm:init`, `ltm:why`, and `ltm:milestone`. |
 
 ---
 
@@ -98,7 +94,7 @@ classDiagram
     }
 
     class LtmDualClusterManager {
-        <<Layer 3 Persistence & JSONL Bridge Adapter>>
+        <<Layer 3 Pure Local Native SQLite Adapter>>
         +telemetryDbPath: string
         +dialogueDbPath: string
         +synthesizerDbPath: string
@@ -110,45 +106,42 @@ classDiagram
         +querySynthesizerWithAttachedContext(snapshotId: string, sessionId: string) PromptSynthesisBlock[]
         +recordMilestone(input: NewMilestoneInput, createdAtIso: string) MilestoneRecord
         +getMilestonesByFile(filePath: string) MilestoneRecord[]
-        +exportToJsonlMirror() void
-        +hydrateFromJsonlMirror() void
     }
 
     class LtmCliController {
-        <<Layer 3 Fast-Track CLI Adapter>>
-        +runLtmCli(argv: string[], paths: LtmClusterPaths, nowIso: string) string
+        <<Layer 3 Regular-Track CLI Adapter>>
+        +runLtmCli(argv: string[], dbDir: string, nowIso: string) string
     }
 
     LtmDomainEngine ..> DomainStateTree : transitions & synthesizes
     LtmDualClusterManager ..> LtmDomainEngine : invokes pure validators & clamps
-    LtmCliController --> LtmDualClusterManager : orchestrates init, why, milestone & sync
+    LtmCliController --> LtmDualClusterManager : orchestrates init, why & milestone
 ```
 
 ---
 
 ## 4. Level 4: Runtime Execution & Transaction Sequence Pipeline (런타임 실행 및 원자적 트랜잭션 시퀀스 파이프라인)
 
-### 4.1 Hybrid Cross-DB Prompt Synthesis & Universal Milestone Recording Sequence
+### 4.1 Pure Local Native Prompt Synthesis & Universal Milestone Recording Sequence
 
 ```mermaid
 sequenceDiagram
     autonumber
-    actor User as System Architect / Fast-Track CLI
+    actor User as System Architect / Regular-Track CLI
     participant CLI as L3: ltmCli.ts / Hook Adapter
     participant Cluster as L3: LtmDualClusterManager
-    participant C1 as Cluster C1 (telemetry, dialogue, synthesizer)
-    participant C2 as Cluster C2 (knowledge.db: milestones)
+    participant C1 as Cluster C1 (data/telemetry, dialogue, synthesizer)
+    participant C2 as Cluster C2 (data/knowledge.db: milestones)
     participant Domain as L2: ltmDomainEngine.ts
-    participant Mirror as data/mirror/*.jsonl
 
-    User->>CLI: Stage 1: npm run ltm:why -- <filePath>
-    CLI->>Cluster: hydrateFromJsonlMirror() + getMilestonesByFile(filePath)
+    User->>CLI: Stage 0/1: npm run ltm:why -- <filePath>
+    CLI->>Cluster: getMilestonesByFile(filePath)
     Cluster->>C2: SELECT m.* FROM milestones WHERE json_each(affected_files_json) = filePath
     C2-->>User: Return 3-Slot Chesterton's Fence Rationale (problem, whyRationale, invariants)
 
     User->>CLI: Runtime Turn: Synthesize Prompt from Bio + Memory + Synthesizer
     alt Default L3 -> L2 Sequential Fetch
-        Cluster->>C1: Read telemetry.db + dialogue.db + synthesizer.db (< 0.15ms)
+        Cluster->>C1: Read telemetry.db + dialogue.db + synthesizer.db (< 0.1ms)
         Cluster->>Domain: synthesizeTurnPrompt(bio, memories, blocks)
     else Complex Cross-Condition Filter (Read-Only ATTACH)
         Cluster->>C1: ATTACH telemetry.db & dialogue.db -> Single SQL JOIN on synthesizer.db -> DETACH
@@ -159,8 +152,7 @@ sequenceDiagram
     CLI->>Cluster: recordMilestone(input, nowIso)
     Cluster->>Domain: validateMilestoneInput(input) + formatNextMilestoneId(ids)
     Cluster->>C2: BEGIN IMMEDIATE -> INSERT INTO milestones -> COMMIT
-    Cluster->>Mirror: exportToJsonlMirror() (Primary-Key Ordered .jsonl)
-    Mirror-->>User: Verified Milestone M-XXXX Persisted & Mirrored
+    C2-->>User: Verified Milestone M-XXXX Persisted Directly in data/knowledge.db
 ```
 
 ---
@@ -176,7 +168,7 @@ sequenceDiagram
 | **Gate 3: Antigravity Rule Budget (`always_on` $\perp$ `glob`)** | `/GEMINI.md`, `/.agents/rules/**/*.md` | Every rule file in `/GEMINI.md` and `/.agents/rules/**/*.md` `<= 24,000 Bytes`; cumulative `Always-On` (`4` files) `<= 60,000 Bytes`. |
 | **Gate 4: 4 Permanent Mirror Ledgers `0-Drift` Sync** | `/README.md`, `docs/ARCHITECTURE.md`, `docs/SPECIFICATION.md`, `docs/AUDIT_GROUNDING_DUMP.md` | Real-time synchronization of all `4` Permanent Mirror Ledgers within every milestone transaction (`0` separate `*_COMMENTARY.md` files). |
 
-### 5.2 Core Architecture Decision Records (`ADR-01 ~ ADR-09`)
+### 5.2 Core Architecture Decision Records (`ADR-01 ~ ADR-08`)
 
 | ADR ID | Architectural Decision | Rejected Anti-Pattern (`절대 회귀 금지 패턴`) | Enforcement Mechanism |
 | :--- | :--- | :--- | :--- |
@@ -187,5 +179,4 @@ sequenceDiagram
 | **`ADR-05`** | **Separation of Universal Engineering Laws (`always_on`) vs. Path-Scoped Standards (`glob`)** | Hardcoding concrete DB names (`FTS5`, `canon.db`) in `IMPERIAL_ENGINEERING_LAWS.md` | Keep `IMPERIAL_ENGINEERING_LAWS.md` `100%` spec-abstracted and realize concrete DB/schema specs in `docs/ARCHITECTURE.md` and `docs/SPECIFICATION.md`. |
 | **`ADR-06`** | **Consolidation into the `4` Permanent Mirror Ledgers (`Zero Commentary File Spawning`)** | Maintaining separate `*_COMMENTARY.md` files | Govern document authoring via `.agents/rules/docs/IMPERIAL_*_AUTHORING_STANDARD.md` and embed `ADR`/`SDR` tables directly inside `ARCHITECTURE.md` and `SPECIFICATION.md`. |
 | **`ADR-07`** | **Replacement of `canon.db` with Empty-Baseline `synthesizer.db` & `L2` Combinator Separation** | Duplicating markdown constitutional rules in `canon.db` (causing rule-to-DB drift) or scattering prompt strings across `.ts` files | Treat `/GEMINI.md` + `/.agents/rules/**/*.md` as the sole Constitutional `SSOT`, store on-demand prompt/behavior blocks in `synthesizer.db` (initialized empty), and keep assembly logic in `Layer 2`. |
-| **`ADR-08`** | **Built-In `node:sqlite` + Git-Tracked `JSONL` Snapshot Bridge for `AI Studio Build` Mirroring** | Committing binary `.db` files to Git (merge conflicts), relying on ephemeral container disk, or requiring external cloud DB keys | Execute `< 1ms` runtime queries on git-ignored `.data/*.db` via Node `22+` `node:sqlite` and mirror state deterministically via Git-tracked `data/mirror/*.jsonl` snapshots. |
-| **`ADR-09`** | **Hybrid Cross-DB Connection (`L3 ➔ L2` + Read-Only `ATTACH` in `C1`) & Universal `milestones` Table** | Performing cross-DB multi-file write transactions (`SQLITE_BUSY` risk) or restricting milestones to code-only changes | Isolate writes per `.db` file via `BEGIN IMMEDIATE`, allow read-only `ATTACH DATABASE` joins inside `Cluster C1`, and track all `RULE`, `LEDGER_DOC`, `LTM_SCHEMA`, `SOURCE_CODE`, and `HYBRID` changes in `knowledge.db` (`milestones`). |
+| **`ADR-08`** | **Pure Local Native `node:sqlite` (`data/*.db`), Hybrid `C1` `ATTACH` Join & Universal `milestones`** | Adding redundant `JSONL` mirror bridges for buggy web sandboxes (`AI Studio Build`) or restricting milestones to code-only changes | Operate directly on local `data/*.db` with isolated per-DB `BEGIN IMMEDIATE` writes, allow read-only `ATTACH DATABASE` joins inside `Cluster C1`, and track all `RULE`, `LEDGER_DOC`, `LTM_SCHEMA`, `SOURCE_CODE`, and `HYBRID` changes in `data/knowledge.db` (`milestones`). |

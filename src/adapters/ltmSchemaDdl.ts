@@ -1,11 +1,9 @@
 /**
- * Purpose: Canonical SQLite STRICT DDL definitions, row mappers, and JSONL helpers for 2-Cluster LTM.
+ * Purpose: Canonical SQLite STRICT DDL definitions and row mappers for the 2-Cluster LTM databases.
  * Scope: Covers Cluster C1 (telemetry.db, dialogue.db, synthesizer.db) and Cluster C2 (knowledge.db).
  * Constraints: Enforces STRICT column typing, JSON validation checks, FTS5 tables, and <= 250 lines.
  */
 
-import fs from 'node:fs';
-import path from 'node:path';
 import type {
   BioTelemetrySnapshot,
   DialogueRole,
@@ -160,22 +158,4 @@ export function mapRowToMilestone(row: Record<string, unknown>): MilestoneRecord
     affectedFiles: parsedFiles,
     createdAtIso: String(row.created_at_iso),
   };
-}
-
-export function writeJsonlSnapshot<T>(filePath: string, items: readonly T[]): void {
-  fs.mkdirSync(path.dirname(filePath), { recursive: true });
-  const content = items.map((item) => JSON.stringify(item)).join('\n');
-  fs.writeFileSync(filePath, content.length > 0 ? `${content}\n` : '', 'utf8');
-}
-
-export function readJsonlSnapshot<T>(filePath: string): readonly T[] {
-  if (!fs.existsSync(filePath)) {
-    return [];
-  }
-  return fs
-    .readFileSync(filePath, 'utf8')
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter((line) => line.length > 0)
-    .map((line) => JSON.parse(line) as T);
 }

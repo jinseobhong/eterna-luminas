@@ -1,6 +1,6 @@
 /**
  * Purpose: 1:1 mirrored integration test suite for src/adapters/ltmSqliteCluster.ts.
- * Scope: Verifies 2-Cluster isolation, ATTACH cross-DB joins, file-indexed milestones, and JSONL mirror parity.
+ * Scope: Verifies pure local native 2-Cluster isolation, ATTACH cross-DB joins, and file-indexed milestones.
  * Constraints: Uses isolated temporary directories and closes all SQLite handles cleanly.
  */
 
@@ -11,13 +11,10 @@ import path from 'node:path';
 import { describe, it } from 'node:test';
 import { LtmDualClusterManager } from '../../src/adapters/ltmSqliteCluster.ts';
 
-describe('Layer 3 Dual-Cluster SQLite LTM & JSONL Bridge (ltmSqliteCluster.ts)', () => {
+describe('Layer 3 Pure Local Native Dual-Cluster SQLite LTM (ltmSqliteCluster.ts)', () => {
   it('supports L3->L2 sequential queries and ATTACH DATABASE cross-DB joins across Cluster C1', () => {
     const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'eterna-ltm-c1-'));
-    const dbDir = path.join(tempRoot, '.data');
-    const mirrorDir = path.join(tempRoot, 'mirror');
-
-    const cluster = new LtmDualClusterManager({ dbDir, mirrorDir });
+    const cluster = new LtmDualClusterManager(tempRoot);
     try {
       cluster.upsertBioTelemetry({
         snapshotId: 'CURRENT',
@@ -76,15 +73,11 @@ describe('Layer 3 Dual-Cluster SQLite LTM & JSONL Bridge (ltmSqliteCluster.ts)',
     }
   });
 
-  it('records universal milestones, queries by file path, and mirrors via JSONL snapshots', () => {
+  it('records universal milestones in knowledge.db and queries by file path', () => {
     const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'eterna-ltm-c2-'));
-    const dbDirA = path.join(tempRoot, '.data-a');
-    const dbDirB = path.join(tempRoot, '.data-b');
-    const mirrorDir = path.join(tempRoot, 'mirror');
-
-    const clusterA = new LtmDualClusterManager({ dbDir: dbDirA, mirrorDir });
+    const cluster = new LtmDualClusterManager(tempRoot);
     try {
-      const m1 = clusterA.recordMilestone(
+      const m1 = cluster.recordMilestone(
         {
           scopeCategory: 'RULE',
           title: 'Abstract Engineering Laws',
@@ -97,23 +90,12 @@ describe('Layer 3 Dual-Cluster SQLite LTM & JSONL Bridge (ltmSqliteCluster.ts)',
       );
       assert.equal(m1.milestoneId, 'M-0001');
 
-      const byFile = clusterA.getMilestonesByFile('.agents/rules/IMPERIAL_ENGINEERING_LAWS.md');
+      const byFile = cluster.getMilestonesByFile('.agents/rules/IMPERIAL_ENGINEERING_LAWS.md');
       assert.equal(byFile.length, 1);
       assert.equal(byFile[0]?.milestoneId, 'M-0001');
-
-      clusterA.exportToJsonlMirror();
+      assert.equal(byFile[0]?.title, 'Abstract Engineering Laws');
     } finally {
-      clusterA.close();
-    }
-
-    const clusterB = new LtmDualClusterManager({ dbDir: dbDirB, mirrorDir });
-    try {
-      clusterB.hydrateFromJsonlMirror();
-      const restored = clusterB.getMilestonesByFile('docs/ARCHITECTURE.md');
-      assert.equal(restored.length, 1);
-      assert.equal(restored[0]?.title, 'Abstract Engineering Laws');
-    } finally {
-      clusterB.close();
+      cluster.close();
       fs.rmSync(tempRoot, { recursive: true, force: true });
     }
   });

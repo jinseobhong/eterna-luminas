@@ -1,13 +1,13 @@
 /**
- * Purpose: Layer 3 CLI controller for 2-Cluster LTM initialization, Chesterton's Fence lookup, and milestone recording.
- * Scope: Powers npm run ltm:init, npm run ltm:why, npm run ltm:milestone, and npm run ltm:sync.
- * Constraints: Deterministic JSON output, automatic JSONL mirror synchronization, <= 250 lines.
+ * Purpose: Layer 3 CLI controller for pure local native 2-Cluster LTM initialization and milestone management.
+ * Scope: Powers npm run ltm:init, npm run ltm:why, and npm run ltm:milestone against data/*.db.
+ * Constraints: Deterministic JSON output, fail-fast argument validation, <= 250 lines.
  */
 
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { MilestoneScopeCategory } from '../core/contracts/ltmContracts.ts';
-import { LtmDualClusterManager, type LtmClusterPaths } from './ltmSqliteCluster.ts';
+import { LtmDualClusterManager } from './ltmSqliteCluster.ts';
 
 const VALID_SCOPES: readonly MilestoneScopeCategory[] = [
   'RULE',
@@ -37,26 +37,22 @@ function validateScopeCategory(raw: string): MilestoneScopeCategory {
 
 export function runLtmCli(
   argv: readonly string[],
-  paths: LtmClusterPaths,
+  dbDir: string,
   nowIso: string = new Date().toISOString(),
 ): string {
-  const command = (argv[0] ?? 'sync').trim();
-  const cluster = new LtmDualClusterManager(paths);
+  const command = (argv[0] ?? 'init').trim();
+  const cluster = new LtmDualClusterManager(dbDir);
 
   try {
-    cluster.hydrateFromJsonlMirror();
-
     switch (command) {
-      case 'init':
-      case 'sync': {
-        cluster.exportToJsonlMirror();
+      case 'init': {
         const milestones = cluster.listMilestones();
         return JSON.stringify(
           {
             status: 'OK',
             command,
             milestoneCount: milestones.length,
-            mirrorDir: paths.mirrorDir,
+            dbDir,
           },
           null,
           2,
@@ -93,7 +89,6 @@ export function runLtmCli(
           },
           nowIso,
         );
-        cluster.exportToJsonlMirror();
 
         const verified = cluster
           .listMilestones()
@@ -105,7 +100,7 @@ export function runLtmCli(
       }
       default:
         throw new Error(
-          `Unknown LTM CLI command '${command}'. Supported: init | why | milestone | sync.`,
+          `Unknown LTM CLI command '${command}'. Supported: init | why | milestone.`,
         );
     }
   } finally {
@@ -116,10 +111,7 @@ export function runLtmCli(
 const currentFilePath = fileURLToPath(import.meta.url);
 if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(currentFilePath)) {
   const workspaceRoot = path.resolve(import.meta.dirname, '../..');
-  const defaultPaths: LtmClusterPaths = {
-    dbDir: path.join(workspaceRoot, '.data'),
-    mirrorDir: path.join(workspaceRoot, 'data/mirror'),
-  };
-  const output = runLtmCli(process.argv.slice(2), defaultPaths);
+  const defaultDbDir = path.join(workspaceRoot, 'data');
+  const output = runLtmCli(process.argv.slice(2), defaultDbDir);
   process.stdout.write(`${output}\n`);
 }

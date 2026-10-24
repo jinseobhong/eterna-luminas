@@ -1,5 +1,5 @@
 /**
- * Purpose: Layer 3 2-Cluster SQLite LTM persistence adapter and deterministic JSONL snapshot bridge.
+ * Purpose: Layer 3 pure local native 2-Cluster SQLite LTM persistence manager.
  * Scope: Manages Cluster C1 (telemetry, dialogue, synthesizer) and Cluster C2 (knowledge) on node:sqlite.
  * Constraints: Isolates writes per DB, supports read-only ATTACH joins in C1, and keeps <= 250 lines.
  */
@@ -29,14 +29,7 @@ import {
   mapRowToMemoryEngram,
   mapRowToMilestone,
   mapRowToPromptBlock,
-  readJsonlSnapshot,
-  writeJsonlSnapshot,
 } from './ltmSchemaDdl.ts';
-
-export interface LtmClusterPaths {
-  readonly dbDir: string;
-  readonly mirrorDir: string;
-}
 
 function runAtomicMutation(db: DatabaseSync, sql: string, params: readonly SQLInputValue[]): void {
   db.exec('BEGIN IMMEDIATE;');
@@ -54,22 +47,19 @@ export class LtmDualClusterManager {
   public readonly dialogueDbPath: string;
   public readonly synthesizerDbPath: string;
   public readonly knowledgeDbPath: string;
-  public readonly mirrorDir: string;
 
   private readonly telemetryDb: DatabaseSync;
   private readonly dialogueDb: DatabaseSync;
   private readonly synthesizerDb: DatabaseSync;
   private readonly knowledgeDb: DatabaseSync;
 
-  public constructor(paths: LtmClusterPaths) {
-    fs.mkdirSync(paths.dbDir, { recursive: true });
-    fs.mkdirSync(paths.mirrorDir, { recursive: true });
+  public constructor(dbDir: string) {
+    fs.mkdirSync(dbDir, { recursive: true });
 
-    this.mirrorDir = paths.mirrorDir;
-    this.telemetryDbPath = path.resolve(paths.dbDir, 'telemetry.db');
-    this.dialogueDbPath = path.resolve(paths.dbDir, 'dialogue.db');
-    this.synthesizerDbPath = path.resolve(paths.dbDir, 'synthesizer.db');
-    this.knowledgeDbPath = path.resolve(paths.dbDir, 'knowledge.db');
+    this.telemetryDbPath = path.resolve(dbDir, 'telemetry.db');
+    this.dialogueDbPath = path.resolve(dbDir, 'dialogue.db');
+    this.synthesizerDbPath = path.resolve(dbDir, 'synthesizer.db');
+    this.knowledgeDbPath = path.resolve(dbDir, 'knowledge.db');
 
     this.telemetryDb = new DatabaseSync(this.telemetryDbPath);
     this.dialogueDb = new DatabaseSync(this.dialogueDbPath);
@@ -210,23 +200,6 @@ export class LtmDualClusterManager {
       .prepare('SELECT * FROM milestones ORDER BY milestone_id ASC;')
       .all() as Record<string, unknown>[];
     return rows.map(mapRowToMilestone);
-  }
-
-  public exportToJsonlMirror(): void {
-    const tele = (this.telemetryDb.prepare('SELECT * FROM bio_telemetry_states ORDER BY snapshot_id ASC;').all() as Record<string, unknown>[]).map(mapRowToBioTelemetry);
-    const dial = (this.dialogueDb.prepare('SELECT * FROM memory_engrams ORDER BY engram_id ASC;').all() as Record<string, unknown>[]).map(mapRowToMemoryEngram);
-    const synth = (this.synthesizerDb.prepare('SELECT * FROM prompt_synthesis_blocks ORDER BY block_id ASC;').all() as Record<string, unknown>[]).map(mapRowToPromptBlock);
-    writeJsonlSnapshot(path.join(this.mirrorDir, 'telemetry_states.jsonl'), tele);
-    writeJsonlSnapshot(path.join(this.mirrorDir, 'dialogue_engrams.jsonl'), dial);
-    writeJsonlSnapshot(path.join(this.mirrorDir, 'synthesizer_blocks.jsonl'), synth);
-    writeJsonlSnapshot(path.join(this.mirrorDir, 'knowledge_milestones.jsonl'), this.listMilestones());
-  }
-
-  public hydrateFromJsonlMirror(): void {
-    readJsonlSnapshot<BioTelemetrySnapshot>(path.join(this.mirrorDir, 'telemetry_states.jsonl')).forEach((t) => this.upsertBioTelemetry(t));
-    readJsonlSnapshot<MemoryEngram>(path.join(this.mirrorDir, 'dialogue_engrams.jsonl')).forEach((e) => this.upsertMemoryEngram(e));
-    readJsonlSnapshot<PromptSynthesisBlock>(path.join(this.mirrorDir, 'synthesizer_blocks.jsonl')).forEach((b) => this.upsertPromptSynthesisBlock(b));
-    readJsonlSnapshot<MilestoneRecord>(path.join(this.mirrorDir, 'knowledge_milestones.jsonl')).forEach((m) => this.upsertMilestoneRecord(m));
   }
 
   public close(): void {
