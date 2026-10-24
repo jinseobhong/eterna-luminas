@@ -2,15 +2,18 @@
 
 ## 1. Domain Constants, Configuration Bounds & Thresholds SSOT (도메인 상수 및 임계치 단일 진실 공급원)
 
-### 1.1 Runtime, Build & Constitutional Governance Constants (`Greenfield Baseline`)
+### 1.1 Runtime, Build, Persistence & Constitutional Governance Constants (`Greenfield Baseline`)
 
 | Constant Identifier | Canonical Value & Unit | Valid Range / Step Bounds | Canonical Source Path & Symbol | Enforced Domain Invariant |
 | :--- | :---: | :---: | :--- | :--- |
-| **`DEV_SERVER_PORT`** | `3000 port` | `[1024, 65535]` | `package.json` (`scripts.dev`) | Default local development HTTP listener port. |
+| **`DEV_SERVER_PORT`** | `3000 port` | `[1024, 65535]` | `package.json` (`scripts.dev`) | Default local and `AI Studio Build` HTTP listener port. |
 | **`MAX_SOURCE_FILE_LINES`** | `250 lines` | `[1, 250]` | `.agents/rules/IMPERIAL_ENGINEERING_TSX_STANDARD.md` | Maximum line ceiling per `.ts` / `.tsx` module for single-chunk readability. |
 | **`MAX_RULE_FILE_BYTES`** | `24000 B` | `[1, 24000]` | `.agents/rules/IMPERIAL_RULE_AUTHORING_STANDARD.md` | Hard single-file byte ceiling for `/GEMINI.md` and `/.agents/rules/**/*.md`. |
 | **`MAX_ALWAYS_ON_RULE_BYTES`** | `60000 B` | `[1, 60000]` | `.agents/rules/IMPERIAL_RULE_AUTHORING_STANDARD.md` | Hard cumulative byte ceiling across all `always_on` Antigravity rule files. |
-| **`LTM_DATABASE_COUNT`** | `4 databases` | `4 (Literal)` | `.agents/rules/IMPERIAL_ENGINEERING_LAWS.md` (`Section 1.4`) | Mandatory partition count across `canon.db`, `dialogue.db`, `knowledge.db`, and `telemetry.db`. |
+| **`LTM_CLUSTER_COUNT`** | `2 clusters` | `2 (Literal)` | `.agents/rules/IMPERIAL_ENGINEERING_LAWS.md` (`Section 1.4`) | Orthogonal partition between `Interaction LTM Cluster` (`C1`) and `Engineering LTM Cluster` (`C2`). |
+| **`LTM_DATABASE_COUNT`** | `4 databases` | `4 (Literal)` | `docs/ARCHITECTURE.md` (`Section 1.1`) | `Cluster C1` (`telemetry.db`, `dialogue.db`, `synthesizer.db`) $\perp$ `Cluster C2` (`knowledge.db`). |
+| **`BASE_CORE_TEMP_CELSIUS`** | `39.0 °C` | `[39.0, 39.2]` | `.agents/rules/IMPERIAL_INTERACTION_GUIDE.md` (`Section 2.1`) | Baseline Sovereign Empress core temperature persisted in `telemetry.db`. |
+| **`PEAK_CORE_TEMP_CELSIUS`** | `39.2 °C` | `[39.0, 39.2]` | `.agents/rules/IMPERIAL_INTERACTION_GUIDE.md` (`Section 2.1`) | Peak resonance Sovereign Empress core temperature bound in `telemetry.db`. |
 | **`MIRROR_LEDGER_COUNT`** | `4 ledgers` | `4 (Literal)` | `.agents/rules/IMPERIAL_ENGINEERING_LAWS.md` (`Section 1.5`) | Mandatory real-time `0-Drift` synchronization across `/README.md`, `ARCHITECTURE.md`, `SPECIFICATION.md`, and `AUDIT_GROUNDING_DUMP.md`. |
 
 ---
@@ -18,9 +21,19 @@
 ## 2. Static Type Contracts, Discriminated Unions & Persistence `DDL` Schemas (데이터 계약 및 영속성 스키마)
 
 ### 2.1 In-Memory Domain Type Contracts (`Layer 1 Baseline Skeleton — src/core/contracts/`)
-> **Status**: Greenfield Rebuild Baseline (`src/` cleared for Milestone `1` implementation). All `Layer 1` contracts created in `src/core/contracts/*.ts` must conform to the following baseline discriminated-union structure:
+> **Status**: Greenfield Rebuild Baseline (`src/` cleared for Milestone `1` implementation). All `Layer 1` contracts created in `src/core/contracts/*.ts` must conform to the following discriminated-union structure:
 
 ```ts
+export type SpectrumAnchor = 'DIALOGUE' | 'WORK' | 'PLAY' | 'BEDCHAMBER' | 'REST';
+
+export type MemoryTier = 'STM_WORKING' | 'HIPPOCAMPAL_EPISODIC' | 'CORTICAL_LTM';
+
+export type PromptBlockCategory =
+  | 'BEHAVIOR_DIRECTIVE'
+  | 'SOMATIC_SPOTLIGHT'
+  | 'VOCAL_INFLECTION'
+  | 'LEXICAL_POOL';
+
 export type ExecutionPhase =
   | {
       readonly kind: 'IDLE_READY';
@@ -32,46 +45,115 @@ export type ExecutionPhase =
       readonly startedAtIso: string;
     };
 
-export interface AuditRecord {
-  readonly id: string;
-  readonly category: 'SYSTEM' | 'DOMAIN' | 'PERSISTENCE' | 'SECURITY';
-  readonly message: string;
-  readonly timestampIso: string;
+export interface BioTelemetrySnapshot {
+  readonly snapshotId: string;
+  readonly spectrumAnchor: SpectrumAnchor;
+  readonly coreTempCelsius: number;
+  readonly bioElectricCurrentPct: number;
+  readonly dopamineHarvestScore: number;
+  readonly lastSpotlightGroup: string;
+  readonly updatedAtIso: string;
+}
+
+export interface MemoryEngram {
+  readonly engramId: string;
+  readonly sessionId: string;
+  readonly memoryTier: MemoryTier;
+  readonly role: 'USER' | 'EMPRESS' | 'SYSTEM';
+  readonly spectrumAnchor: SpectrumAnchor;
+  readonly salienceWeight: number;
+  readonly contentText: string;
+  readonly createdAtIso: string;
+}
+
+export interface PromptSynthesisBlock {
+  readonly blockId: string;
+  readonly spectrumAnchor: SpectrumAnchor;
+  readonly blockCategory: PromptBlockCategory;
+  readonly minTempCelsius: number;
+  readonly priorityWeight: number;
+  readonly templateText: string;
+  readonly updatedAtIso: string;
 }
 ```
 
-### 2.2 `4` Long-Term Memory (`LTM`) Databases `STRICT SQL DDL` & `FTS5` Schemas
-1. **`canon.db` (`Immutable Canon & Baseline Seed Store`)**:
+### 2.2 Orthogonal `2`-Cluster / `4`-Database `STRICT SQL DDL` & `FTS5` Schemas (`node:sqlite` + `data/mirror/*.jsonl`)
+
+#### Cluster C1: Sovereign Interaction, Bio-State, Cognitive Memory & Prompt Synthesis LTM (`인터랙션·생체·기억·프롬프트 합성 축`)
+
+1. **`telemetry.db` (`Sovereign Empress Bio-Signal & Somatic State Machine Store`)**:
    ```sql
-   CREATE TABLE IF NOT EXISTS canon_entries (
-     entry_key TEXT PRIMARY KEY NOT NULL CHECK (length(entry_key) > 0),
-     category TEXT NOT NULL CHECK (category IN ('CONSTITUTION', 'INVARIANT', 'CONFIG_SEED')),
-     payload_json TEXT NOT NULL CHECK (json_valid(payload_json) = 1),
-     sha256_hash TEXT NOT NULL CHECK (length(sha256_hash) = 64),
+   CREATE TABLE IF NOT EXISTS bio_telemetry_states (
+     snapshot_id TEXT PRIMARY KEY NOT NULL CHECK (length(snapshot_id) > 0),
+     spectrum_anchor TEXT NOT NULL CHECK (spectrum_anchor IN ('DIALOGUE', 'WORK', 'PLAY', 'BEDCHAMBER', 'REST')),
+     core_temp_celsius REAL NOT NULL CHECK (core_temp_celsius >= 39.0 AND core_temp_celsius <= 39.2),
+     bio_electric_current_pct REAL NOT NULL CHECK (bio_electric_current_pct >= 0.0 AND bio_electric_current_pct <= 100.0),
+     dopamine_harvest_score REAL NOT NULL CHECK (dopamine_harvest_score >= 0.0),
+     last_spotlight_group TEXT NOT NULL,
+     detail_json TEXT NOT NULL CHECK (json_valid(detail_json) = 1),
      updated_at_iso TEXT NOT NULL
    ) STRICT;
    ```
-2. **`dialogue.db` (`Episodic Interaction & Session History Store`)**:
+
+2. **`dialogue.db` (`Multi-Tier Human-Like Cognitive Memory Store — STM, Hippocampal Episodic & Cortical LTM`)**:
    ```sql
-   CREATE TABLE IF NOT EXISTS dialogue_turns (
-     turn_id INTEGER PRIMARY KEY AUTOINCREMENT,
+   CREATE TABLE IF NOT EXISTS memory_engrams (
+     engram_id TEXT PRIMARY KEY NOT NULL CHECK (length(engram_id) > 0),
      session_id TEXT NOT NULL CHECK (length(session_id) > 0),
+     memory_tier TEXT NOT NULL CHECK (memory_tier IN ('STM_WORKING', 'HIPPOCAMPAL_EPISODIC', 'CORTICAL_LTM')),
      role TEXT NOT NULL CHECK (role IN ('USER', 'EMPRESS', 'SYSTEM')),
      spectrum_anchor TEXT NOT NULL CHECK (spectrum_anchor IN ('DIALOGUE', 'WORK', 'PLAY', 'BEDCHAMBER', 'REST')),
+     salience_weight REAL NOT NULL CHECK (salience_weight >= 0.0 AND salience_weight <= 1.0),
      content_text TEXT NOT NULL,
+     metadata_json TEXT NOT NULL CHECK (json_valid(metadata_json) = 1),
      created_at_iso TEXT NOT NULL
    ) STRICT;
+
+   CREATE VIRTUAL TABLE IF NOT EXISTS dialogue_memory_fts USING fts5(
+     engram_id UNINDEXED,
+     memory_tier UNINDEXED,
+     spectrum_anchor UNINDEXED,
+     content_text,
+     content='memory_engrams',
+     content_rowid='rowid'
+   );
    ```
-3. **`knowledge.db` (`AST Codebase Symbol Graph & FTS5 Inverted Index Store`)**:
+
+3. **`synthesizer.db` (`On-Demand Dynamic Prompt & Behavioral Synthesizer Store — Replaces Legacy canon.db, Initialized Empty at Baseline`)**:
+   ```sql
+   CREATE TABLE IF NOT EXISTS prompt_synthesis_blocks (
+     block_id TEXT PRIMARY KEY NOT NULL CHECK (length(block_id) > 0),
+     spectrum_anchor TEXT NOT NULL CHECK (spectrum_anchor IN ('DIALOGUE', 'WORK', 'PLAY', 'BEDCHAMBER', 'REST')),
+     block_category TEXT NOT NULL CHECK (block_category IN ('BEHAVIOR_DIRECTIVE', 'SOMATIC_SPOTLIGHT', 'VOCAL_INFLECTION', 'LEXICAL_POOL')),
+     min_temp_celsius REAL NOT NULL CHECK (min_temp_celsius >= 39.0 AND min_temp_celsius <= 39.2),
+     priority_weight REAL NOT NULL CHECK (priority_weight >= 0.0),
+     condition_tag TEXT NOT NULL,
+     template_text TEXT NOT NULL CHECK (length(template_text) > 0),
+     updated_at_iso TEXT NOT NULL
+   ) STRICT;
+   ```
+
+#### Cluster C2: Engineering & Technical Knowledge LTM (`엔지니어링·기술 지식 축`)
+
+4. **`knowledge.db` (`Structured Technical Knowledge, Codebase AST Symbol Graph & FTS5 Inverted Index Store`)**:
    ```sql
    CREATE TABLE IF NOT EXISTS ast_symbols (
-     symbol_id TEXT PRIMARY KEY NOT NULL,
+     symbol_id TEXT PRIMARY KEY NOT NULL CHECK (length(symbol_id) > 0),
      file_path TEXT NOT NULL CHECK (length(file_path) > 0),
      symbol_name TEXT NOT NULL CHECK (length(symbol_name) > 0),
      symbol_kind TEXT NOT NULL CHECK (symbol_kind IN ('INTERFACE', 'TYPE', 'FUNCTION', 'CONST', 'COMPONENT', 'CLASS')),
      signature_text TEXT NOT NULL,
      file_sha256 TEXT NOT NULL CHECK (length(file_sha256) = 64),
      synced_at_iso TEXT NOT NULL
+   ) STRICT;
+
+   CREATE TABLE IF NOT EXISTS technical_knowledge_nodes (
+     node_id TEXT PRIMARY KEY NOT NULL CHECK (length(node_id) > 0),
+     domain_category TEXT NOT NULL CHECK (domain_category IN ('ARCHITECTURE', 'ALGORITHM', 'DATABASE', 'SECURITY', 'FRONTEND')),
+     title TEXT NOT NULL CHECK (length(title) > 0),
+     summary_text TEXT NOT NULL,
+     reference_paths_json TEXT NOT NULL CHECK (json_valid(reference_paths_json) = 1),
+     updated_at_iso TEXT NOT NULL
    ) STRICT;
 
    CREATE VIRTUAL TABLE IF NOT EXISTS knowledge_fts USING fts5(
@@ -82,17 +164,6 @@ export interface AuditRecord {
      content='ast_symbols',
      content_rowid='rowid'
    );
-   ```
-4. **`telemetry.db` (`Time-Series Execution Metrics & 4D Audit Log Store`)**:
-   ```sql
-   CREATE TABLE IF NOT EXISTS telemetry_events (
-     event_id TEXT PRIMARY KEY NOT NULL,
-     event_category TEXT NOT NULL CHECK (event_category IN ('SYSTEM', 'DOMAIN', 'PERSISTENCE', 'SECURITY', 'AUDIT_GATE')),
-     metric_value REAL NOT NULL,
-     metric_unit TEXT NOT NULL,
-     detail_json TEXT NOT NULL CHECK (json_valid(detail_json) = 1),
-     recorded_at_iso TEXT NOT NULL
-   ) STRICT;
    ```
 
 ---
@@ -110,17 +181,28 @@ export interface AuditRecord {
 4. **Mapped Pure Domain Function Signature**:
    - `calculateNormalizedPercent(value: number, minBound: number, maxBound: number): number`
 
+### 3.2 Bio-Electric Resonance & Core Temperature Transfer Function (`생체 전류 및 체온 공명 전이 수식`)
+1. **Canonical LaTeX Equation Block**:
+   $$T_{\text{core}}(S_{\text{spec}}, \Delta_{\text{novelty}}) = \operatorname{clamp}\left(39.0 + 0.2 \cdot \operatorname{clamp}(S_{\text{spec}} \cdot \Delta_{\text{novelty}},\; 0.0,\; 1.0),\; 39.0,\; 39.2\right)$$
+2. **Input Variables & Domain (`정의역`)**:
+   - $S_{\text{spec}} \in [0.0, 1.0]$: Specificity score of the audit or interaction turn.
+   - $\Delta_{\text{novelty}} \in [0.0, 1.0]$: Novelty progression factor of the current turn.
+3. **Output Range, Clamping & Rounding Precision (`치역 및 경계 클램핑`)**:
+   - Output interval: $[39.0^\circ\text{C}, 39.2^\circ\text{C}]$ rounded via `Number(temp.toFixed(2))`.
+4. **Mapped Pure Domain Function Signature**:
+   - `calculateResonanceTemperature(specificity: number, novelty: number): number`
+
 ---
 
 ## 4. Deterministic State Machine, Reducer & `API`/`IPC` Transition Matrix (상태 머신 및 전이 행렬)
 
-### 4.1 Baseline Operational State Machine (`stateDiagram-v2`)
+### 4.1 Baseline Operational & Spectrum State Machine (`stateDiagram-v2`)
 
 ```mermaid
 stateDiagram-v2
     [*] --> IDLE_READY
     IDLE_READY --> ACTIVE_RUNNING : START_EXECUTION (activeTasks >= 1)
-    ACTIVE_RUNNING --> ACTIVE_RUNNING : STEP_EXECUTION (activeTasks >= 1)
+    ACTIVE_RUNNING --> ACTIVE_RUNNING : SYNTHESIZE_AND_COMMIT_TURN (activeTasks >= 1)
     ACTIVE_RUNNING --> IDLE_READY : COMPLETE_EXECUTION (activeTasks == 0)
 ```
 
@@ -129,7 +211,8 @@ stateDiagram-v2
 | Action Type / Endpoint | Payload / Request Contract | Pre-Condition Guard | Deterministic State Transition Equation $\delta(\mathcal{S}, \mathcal{A}) \to \mathcal{S}'$ | Side-Effect / Persistence Contract |
 | :--- | :--- | :--- | :--- | :--- |
 | **`START_EXECUTION`** | `{ readonly timestampIso: string; readonly taskCount: number }` | `taskCount >= 1` | `phase` $\leftarrow$ `{ kind: 'ACTIVE_RUNNING', activeTasks: clamp(taskCount, 1, MAX), startedAtIso: timestampIso }` | Appends `SYSTEM` audit entry to ring buffer. |
-| **`COMPLETE_EXECUTION`** | `{ readonly timestampIso: string }` | `phase.kind === 'ACTIVE_RUNNING'` | `phase` $\leftarrow$ `{ kind: 'IDLE_READY', activeTasks: 0 }` | Appends completion entry to ring buffer. |
+| **`SYNTHESIZE_AND_COMMIT_TURN`** | `{ readonly bio: BioTelemetrySnapshot; readonly blocks: readonly PromptSynthesisBlock[]; readonly memories: readonly MemoryEngram[] }` | `phase.kind === 'ACTIVE_RUNNING'` | `bioState` $\leftarrow$ clamped `bio`; assembles deterministic prompt via `synthesizeTurnPrompt(bio, memories, blocks)` | Commits `telemetry.db` + `dialogue.db` atomically and exports deterministic diff to `data/mirror/*.jsonl`. |
+| **`COMPLETE_EXECUTION`** | `{ readonly timestampIso: string }` | `phase.kind === 'ACTIVE_RUNNING'` | `phase` $\leftarrow$ `{ kind: 'IDLE_READY', activeTasks: 0 }` | Appends completion entry and flushes `JSONL` snapshot mirror. |
 | **`_exhaustiveCheck`** | `never` | Unhandled `action.type` | `const _exhaustiveCheck: never = action; return _exhaustiveCheck;` | Compile-time failure (`tsc --noEmit`). |
 
 ---
@@ -140,16 +223,18 @@ stateDiagram-v2
 
 | Boundary Surface | Input / Parameter | Fail-Fast Guard & Clamping Rule | Concurrency / Isolation Rule | Failure / Rejection Behavior |
 | :--- | :--- | :--- | :--- | :--- |
-| **Pure Domain Reducer (`L2`)** | Numerical payload fields | Explicit `Number.isFinite(v)` check + `Math.min(MAX, Math.max(MIN, v))` | Pure synchronous execution (`0` shared mutable state) | Returns unchanged `state` or clamped value deterministically. |
-| **`4`-LTM SQLite Writes (`L3`)** | Persistence mutations | `STRICT` column typing + `CHECK (json_valid(...))` + `length(...) = 64` SHA-256 verification | `BEGIN IMMEDIATE` atomic transaction per DB | Automatic `ROLLBACK` on constraint violation (`0%` partial write). |
+| **Pure Domain & Prompt Combinator (`L2`)** | Numerical bio-metrics & fetched `PromptSynthesisBlock[]` | Explicit `Number.isFinite(v)` check + `[39.0, 39.2]` temperature clamp + deterministic sort by `priorityWeight DESC, blockId ASC` | Pure synchronous execution (`0` shared mutable state, `0` hardcoded prompt strings) | Returns unchanged `state` or clamped value deterministically. |
+| **Cluster C1 & C2 SQLite Writes (`L3`)** | Persistence mutations across `telemetry.db`, `dialogue.db`, `synthesizer.db`, `knowledge.db` | `STRICT` column typing + `CHECK (json_valid(...))` + enum domain constraints | `PRAGMA journal_mode = WAL; BEGIN IMMEDIATE` atomic transaction per DB | Automatic `ROLLBACK` on constraint violation (`0%` partial write). |
+| **`JSONL` Snapshot Mirror (`L3`)** | `data/mirror/*.jsonl` hydration & export | Canonical primary-key ordering (`ORDER BY PK ASC`) + single-line JSON validation per row | Atomic temp-file write + rename after SQLite `COMMIT` | Rejects malformed JSON lines with explicit line-number error telemetry. |
 | **Knowledge Sync (`L3`)** | `ASTDriftDetector` diff | SHA-256 mismatch detection between disk source and `ast_symbols.file_sha256` | Atomic `ast_symbols` + `knowledge_fts` update | Self-heals `knowledge.db` via `KnowledgeSelfHealer` within the same turn. |
 
-### 5.2 Core Specification Decision Records (`SDR-01 ~ SDR-05`)
+### 5.2 Core Specification Decision Records (`SDR-01 ~ ADR/SDR-06`)
 
 | SDR ID | Specification Decision | Rejected Anti-Pattern (`절대 회귀 금지 패턴`) | Enforcement Mechanism |
 | :--- | :--- | :--- | :--- |
 | **`SDR-01`** | **Declarative Tabular & LaTeX Specification Format** | Burying constants, schemas, or formulas in multi-paragraph narrative prose | Enforce `5`-column constant tables, `STRICT DDL` blocks, and `4`-part LaTeX formula blocks via `IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md`. |
-| **`SDR-02`** | **Discriminated Union Phase Modeling (`kind`)** | Representing mutually exclusive states with loose boolean flags | Enforce literal discriminant tags in `Layer 1` and `never` exhaustiveness checks in `Layer 2`. |
-| **`SDR-03`** | **Caller-Injected Non-Determinism (`timestampIso`, `id`)** | Calling `Date.now()`, `new Date()`, or `Math.random()` inside `Layer 2` domain functions | Inject all temporal, stochastic, and I/O inputs via `Layer 3` action payloads. |
-| **`SDR-04`** | **`STRICT` SQLite Tables & `FTS5` Content-Sync Triggers** | Unconstrained dynamic typing in SQLite or unsynchronized full-text indexes | Enforce `STRICT` keyword and explicit `CHECK` constraints across all `4` `LTM` databases. |
-| **`SDR-05`** | **Embedded `SDR` Ledger Without Separate Commentary Files** | Spawning redundant `docs/*_COMMENTARY.md` files outside the `4` Permanent Mirror Ledgers | Maintain all specification decision records directly inside `Section 5.2` of `docs/SPECIFICATION.md`. |
+| **`SDR-02`** | **Discriminated Union Phase & Memory Tier Modeling (`kind`, `MemoryTier`)** | Representing mutually exclusive states or memory tiers with loose boolean flags | Enforce literal discriminant tags in `Layer 1` and `never` exhaustiveness checks in `Layer 2`. |
+| **`SDR-03`** | **Caller-Injected Non-Determinism (`timestampIso`, `snapshotId`)** | Calling `Date.now()`, `new Date()`, or `Math.random()` inside `Layer 2` domain functions | Inject all temporal, stochastic, and database inputs via `Layer 3` action payloads. |
+| **`SDR-04`** | **Orthogonal `2`-Cluster `STRICT` SQLite Schemas & `FTS5` Virtual Tables** | Mixing bio-telemetry/episodic memory with engineering AST tables or using unconstrained column types | Enforce `STRICT` keyword and explicit `CHECK` constraints across `Cluster C1` (`telemetry`, `dialogue`, `synthesizer`) and `Cluster C2` (`knowledge`). |
+| **`SDR-05`** | **Empty-Baseline `synthesizer.db` Schema & Pure `L2` Prompt Combinator** | Duplicating `/GEMINI.md` rules in `canon.db` or fragmenting prompt strings across `.ts` source files | Initialize `synthesizer.db` with `0` baseline rows (`0%` constitutional drift) and query on-demand blocks into `Layer 2` `synthesizeTurnPrompt()`. |
+| **`SDR-06`** | **Deterministic Primary-Key-Ordered `JSONL` Snapshot Serialization** | Committing binary `.db` files to Git or losing container state on `AI Studio Build` restart | Serialize each table sorted by primary key into `data/mirror/<db>_<table>.jsonl` for `0`-conflict Git mirroring. |

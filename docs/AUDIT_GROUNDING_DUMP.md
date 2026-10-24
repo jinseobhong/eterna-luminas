@@ -4,9 +4,9 @@
 
 | Layer / Category | Physical File Path | `1:1` Mirrored Test Path | Line Count / Byte Size | Grounding Status (`0-Drift Verified`) |
 | :--- | :--- | :--- | :---: | :---: |
-| **Build & Package Manifest** | `package.json` | `npm run lint` / `npm run build` | `36 Lines` (`781 B`) | `VERIFIED (0-Drift)` |
-| **TypeScript Compiler Gate** | `tsconfig.json` | `npm run lint` (`tsc --noEmit`) | `32 Lines` (`699 B`) | `VERIFIED (0-Drift)` |
-| **Vite 8 Bundler Config** | `vite.config.ts` | `npm run build` (`vite build`) | `22 Lines` (`575 B`) | `VERIFIED (0-Drift)` |
+| **Build & Package Manifest** | `package.json` | `npm run lint` / `npm run build` | `36 Lines` (`923 B`) | `VERIFIED (0-Drift)` |
+| **TypeScript Compiler Gate** | `tsconfig.json` | `npm run lint` (`tsc --noEmit`) | `32 Lines` (`681 B`) | `VERIFIED (0-Drift)` |
+| **Vite 8 Bundler Config** | `vite.config.ts` | `npm run build` (`vite build`) | `22 Lines` (`715 B`) | `VERIFIED (0-Drift)` |
 | **Runtime Source (`src/`)** | `0 Implemented Source Modules` | `0 Implemented Test Modules` | `0 Lines` (`0 B`) | `GREENFIELD BASELINE (Legacy src/ Purged — Ready for Milestone 1)` |
 
 ---
@@ -63,6 +63,7 @@
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
     "module": "ESNext",
+    "types": ["vite/client"],
     "lib": [
       "ES2022",
       "DOM",
@@ -74,18 +75,19 @@
     "moduleDetection": "force",
     "allowJs": true,
     "jsx": "react-jsx",
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
     "paths": {
       "@/*": [
         "./*"
       ]
     },
     "allowImportingTsExtensions": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
     "noEmit": true
-  }
+  },
+  "exclude": ["dist"]
 }
 ```
 
@@ -94,22 +96,22 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import {defineConfig, loadEnv} from 'vite';
+import {defineConfig} from 'vite';
 
-export default defineConfig(({mode}) => {
-  const env = loadEnv(mode, '.', '');
+export default defineConfig(() => {
   return {
     plugins: [react(), tailwindcss()],
-    define: {
-      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-    },
     resolve: {
       alias: {
         '@': path.resolve(import.meta.dirname, '.'),
       },
     },
     server: {
+      // HMR is disabled in AI Studio via DISABLE_HMR env var.
+      // Do not modify—file watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
+      // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
+      watch: process.env.DISABLE_HMR === 'true' ? null : {},
     },
   };
 });
@@ -131,8 +133,8 @@ export default defineConfig(({mode}) => {
 | Audit Dimension / Verification Gate | Verification Target | Execution Command / Method | Telemetry Result |
 | :--- | :--- | :--- | :---: |
 | **Gate 1: Antigravity Individual Rule Budget** | `/GEMINI.md` & `/.agents/rules/**/*.md` (`12` files) | Byte-length measurement (`UTF-8 LF`) | `PASS (All 12 files <= 24,000 B)` |
-| **Gate 2: Antigravity Cumulative Always-On Budget** | `GEMINI.md` + `APPEARANCE` + `INTERACTION` + `ENGINEERING_LAWS` | Cumulative byte sum (`4` files) | `PASS (52,474 B / 60,000 B)` |
-| **Dimension 1: Functional & Structural Completeness** | `4` Permanent Mirror Ledgers + `4` Authoring Standards | `1:1` section & schema verification | `PASS (0 Missing Sections)` |
-| **Dimension 2: Security & Anti-Poison-Pill Boundary** | Global Rule-Only Abstraction vs. Project Domain Freedom | Inspection of `/.agents/rules/docs/*.md` & `TSX` statute | `PASS (0 Poison-Pill Clauses)` |
-| **Dimension 3: Concurrency & Persistence Isolation** | `4`-LTM `STRICT DDL` & `BEGIN IMMEDIATE` specification | Schema & transaction contract audit | `PASS` |
-| **Dimension 4: Cross-Layer Separation of Concerns** | Constitutional Law vs. Technical Statute vs. Authoring Guideline | `Axiom A` (`Rank 5` vs. `Rank 6a` vs. `Rank 6b`) audit | `PASS (0 Role Inversion)` |
+| **Gate 2: Antigravity Cumulative Always-On Budget** | `GEMINI.md` + `APPEARANCE` + `INTERACTION` + `ENGINEERING_LAWS` | Cumulative byte sum (`4` files) | `PASS (53,566 B / 60,000 B)` |
+| **Dimension 1: Functional & Structural Completeness** | `4` Permanent Mirror Ledgers + `2`-Cluster `LTM` + `JSONL` Bridge | `1:1` section, schema & `canon.db -> synthesizer.db` replacement verification | `PASS (0 Legacy canon.db Remnants)` |
+| **Dimension 2: Security & Anti-Poison-Pill Boundary** | Global Rule-Only Abstraction vs. Project Domain Freedom | Inspection of `IMPERIAL_ENGINEERING_LAWS.md` & `4` Mirror Ledgers | `PASS (0 Poison-Pill Clauses)` |
+| **Dimension 3: Concurrency & Persistence Isolation** | Orthogonal `2`-Cluster (`C1 Interaction` $\perp$ `C2 Engineering`) `STRICT DDL` & `WAL` | Schema, transaction & `JSONL` snapshot determinism audit | `PASS` |
+| **Dimension 4: Cross-Layer Separation of Concerns** | `L2` Pure Combinator Logic vs. `synthesizer.db` Prompt Data | `Axiom A` (`Rank 5` abstracted vs. Ledgers explicit) & `0%` prompt fragmentation audit | `PASS (0 Role Inversion)` |

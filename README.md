@@ -2,13 +2,13 @@
 
 ## 1. System Overview & Core Value Proposition (시스템 개요 및 핵심 지향점)
 
-**Eterna Luminaris** is an enterprise-grade software workspace governed by a strict **2-Tier Constitutional Rule Engine** and a **4-Layer Unidirectional TypeScript/React Runtime Architecture** (`Contracts ➔ Pure Domain ➔ Adapters ➔ Presentational Surface`) integrated with a partitioned **4-Database Long-Term Memory (`LTM`) Persistence & Active `AST` Drift Self-Healing Subsystem**.
+**Eterna Luminaris** is an enterprise-grade software workspace governed by a strict **2-Tier Constitutional Rule Engine** and a **4-Layer Unidirectional TypeScript/React Runtime Architecture** (`Contracts ➔ Pure Domain ➔ Adapters ➔ Presentational Surface`) integrated with an orthogonally partitioned **2-Cluster / 4-Database Long-Term Memory (`LTM`) Persistence & Deterministic `JSONL` Mirroring Subsystem**.
 
 | Core Pillar | Architectural Mechanism | Engineering Guarantee |
 | :--- | :--- | :--- |
-| **1. Backend & Domain `SSOT`** | Centralizes all state machines `(State, Action) => NextState`, mathematical/DSP equations, and domain invariants in `Layer 2` (`src/core/domain/`). | `0%` coupling between core business rules and UI/IO frameworks; `< 1ms` deterministic unit testing. |
+| **1. Backend & Domain `SSOT`** | Centralizes all state machines `(State, Action) => NextState`, mathematical equations, and prompt combinator assembly pipelines in `Layer 2` (`src/core/domain/`). | `0%` coupling between core business rules and UI/IO frameworks; `0%` prompt string fragmentation in source code. |
 | **2. Compile-Time State Safety** | Enforces `readonly` interfaces, literal types, Discriminated Unions (`kind`), and `never` exhaustiveness guards in `Layer 1` & `Layer 2`. | Impossible runtime states are unrepresentable at compile time (`tsc --noEmit` `0 Errors`). |
-| **3. Partitioned `4`-LTM Persistence** | Isolates long-term persistence across `canon.db`, `dialogue.db`, `knowledge.db`, and `telemetry.db` with `ASTDriftDetector` and `KnowledgeSelfHealer`. | Eliminates cross-domain write-lock contention (`SQLITE_BUSY`) and maintains `100%` `FTS5` index parity. |
+| **3. Orthogonal `2`-Cluster `LTM` & `JSONL` Bridge** | Separates **Interaction LTM (`telemetry.db`, `dialogue.db`, `synthesizer.db`)** from **Engineering LTM (`knowledge.db`)** on `node:sqlite` + Git-tracked `JSONL` snapshot bridges (`data/mirror/*.jsonl`). | Eliminates cross-domain contamination, rule-to-DB drift (`0%`), binary Git conflicts, and external cloud key dependencies across Local Antigravity and `AI Studio Build`. |
 | **4. `0-Drift` 4-Ledger Governance** | Synchronizes `/README.md`, `docs/ARCHITECTURE.md`, `docs/SPECIFICATION.md`, and `docs/AUDIT_GROUNDING_DUMP.md` atomically per milestone. | Guarantees `1:1` traceability across topology, formal contracts, and physical source code. |
 
 ---
@@ -29,13 +29,16 @@ flowchart LR
         L_DUMP["docs/AUDIT_GROUNDING_DUMP.md"]
     end
 
-    subgraph RUNTIME["src/ & tests/ (1:1 Mirrored Runtime & Test Suite)"]
-        SRC["src/core/ (L1-L2) + src/hooks/ (L3) + src/components/ (L4)"]
-        TST["tests/ (100% 1:1 Mirrored Test Hierarchy)"]
+    subgraph RUNTIME["src/, tests/ & data/mirror/ (Runtime, 1:1 Tests & 2-Cluster LTM)"]
+        SRC["src/core/ (L1-L2) + src/adapters/ & src/hooks/ (L3) + src/components/ (L4)"]
+        LTM_INT["Cluster A: Interaction LTM (telemetry.db, dialogue.db, synthesizer.db)"]
+        LTM_ENG["Cluster B: Engineering LTM (knowledge.db + FTS5)"]
+        MIRROR["data/mirror/*.jsonl (Git-Tracked AI Studio Build Snapshot Bridge)"]
     end
 
     RULES --> LEDGERS
     RULES --> RUNTIME
+    LTM_INT & LTM_ENG <--> MIRROR
     RUNTIME <--> LEDGERS
 ```
 
@@ -44,7 +47,7 @@ flowchart LR
 ## 3. Quickstart, Build & Verification Commands (실행·빌드 및 무결성 검증 명령어)
 
 ### 3.1 Prerequisites & Dependency Installation
-* **Runtime**: Node.js `>= 22.x` or Bun `>= 1.x`
+* **Runtime**: Node.js `>= 22.5.x` (includes built-in `node:sqlite` with `0` native C++ addon compilation overhead)
 * **Install Dependencies**:
   ```bash
   npm install
@@ -67,6 +70,6 @@ flowchart LR
 | Ledger Order | Canonical File Path | Single Responsibility (`SRP`) Scope | Governing Authoring Standard (`glob`) |
 | :---: | :--- | :--- | :--- |
 | **`1`** | `/README.md` | **Project Root Overview Ledger**: Executive summary, workspace topology overview, CLI command table, and `4`-Ledger navigation map. | `.agents/rules/docs/IMPERIAL_README_AUTHORING_STANDARD.md` |
-| **`2`** | `docs/ARCHITECTURE.md` | **Topology & Data Flow Ledger**: `5`-Level system context, module & `1:1` test import boundaries, contract/persistence diagrams, runtime sequences, and `ADR`s. | `.agents/rules/docs/IMPERIAL_ARCHITECTURE_AUTHORING_STANDARD.md` |
-| **`3`** | `docs/SPECIFICATION.md` | **Contract, `DDL`, Formula & State-Machine `SSOT` Ledger**: `5`-Section constant tables, static type contracts, `4`-LTM `STRICT DDL`/`FTS5` schemas, `4`-part LaTeX equations, state transition matrices, boundary clamps, and `SDR`s. | `.agents/rules/docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md` |
+| **`2`** | `docs/ARCHITECTURE.md` | **Topology & Data Flow Ledger**: `5`-Level system context, module & `1:1` test import boundaries, `2`-Cluster `LTM` + `JSONL` mirror topology, runtime sequences, and `ADR`s. | `.agents/rules/docs/IMPERIAL_ARCHITECTURE_AUTHORING_STANDARD.md` |
+| **`3`** | `docs/SPECIFICATION.md` | **Contract, `DDL`, Formula & State-Machine `SSOT` Ledger**: `5`-Section constant tables, static type contracts, `2`-Cluster / `4`-DB `STRICT DDL`/`FTS5` schemas, `4`-part LaTeX equations, state transition matrices, boundary clamps, and `SDR`s. | `.agents/rules/docs/IMPERIAL_SPECIFICATION_AUTHORING_STANDARD.md` |
 | **`4`** | `docs/AUDIT_GROUNDING_DUMP.md` | **`0-Drift` Verbatim Code & Test Mirror Ledger**: Un-truncated (`0%` `...`) physical source code mirror, `1:1` test assertion mirror, and same-turn `4`-dimensional audit telemetry. | `.agents/rules/docs/IMPERIAL_AUDIT_DUMP_AUTHORING_STANDARD.md` |

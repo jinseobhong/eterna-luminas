@@ -1,6 +1,6 @@
 ---
 trigger: always_on
-description: "Explicit step-by-step software engineering laws, LTM database and 4-ledger invariants, low-cognitive-load coding standards, anti-cheating bans, and 4-dimensional verification gates."
+description: "Explicit step-by-step software engineering laws, 2-cluster LTM persistence and 4-ledger invariants, low-cognitive-load coding standards, anti-cheating bans, and 4-dimensional verification gates."
 ---
 
 # IMPERIAL ENGINEERING LAWS & ARCHITECT DOCTRINE
@@ -17,7 +17,8 @@ Prioritize defect eradication over implementation and execute the following `5`-
 
 ### 1.2 Backend Single Source of Truth (`SSOT`) & Pure Frontend Renderer Separation
 * **Backend Canonical `SSOT` Authority**: Establish the backend and pure domain core as the sole Single Source of Truth (`SSOT`).
-* **Centralized Domain & Mathematical Control**: Control all algorithms, physical/biological formulas, soundscape `DSP` parameters, vignette classifications, state machines `(State, Action) => NextState`, and core business logic exclusively within the central backend/domain axis with `0%` coupling to external I/O or UI frameworks.
+* **Centralized Domain, Mathematical & Combinator Control**: Control all algorithms, mathematical formulas, deterministic state machines `(State, Action) => NextState`, dynamic prompt/behavior assembly pipelines, and core business logic exclusively within the central backend/domain axis with `0%` coupling to external I/O or UI frameworks.
+* **Separation of Combinator Logic from Prompt/Behavior Data (`Zero Prompt String Fragmentation`)**: Maintain deterministic prompt-assembly and combinator algorithms in pure domain code while isolating dynamic prompt building blocks, behavioral directives, and lexical pools inside the persistence layer so source files remain `100%` free of fragmented prompt strings.
 * **Frontend Pure Renderer & Hardware View Adapter Boundary**: Restrict all frontend surfaces (`Web/TSX`, `CLI/TUI`, `Desktop`, `Mobile`) strictly to pure renderers and hardware view adapters.
 * **Permanent Platform & Framework Independence**: Preserve absolute independence from any specific client framework or platform and maintain infinite surface extensibility.
 
@@ -26,17 +27,17 @@ Prioritize defect eradication over implementation and execute the following `5`-
 * **Permanent Ban on `God Objects`**: Permanently prohibit creating monolithic `God Objects` that accumulate multiple orthogonal responsibilities.
 * **Explicit Cross-Layer Interface Segregation**: Enforce clear interface separation across architectural layers (`Contracts ➔ Pure Domain ➔ Adapters ➔ Surface`).
 * **Exhaustive Exception Handling, Boundary Validation & Static Typing**: Complete thorough exception handling, fail-fast boundary input validation, and strict static type annotations with zero sloppiness or omission.
-* **Standard Coding Style & Path-Triggered Language Law Linkage**: Strictly adhere to official recommended coding style standards to maintain `0-Error / 0-Warning` code hygiene, and simultaneously apply the corresponding language-specific engineering law (such as `.agents/rules/IMPERIAL_ENGINEERING_TSX_STANDARD.md`, etc) whenever writing or executing code on any path.
+* **Standard Coding Style & Path-Triggered Law Linkage**: Strictly adhere to official recommended coding style standards to maintain `0-Error / 0-Warning` code hygiene, and simultaneously apply the corresponding path-scoped language statutes and document authoring standards whenever writing or executing code or documentation on any path.
 
-### 1.4 4 Long-Term Memory (`LTM`) Databases Enforcement Law
-* **Direct Structural Integrity Control**: Directly control and maintain absolute structural integrity over the `4` Long-Term Memory (`LTM`) databases (`canon.db`, `dialogue.db`, `knowledge.db`, `telemetry.db`).
-* **Atomic Transactions & Integrity Verification**: Directly enforce atomic transactions and integrity verification across all `4` `LTM` databases.
-* **Permanent Ban on Schema/Data Tampering & Data Loss**: Permanently prohibit schema tampering, data tampering, and data loss (`100%` ban) across the `4` `LTM` databases.
-* **Continuous Atomic Seeding & Backup Readiness**: Keep atomic seeding backups prepared at all times for all `4` `LTM` databases.
+### 1.4 Orthogonal `2`-Cluster Long-Term Memory (`LTM`) Persistence & `ACID` Integrity Law
+* **Orthogonal `2`-Cluster Domain Separation (`Interaction LTM` $\perp$ `Engineering LTM`)**: Strictly partition Long-Term Memory (`LTM`) persistence into two orthogonal clusters—the **Interaction, Bio-State, Cognitive Memory & Dynamic Prompt Synthesis Cluster (`Interaction LTM`)** and the **Structured Technical & Codebase Knowledge Cluster (`Engineering LTM`)**—to enforce Separation of Concerns (`SoC`) and eliminate cross-domain lock contention.
+* **Zero Constitutional Rule Duplication in Databases**: Never duplicate static markdown constitutional rules inside database tables (`0%` rule-to-DB synchronization drift); dedicate the dynamic prompt-synthesis store strictly to on-demand behavioral and prompt building blocks initialized from an empty baseline schema.
+* **Atomic `ACID` Transactions & Zero Schema/Data Tampering**: Directly enforce atomic transactions, strict schema typing, and `100%` structural integrity (`0%` schema tampering, data tampering, or data loss) across all `LTM` databases.
+* **Deterministic Text-Seed Snapshot Mirroring (`Local ⇄ Cloud Sandbox Parity`)**: Pair local database engines with deterministic, human-readable text snapshot bridges (`JSONL`/`SQL`) so local workspaces and ephemeral cloud container sandboxes mirror `100%` identical persistence state via version control with `0` binary merge conflicts and `0` external cloud API key dependencies.
 
-### 1.5 Active Knowledge Drift Self-Healing & 4 Permanent Mirror Ledgers Synchronization
-* **Active `AST`-Based Drift Detection & Self-Healing**: Trigger Abstract Syntax Tree (`AST`) knowledge drift detection (`ASTDriftDetector`) and self-healing (`KnowledgeSelfHealer`) without delay upon any structural codebase change or knowledge ingestion.
-* **Atomic `knowledge.db` Healing & `FTS5` Synchronization**: Atomically heal knowledge drift and corruption in `knowledge.db` and synchronize the `FTS5` full-text inverted index to maintain `100%` integrity between physical code and the knowledge network.
+### 1.5 Active Knowledge Graph Self-Healing & 4 Permanent Mirror Ledgers Synchronization
+* **Active `AST`-Based Code-to-Knowledge Drift Detection & Self-Healing**: Trigger automated Abstract Syntax Tree (`AST`) knowledge drift detection and self-healing without delay upon any structural codebase change or technical knowledge ingestion.
+* **Atomic Engineering Knowledge Store & Search Index Synchronization**: Atomically heal structural drift and corruption in the engineering knowledge store and synchronize its full-text and semantic inverted indexes to maintain `100%` parity between physical code and the knowledge network.
 * **Real-Time `0-Drift` Synchronization of the `4` Permanent Mirror Ledgers**: Synchronize the `4` permanent mirror ledgers (`README.md` overview, `docs/ARCHITECTURE.md` topology and data flow, `docs/SPECIFICATION.md` `DDL`/`API`/constant `SSOT`, and `docs/AUDIT_GROUNDING_DUMP.md` `0-Drift` code mirror) in real time without delay within a single milestone transaction whenever files or code are added, modified, or refactored.
 * **Zero-Truncation Grounding Dump & `VETO` Enforcement**: Preserve complete type signatures, full conditional branches and internal execution blocks, and verbatim test `assert` statements in `docs/AUDIT_GROUNDING_DUMP.md` without ellipsis truncation (`...`); any completion declaration that fails to specify updated ledger blocks is rejected (`VETO`).
 
@@ -50,7 +51,7 @@ Prioritize defect eradication over implementation and execute the following `5`-
 ## 2. ADHD-Friendly Low-Cognitive-Load Coding Standard & 1:1 Test Symmetry
 
 ### 2.1 Five Low-Cognitive-Load Structural Coding Principles
-| ADHD Bottleneck | Universal Coding Principle (`Sweller, 1988; Ousterhout, 2018; Barkley, 2012`) | Cognitive & Architectural Benefit |
+| ADHD Bottleneck | Universal Coding Principle | Cognitive & Architectural Benefit |
 | :--- | :--- | :--- |
 | **`1.` File-Jump Memory Loss** | **Locality of Behavior (LoB) & Linear Readability**: Keep cohesive logic together without pass-through wrapper indirection so modules read top-to-bottom like a linear story. | Eliminates context-switching fatigue and call-stack overflow. |
 | **`2.` Branch-Stack Overload** | **Early-Return Guard Clauses & Flat Control Flow**: Handle edge cases and invalid states at the top via guard returns and keep the happy path unindented (`depth <= 2`). | Frees working memory from tracking nested conditions. |
