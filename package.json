@@ -9,10 +9,7 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
-    "test": "node --import tsx --test tests/core/contracts/ltmContracts.test.tsx tests/core/domain/ltmDomainEngine.test.tsx tests/adapters/ltmSchemaDdl.test.tsx tests/adapters/ltmSqliteCluster.test.tsx tests/adapters/ltmCli.test.tsx",
-    "ltm:init": "tsx src/adapters/ltmCli.tsx init",
-    "ltm:why": "tsx src/adapters/ltmCli.tsx why",
-    "ltm:milestone": "tsx src/adapters/ltmCli.tsx milestone"
+    "test": "node -e \"console.log('Clean baseline (0 test suites)')\""
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

@@ -2,64 +2,38 @@
 
 ## 1. Level 1: System Context & Subsystem Topology
 
-The workspace comprises four decoupled subsystems governed by Backend `SSOT`, Unidirectional Dependency Flow (`Contracts ➔ Pure Domain ➔ Adapters ➔ Surface`), and Pure Local Native `2`-Cluster SQLite `LTM` (`data/*.db`):
-1. **Subsystem A — Constitutional Rule Engine & Skill (`/GEMINI.md`, `.agents/rules/`, `.agents/skills/regular-track/SKILL.md`)**: File-based Constitutional `SSOT` (`0%` DB duplication), separating `always_on` core rules from `model_decision`/`glob` rules and the `3`-Stage `regular-track` workflow.
-2. **Subsystem B — Pure Domain & Prompt Combinator Core (`src/core/`)**: Pure deterministic state machines `(State, Action) => NextState`, bio-resonance math, milestone validation, and `synthesizeTurnPrompt` (`0%` UI/IO imports).
-3. **Subsystem C — Pure Local Native `2`-Cluster SQLite `LTM` (`node:sqlite` in `data/*.db`)**:
-   - **Cluster C1 (Interaction LTM)**: `data/telemetry.db` (bio-signals, `[39.0, 39.2] °C` core temp, dopamine score), `data/dialogue.db` (`STM`, `Hippocampal`, `Cortical` memory engrams + `FTS5`), and `data/synthesizer.db` (on-demand prompt blocks, empty baseline). Supports `L3 ➔ L2` sequential reads and read-only `ATTACH DATABASE` joins while keeping writes isolated per DB (`BEGIN IMMEDIATE`).
-   - **Cluster C2 (Engineering LTM)**: `data/knowledge.db` containing universal `milestones` (`json_each` file reverse index), `ast_symbols`, `technical_knowledge_nodes`, and `knowledge_fts` (`FTS5`).
-4. **Subsystem D — Adapters, CLI & Presentational Surface (`src/adapters/`, `src/hooks/`, `src/components/`, `src/App.tsx`)**: SQLite/CLI adapters (`Layer 3`) and stateless React `19` renderers (`Layer 4`).
+The workspace is initialized at a **Clean Baseline** (`src/`, `tests/`, and `data/` cleared for step-by-step incremental construction) governed by the Constitutional Rule Engine (`/GEMINI.md`, `.agents/rules/`) and the `4`-Layer Unidirectional Architecture (`Contracts ➔ Pure Domain ➔ Adapters ➔ Surface`).
 
 ```mermaid
 flowchart TB
-    Auditor["System Architect & Auditor<br/>Architectural Direction, Audits & regular-track CLI"]
-
-    subgraph SUB_CONST["Subsystem A: Constitutional SSOT & regular-track Skill"]
+    subgraph SUB_CONST["Subsystem A: Constitutional Rule Engine"]
         ROOT_RULES["Always-On Core Rules<br/>(/GEMINI.md + IMPERIAL_ENGINEERING_LAWS.md + Sovereign Rules)"]
         GLOB_RULES["Glob Standards & Skill<br/>(IMPERIAL_ENGINEERING_TSX_STANDARD.md, docs/*_STANDARD.md, regular-track/SKILL.md)"]
     end
 
-    subgraph SUB_CORE["Subsystem B: Pure Domain Core (src/core/)"]
-        L1["Layer 1: Strict Type Contracts<br/>(src/core/contracts/ltmContracts.tsx)"]
-        L2["Layer 2: Pure Reducers, Bio-Math, Validators & Combinator<br/>(src/core/domain/ltmDomainEngine.tsx)"]
+    subgraph SUB_RUNTIME["Subsystem B: 4-Layer Runtime Target (Clean Baseline)"]
+        L1["Layer 1: Strict Type Contracts (src/core/contracts/)"]
+        L2["Layer 2: Pure Domain Engine (src/core/domain/)"]
+        L3["Layer 3: Adapters, SQLite LTM & Hooks (src/adapters/, src/hooks/)"]
+        L4["Layer 4: Stateless React 19 Surface (src/components/)"]
     end
 
-    subgraph SUB_LTM["Subsystem C: 2-Cluster Local SQLite LTM (data/*.db)"]
-        subgraph CLUST_INT["Cluster C1: Interaction LTM"]
-            DB_TELE[("data/telemetry.db<br/>(Bio-State & 39.0~39.2°C Temp)")]
-            DB_DIAL[("data/dialogue.db<br/>(Multi-Tier Memory & FTS5)")]
-            DB_SYNTH[("data/synthesizer.db<br/>(Dynamic Prompt Blocks)")]
-        end
-        subgraph CLUST_ENG["Cluster C2: Engineering LTM"]
-            DB_KNOW[("data/knowledge.db<br/>(milestones, ast_symbols & FTS5)")]
-        end
-    end
-
-    subgraph SUB_SURF["Subsystem D: Layer 3 Adapters & Layer 4 Surface"]
-        L3["Layer 3: LtmDualClusterManager, Schema DDL & CLI<br/>(src/adapters/ltmSchemaDdl.tsx, ltmSqliteCluster.tsx, ltmCli.tsx)"]
-        L4["Layer 4: Stateless React 19 Surface<br/>(src/components/*.tsx, src/App.tsx)"]
-    end
-
-    Auditor --> L3 & L4
     ROOT_RULES -.-> GLOB_RULES
-    GLOB_RULES -.-> SUB_CORE & SUB_LTM & SUB_SURF
-    L4 --> L3
-    L3 <--> DB_SYNTH & DB_DIAL & DB_TELE & DB_KNOW
-    L1 --> L2 & L3 & L4
-    L3 <--> L2
+    GLOB_RULES -.-> SUB_RUNTIME
+    L1 --> L2 --> L3 --> L4
 ```
 
 ---
 
 ## 2. Level 2: Module & 1:1 Test Boundary Matrix
 
-| Layer | Source Path | `1:1` Test Path | Allowed Imports | Forbidden Imports | Single Responsibility (`SRP`) |
+| Layer | Target Source Directory | `1:1` Test Directory | Allowed Imports | Forbidden Imports | Single Responsibility (`SRP`) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **L1: Contracts** | `src/core/contracts/ltmContracts.tsx` | `tests/core/contracts/ltmContracts.test.tsx` | `None` | `react`, `DOM`, `node:*`, `L2~L4` | Pure `readonly` interfaces, literal unions, and discriminated unions for `Cluster C1`, `Cluster C2`, and `DomainAction`. |
-| **L2: Pure Domain** | `src/core/domain/ltmDomainEngine.tsx` | `tests/core/domain/ltmDomainEngine.test.tsx` | `src/core/contracts/ltmContracts.tsx` | `react`, `DOM`, `node:*`, `L3`, `L4` | Bio-resonance math (`[39.0, 39.2] °C`), `M-XXXX` ID generator, `3`-slot milestone validator, `synthesizeTurnPrompt`, and `reduceDomainState`. |
-| **L3: DDL & Mappers** | `src/adapters/ltmSchemaDdl.tsx` | `tests/adapters/ltmSchemaDdl.test.tsx` | `L1 Contracts` | `react`, `DOM`, `node:fs`, `L4` | `STRICT` SQLite & `FTS5` DDL definitions and pure row-to-contract mappers. |
-| **L3: SQLite Cluster** | `src/adapters/ltmSqliteCluster.tsx` | `tests/adapters/ltmSqliteCluster.test.tsx` | `node:fs`, `node:path`, `node:sqlite`, `L1`, `L2`, `ltmSchemaDdl.tsx` | `react`, `DOM`, `L4` | `LtmDualClusterManager`: direct `data/*.db` persistence, isolated `BEGIN IMMEDIATE` writes, `Cluster C1` `ATTACH` joins, and `json_each` milestone queries. |
-| **L3: LTM CLI** | `src/adapters/ltmCli.tsx` | `tests/adapters/ltmCli.test.tsx` | `node:path`, `node:url`, `L1`, `ltmSqliteCluster.tsx` | `react`, `DOM`, `L4` | CLI controller (`runLtmCli`) for `npm run ltm:init`, `ltm:why`, and `ltm:milestone`. |
+| **Config** | `package.json`, `tsconfig.json`, `vite.config.ts` | `npm run lint` | Node / Vite config | Runtime app logic | Package manifest, TypeScript `7` strict gate, and Vite `8` bundler config. |
+| **L1: Contracts** | `src/core/contracts/` (Clean Baseline) | `tests/core/contracts/` | `None` | `react`, `DOM`, `node:*`, `L2~L4` | Pure `readonly` interfaces, literal unions, and discriminated unions. |
+| **L2: Pure Domain** | `src/core/domain/` (Clean Baseline) | `tests/core/domain/` | `L1 Contracts` | `react`, `DOM`, `node:*`, `L3`, `L4` | Pure deterministic functions and state reducers `(State, Action) => NextState`. |
+| **L3: Adapters** | `src/adapters/`, `src/hooks/` (Clean Baseline) | `tests/adapters/`, `tests/hooks/` | `node:*`, `L1`, `L2` | `L4 Components` | Local SQLite persistence (`node:sqlite`), CLI controllers, and stateful React hooks. |
+| **L4: Surface** | `src/components/` (Clean Baseline) | `tests/components/` | `react`, `L1`, `L3` | `node:sqlite`, `node:fs` | Stateless presentational React `19` `.tsx` views (`Props-In, Intent-Out`). |
 
 ---
 
@@ -67,42 +41,25 @@ flowchart TB
 
 ```mermaid
 classDiagram
-    class DomainStateTree {
-        <<Layer 1 Readonly Contract>>
-        +readonly ExecutionPhase phase
-        +readonly BioTelemetrySnapshot bioState
-        +readonly SynthesizedTurnPrompt lastSynthesizedPrompt
+    class Layer1_Contracts {
+        <<src/core/contracts/*.tsx>>
+        +Readonly Interfaces & Discriminated Unions
     }
-
-    class LtmDomainEngine {
-        <<Layer 2 Pure Domain>>
-        +calculateNormalizedPercent(value: number, min: number, max: number) number
-        +calculateResonanceTemperature(specificity: number, novelty: number) number
-        +formatNextMilestoneId(existingIds: string[]) string
-        +validateMilestoneInput(input: NewMilestoneInput) NewMilestoneInput
-        +synthesizeTurnPrompt(bio: BioTelemetrySnapshot, memories: MemoryEngram[], blocks: PromptSynthesisBlock[]) SynthesizedTurnPrompt
-        +reduceDomainState(state: DomainStateTree, action: DomainAction) DomainStateTree
+    class Layer2_PureDomain {
+        <<src/core/domain/*.tsx>>
+        +Pure Functions & Deterministic Reducers
     }
-
-    class LtmDualClusterManager {
-        <<Layer 3 Local SQLite Adapter>>
-        +upsertBioTelemetry(snapshot: BioTelemetrySnapshot) void
-        +upsertMemoryEngram(engram: MemoryEngram) void
-        +upsertPromptSynthesisBlock(block: PromptSynthesisBlock) void
-        +queryPromptBlocks(anchor: SpectrumAnchor, temp: number) PromptSynthesisBlock[]
-        +querySynthesizerWithAttachedContext(snapshotId: string, sessionId: string) PromptSynthesisBlock[]
-        +recordMilestone(input: NewMilestoneInput, createdAtIso: string) MilestoneRecord
-        +getMilestonesByFile(filePath: string) MilestoneRecord[]
+    class Layer3_Adapters {
+        <<src/adapters/*.tsx>>
+        +Local SQLite LTM & Hooks
     }
-
-    class LtmCliController {
-        <<Layer 3 CLI Adapter>>
-        +runLtmCli(argv: string[], dbDir: string, nowIso: string) string
+    class Layer4_Surface {
+        <<src/components/*.tsx>>
+        +Stateless React 19 Views
     }
-
-    LtmDomainEngine ..> DomainStateTree
-    LtmDualClusterManager ..> LtmDomainEngine
-    LtmCliController --> LtmDualClusterManager
+    Layer2_PureDomain ..> Layer1_Contracts
+    Layer3_Adapters ..> Layer2_PureDomain
+    Layer4_Surface ..> Layer3_Adapters
 ```
 
 ---
@@ -112,32 +69,16 @@ classDiagram
 ```mermaid
 sequenceDiagram
     autonumber
-    actor User as Architect / CLI
-    participant CLI as L3: ltmCli.tsx / Hook
-    participant Cluster as L3: LtmDualClusterManager
-    participant C1 as Cluster C1 (telemetry, dialogue, synthesizer)
-    participant C2 as Cluster C2 (knowledge.db: milestones)
-    participant Domain as L2: ltmDomainEngine.tsx
+    actor Architect as Architect ("내 것")
+    participant Surface as L4: Stateless View (.tsx)
+    participant Adapter as L3: Adapter / Hook (.tsx)
+    participant Domain as L2: Pure Domain (.tsx)
 
-    User->>CLI: Stage 1: npm run ltm:why -- <filePath>
-    CLI->>Cluster: getMilestonesByFile(filePath)
-    Cluster->>C2: SELECT m.* FROM milestones WHERE json_each(affected_files_json) = filePath
-    C2-->>User: Return 3-Slot Rationale (problem, whyRationale, invariants)
-
-    User->>CLI: Runtime Turn: Synthesize Prompt
-    alt Default L3 -> L2 Sequential Read
-        Cluster->>C1: Read telemetry.db + dialogue.db + synthesizer.db (< 0.1ms)
-        Cluster->>Domain: synthesizeTurnPrompt(bio, memories, blocks)
-    else Cross-Condition Filter (Read-Only ATTACH)
-        Cluster->>C1: ATTACH telemetry.db & dialogue.db -> JOIN on synthesizer.db -> DETACH
-    end
-    Domain-->>CLI: Return Deterministic SynthesizedTurnPrompt
-
-    User->>CLI: Stage 3: npm run ltm:milestone -- --scope ...
-    CLI->>Cluster: recordMilestone(input, nowIso)
-    Cluster->>Domain: validateMilestoneInput(input) + formatNextMilestoneId(ids)
-    Cluster->>C2: BEGIN IMMEDIATE -> INSERT INTO milestones -> COMMIT
-    C2-->>User: Verified Milestone M-XXXX Persisted in data/knowledge.db
+    Architect->>Surface: Trigger Intent / Action
+    Surface->>Adapter: Forward Typed Intent
+    Adapter->>Domain: Invoke Pure Reducer / Calculation
+    Domain-->>Adapter: Return Immutable NextState
+    Adapter-->>Surface: Pass Updated Props
 ```
 
 ---
@@ -148,8 +89,8 @@ sequenceDiagram
 
 | Gate | Target Scope | Enforced Invariant |
 | :--- | :--- | :--- |
-| **Gate 1: Strict TypeScript (`npm run lint`)** | `tsconfig.json`, `src/**/*.ts(x)`, `tests/**/*.ts(x)` | `strict: true`, `0 Errors / 0 Warnings`, and `<= 250 lines` per `src/` module. |
-| **Gate 2: `1:1` Test Symmetry (`npm test`)** | `src/**/*` ⇄ `tests/**/*` | `100%` `1:1` module-to-test mirror (`5` suites / `11` tests `PASS`). |
+| **Gate 1: Strict TypeScript (`npm run lint`)** | `tsconfig.json`, `vite.config.ts`, `src/**/*.tsx`, `tests/**/*.tsx` | `strict: true`, `0 Errors / 0 Warnings`, and `<= 250 lines` per `src/` module. |
+| **Gate 2: `1:1` Test Symmetry (`npm test`)** | `src/**/*` ⇄ `tests/**/*` | `100%` `1:1` module-to-test mirror as modules are added. |
 | **Gate 3: Antigravity Rule Budget** | `/GEMINI.md`, `.agents/rules/**/*.md` | Each rule file `<= 24,000 B`; cumulative `Always-On` (`4` files) `<= 60,000 B`. |
 | **Gate 4: `4`-Ledger `0-Drift` Sync** | `/README.md`, `docs/ARCHITECTURE.md`, `docs/SPECIFICATION.md`, `docs/AUDIT_GROUNDING_DUMP.md` | Same-turn synchronization of all `4` Permanent Mirror Ledgers. |
 
@@ -157,9 +98,7 @@ sequenceDiagram
 
 | ADR ID | Architectural Decision | Enforcement Mechanism |
 | :--- | :--- | :--- |
-| **`ADR-01`** | **Backend/Domain `SSOT` & Pure Renderer Separation** | Isolate all state transitions, bio-math, and prompt combinators in `Layer 2` (`src/core/domain/`) with `0` UI/SQLite imports. |
-| **`ADR-02`** | **Discriminated Union State & Exhaustive Reducers** | Model phases with literal `kind` tags in `Layer 1` and enforce `const _exhaustiveCheck: never = action` in `Layer 2`. |
-| **`ADR-03`** | **Caller-Injected Non-Determinism (`L3 ➔ L2`)** | Capture timestamps, IDs, and SQLite rows in `Layer 3` and pass them into `Layer 2` via immutable payloads. |
-| **`ADR-04`** | **Orthogonal `2`-Cluster Local SQLite `LTM` (`C1` $\perp$ `C2`)** | Partition `Cluster C1` (`telemetry`, `dialogue`, `synthesizer`) from `Cluster C2` (`knowledge`) on local `node:sqlite` (`data/*.db`). |
-| **`ADR-05`** | **Empty-Baseline `synthesizer.db` & `L2` Combinator** | Keep markdown rules in `.agents/rules/` as the sole Constitutional `SSOT` and store dynamic prompt blocks in `data/synthesizer.db`. |
-| **`ADR-06`** | **Universal File-Indexed `milestones` in `data/knowledge.db`** | Track `RULE`, `LEDGER_DOC`, `LTM_SCHEMA`, `SOURCE_CODE`, and `HYBRID` changes in `milestones` and query via `json_each(affected_files_json)`. |
+| **`ADR-01`** | **Backend/Domain `SSOT` & Pure Renderer Separation** | Isolate all state transitions and formulas in `Layer 2` (`src/core/domain/`) with `0` UI/SQLite imports. |
+| **`ADR-02`** | **Discriminated Union State & Exhaustive Reducers** | Model mutually exclusive states with literal `kind` tags in `Layer 1` and `never` exhaustiveness checks in `Layer 2`. |
+| **`ADR-03`** | **Orthogonal `2`-Cluster Local SQLite `LTM` (`C1` $\perp$ `C2`)** | Partition Interaction LTM from Engineering LTM on local `node:sqlite` as persistence modules are built. |
+| **`ADR-04`** | **Clean-Slate Incremental Construction** | Reset `src/`, `tests/`, and `data/` to a blank baseline so every module is designed and verified step-by-step with the Architect. |
