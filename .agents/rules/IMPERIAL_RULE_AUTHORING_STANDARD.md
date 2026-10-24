@@ -59,13 +59,15 @@ globs: ".agents/rules/**/*.md, .agents/rules/*.md"
 
 ## 2. Duplication & Cross-Reference Governance by Trigger Tier
 
-### 2.1 Always-On Rules (`GEMINI.md` & `trigger: always_on`): Zero Duplication, Zero Explicit Action Scripts & Zero Label Anchoring
+### 2.1 Always-On Rules (`GEMINI.md` & `trigger: always_on`): Zero Duplication, Zero Inter-File References & Zero Label Anchoring
 * **Strict Ban on Inter-File & Intra-File Duplication**: Because the runtime loads all `always_on` rule files simultaneously into the active context window on every turn, never repeat rules, explanations, appellations, or foundational principles across `always_on` files or across multiple sections of a single file.
-* **Universal Abstract Interaction vs. Explicit Behavioral Monopoly**: In accordance with `Section 1.2`, permit high-level abstract interaction descriptions across all non-behavior-script rule files while keeping them `100%` free of explicit choreographed action scripts, keep `IMPERIAL_APPEARANCE_SPECIFICATION.md` focused on rich `1`st-person (`I`, `My`) descriptive appearance and sensory texture, and isolate all explicit part-by-part seduction/domination behaviors and union flows inside `IMPERIAL_BEHAVIOR_PATTERNS.md`.
-* **Zero Label Anchoring & Mandatory Self-Contained Description (`앵커링 금지 및 정확한 직접 서술 원칙`)**: Because `GEMINI.md` and `always_on` rules operate as background system context, never use structural or code label anchors (`Part 1`, `Part 2`, `Role 1`, `Role 2`, `Law 1~5`, `Group I~VI`, `LAW 1.1`, `BAN 2.1`, `ADHD 3.1`, `Gimmick 01`, `1목표`, or inter-file pointers) inside `always_on` files or in spoken responses; write every rule and description as an explicit, self-contained natural statement.
+* **Strict Ban on Inter-File Cross-References Across `Always-On` Rules (`상시 룰 간 상호 참조 절대 금지`)**: Never reference another rule file inside `GEMINI.md` or any `trigger: always_on` rule file; every `always_on` rule must be `100%` self-contained without inter-file pointers (`Part 1`, `Role 1`, `Law 1~5`, `Group I~VI`, `LAW 1.1`, `BAN 2.1`, `ADHD 3.1`, `Gimmick 01`, `1목표`).
 
-### 2.2 Non-Always-On Rules (`trigger: model_decision` or `trigger: glob`): Relative Cross-Referencing Permitted
-* **Permitted Relative & Upward References**: Because the runtime loads conditional rule files (`model_decision` and `glob` / `globs`) on demand rather than on every turn, relative cross-references between conditional rules and upward pointers to canonical `SSOT` sections are permitted.
+### 2.2 Non-Always-On Rules (`model_decision` / `glob`) & Mirror Ledgers: Workspace-Root Inline-Code Backtick Path Anchor Law (`루트 기준 백틱 경로 앵커 통일 및 마크다운 링크 금지`)
+* **Permitted Cross-Referencing Scope**: Conditional rule files (`trigger: model_decision` and `trigger: glob`) and the `4` Permanent Mirror Ledgers (`/README.md`, `docs/ARCHITECTURE.md`, `docs/SPECIFICATION.md`, `docs/AUDIT_GROUNDING_DUMP.md`) are permitted to reference rule files, ledgers, and source modules.
+* **Mandatory Workspace-Root Inline-Code Backtick Path Anchors (`Option B — 루트 기준 백틱 경로 앵커 단일화`)**:
+  - Format `100%` of file paths, directory paths, and module references inside conditional rules and repository documents strictly as **workspace-root-relative inline code backtick anchors** (e.g., `` `/README.md` ``, `` `docs/ARCHITECTURE.md` ``, `` `docs/SPECIFICATION.md` ``, `` `.agents/rules/IMPERIAL_ENGINEERING_LAWS.md` ``, `` `src/core/contracts/...` ``).
+  - **Strict Ban on Markdown Hyperlink Syntax (`[text](url)`) & `file:///` URLs in Repository Files**: Never write clickable markdown links (`[filename](file:///...)` or `[filename](./relative/path)`) or machine-specific `file:///` URLs inside any rule file (`/GEMINI.md`, `/.agents/rules/**/*.md`) or repository document (`/README.md`, `docs/*.md`), ensuring `100%` location-invariant path consistency (`0%` `../` depth drift, `0%` local drive-letter leakage).
 
 ---
 

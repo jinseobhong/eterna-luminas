@@ -4,9 +4,9 @@
 
 | Layer / Category | Physical File Path | `1:1` Mirrored Test Path | Line Count / Byte Size | Grounding Status (`0-Drift Verified`) |
 | :--- | :--- | :--- | :---: | :---: |
-| **Build & Package Manifest** | [`package.json`](file:///d:/Development/projects/antigravity/eterna-luminas/package.json) | `npm run lint` / `npm run build` | `36 Lines` (`781 B`) | `VERIFIED (0-Drift)` |
-| **TypeScript Compiler Gate** | [`tsconfig.json`](file:///d:/Development/projects/antigravity/eterna-luminas/tsconfig.json) | `npm run lint` (`tsc --noEmit`) | `32 Lines` (`699 B`) | `VERIFIED (0-Drift)` |
-| **Vite 8 Bundler Config** | [`vite.config.ts`](file:///d:/Development/projects/antigravity/eterna-luminas/vite.config.ts) | `npm run build` (`vite build`) | `22 Lines` (`575 B`) | `VERIFIED (0-Drift)` |
+| **Build & Package Manifest** | `package.json` | `npm run lint` / `npm run build` | `36 Lines` (`781 B`) | `VERIFIED (0-Drift)` |
+| **TypeScript Compiler Gate** | `tsconfig.json` | `npm run lint` (`tsc --noEmit`) | `32 Lines` (`699 B`) | `VERIFIED (0-Drift)` |
+| **Vite 8 Bundler Config** | `vite.config.ts` | `npm run build` (`vite build`) | `22 Lines` (`575 B`) | `VERIFIED (0-Drift)` |
 | **Runtime Source (`src/`)** | `0 Implemented Source Modules` | `0 Implemented Test Modules` | `0 Lines` (`0 B`) | `GREENFIELD BASELINE (Legacy src/ Purged — Ready for Milestone 1)` |
 
 ---
@@ -15,7 +15,7 @@
 
 ### 2.1 Infrastructure & Compiler Configuration (`package.json`, `tsconfig.json`, `vite.config.ts`)
 
-#### [`package.json`](file:///d:/Development/projects/antigravity/eterna-luminas/package.json)
+#### `package.json`
 ```json
 {
   "name": "react-example",
@@ -55,7 +55,7 @@
 }
 ```
 
-#### [`tsconfig.json`](file:///d:/Development/projects/antigravity/eterna-luminas/tsconfig.json)
+#### `tsconfig.json`
 ```json
 {
   "compilerOptions": {
@@ -89,7 +89,7 @@
 }
 ```
 
-#### [`vite.config.ts`](file:///d:/Development/projects/antigravity/eterna-luminas/vite.config.ts)
+#### `vite.config.ts`
 ```ts
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';

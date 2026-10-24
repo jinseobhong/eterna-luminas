@@ -26,23 +26,23 @@ Order all contents of `/README.md` strictly across the following `4` sequential 
 
 ### 2.2 Section 2 — Subsystem & Directory Topology Overview (`서브시스템 및 디렉토리 위상 요약`)
 1. **High-Level Workspace Map**: Render a concise directory tree or Mermaid `flowchart LR` illustrating the top-level repository layout (`.agents/rules/`, `docs/`, `src/`, `tests/`, configuration manifests).
-2. **Layer & Subsystem Summary**: Briefly summarize the top-level division of responsibilities while delegating detailed module-level import matrices to [`docs/ARCHITECTURE.md`](file:///d:/Development/projects/antigravity/eterna-luminas/docs/ARCHITECTURE.md).
+2. **Layer & Subsystem Summary**: Briefly summarize the top-level division of responsibilities while delegating detailed module-level import matrices to `docs/ARCHITECTURE.md`.
 
 ### 2.3 Section 3 — Quickstart, Build & Verification Commands (`실행·빌드 및 무결성 검증 명령어`)
 1. **Prerequisites & Installation**: List the required runtime/package-manager versions and installation commands.
 2. **Canonical Command Table**: Tabulate all standard scripts defined in `package.json` (`Command | Execution Target | Verification Gate Criteria`) covering development server startup, static typechecking (`npm run lint`), test suite execution, and production builds (`npm run build`).
 
 ### 2.4 Section 4 — Canonical 4 Permanent Mirror Ledgers Navigation Index (`4대 영구 거울 원장 네비게이션`)
-1. **4-Ledger Index Table**: Provide clickable links (`[filename](file:///...)`), single-responsibility descriptions, and governing authoring standards for all `4` Permanent Mirror Ledgers (`/README.md`, `docs/ARCHITECTURE.md`, `docs/SPECIFICATION.md`, `docs/AUDIT_GROUNDING_DUMP.md`).
+1. **4-Ledger Index Table**: Tabulate all `4` Permanent Mirror Ledgers (`/README.md`, `docs/ARCHITECTURE.md`, `docs/SPECIFICATION.md`, `docs/AUDIT_GROUNDING_DUMP.md`), their single-responsibility scopes, and their governing authoring standards using **workspace-root inline code backtick path anchors** (`` `path/to/file` ``).
 
 ---
 
 ## 3. Forbidden `/README.md` Anti-Patterns
 
 1. **Zero Low-Level Schema, Formula, or Code Dumps**: Never place `SQL DDL` blocks, multi-part mathematical equations, exhaustive state-transition matrices, or verbatim source code inside `/README.md`; delegate them to `docs/SPECIFICATION.md` and `docs/AUDIT_GROUNDING_DUMP.md`.
-2. **Zero Unverified or Phantom CLI Commands**: Never document scripts or flags in `/README.md` that do not physically exist in `package.json`.
-3. **Zero Stale Directory Trees**: Never leave deleted directories or obsolete file paths in the workspace overview tree.
-4. **Zero Conversational Tone Bleed**: Write `/README.md` in `100%` neutral, objective Chief Systems Architect prose.
+2. **Zero Markdown Hyperlinks (`[text](url)`) or `file:///` Local Paths**: Never use `[filename](file:///...)` or `[filename](./path)` links in `/README.md`; reference all files strictly via workspace-root inline code backtick anchors (`` `docs/ARCHITECTURE.md` ``).
+3. **Zero Unverified or Phantom CLI Commands**: Never document scripts or flags in `/README.md` that do not physically exist in `package.json`.
+4. **Zero Stale Directory Trees & Zero Conversational Tone Bleed**: Never leave deleted directories in the workspace overview and write `/README.md` in `100%` neutral, objective Chief Systems Architect prose.
 
 ---
 
@@ -50,5 +50,5 @@ Order all contents of `/README.md` strictly across the following `4` sequential 
 
 Whenever creating, updating, or synchronizing `/README.md`, execute the following `3`-step workflow within the same turn:
 1. **Step 1 — Inspect `package.json` & Top-Level Workspace (`Read-Before-Write`)**: Verify the exact scripts in `package.json` and the physical directory structure on disk.
-2. **Step 2 — Synchronize the `4` Canonical Sections**: Update `Section 1` (Overview), `Section 2` (Workspace Topology), `Section 3` (Commands), and `Section 4` (`4`-Ledger Index) without duplicating `ARCHITECTURE.md` or `SPECIFICATION.md` internals.
-3. **Step 3 — Same-Turn Link & Command Verification**: Confirm that all markdown file links resolve on disk and commit atomically via scoped `git add` and `git commit`.
+2. **Step 2 — Synchronize the `4` Canonical Sections**: Update `Section 1` (Overview), `Section 2` (Workspace Topology), `Section 3` (Commands), and `Section 4` (`4`-Ledger Index) using inline code backtick path anchors without duplicating `ARCHITECTURE.md` or `SPECIFICATION.md` internals.
+3. **Step 3 — Same-Turn Path & Command Verification**: Confirm that all inline code file path anchors exist on disk and commit atomically via scoped `git add` and `git commit`.
